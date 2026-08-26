@@ -1,0 +1,345 @@
+// Title, authors, abstract and disclaimer are in the -docinfo.xml file
+// build PDF with:
+// docker run --rm -it --volume ${PWD}:/usr/src/app --workdir /usr/src/app susedoc/ci:latest /bin/bash -c "daps -d DC-SBP-SLES4SAP-sap-infra-monitoring pdf --draft"
+
+// enable docinfo
+:docinfo:
+
+// defining article ID
+[#art-sap-infra-monitoring]
+
+:reg: &#174;
+:tm: &#8482;
+
+:sles: SUSE Linux Enterprise Server
+:sles4sap: {sles} for SAP applications
+
+
+= Infrastructure monitoring for SAP Systems
+
+
+[[sec-introduction]]
+== Introduction
+
+Many customers deploy SAP systems such as SAP S/4HANA for their global operations, to support mission-critical business functions. This means the need for maximized system availability becomes crucial.
+Accordingly, IT departments are faced with very demanding SLAs: many companies now require 24x7 reliability for their SAP systems.
+
+The base for every SAP system is a solid infrastructure supporting it.
+
+Operating System:: {sles4sap} is the leading Linux platform for SAP HANA, SAP NetWeaver and SAP S/4HANA solutions.
+It helps reduce downtime with the flexibility to configure and deploy a choice of multiple HA/DR scenarios for SAP HANA and NetWeaver-based applications.
+System data monitoring enables proactive problem avoidance.
+
+Hardware:: Most modern hardware platforms running SAP systems rely on Intel's system architecture. The combination of SUSE Linux Enterprise Server on the latest generation Intel Xeon Scalable processors and Intel Optane DC persistent memory help deliver fast, innovative, and secure IT services and to provide resilient enterprise S/4HANA platforms.
+The Intel platform allows to monitor deep into the hardware, to gain insights in what the system is doing on a hardware level. Monitoring on a hardware level can help reduce downtime for SAP systems in several ways:
+
+Failure prediction:: Identifying any hardware failure in advance allows customers to react early and in an scheduled manner. This reduces the risk of errors that usually occur on operations executed during system outages.
+
+Failure remediation:: Having hardware metrics at hand when looking for the root cause of an issue can help speed up the analysis and therefore reduce the time until the system(s) return into operation.
+It can also reduce the reaction time, providing more precise information about problems. This holds especially true for enterprise customers that usually have operations outsourced to many service providers and do not control the environment directly.
+
+This paper describes a monitoring solution for SAP systems that allows to use metrics to be analyzed in an SAP context.
+
+
+[[sec-overview]]
+== Monitoring for SAP systems overview
+
+The solution presented in this document consists of several open source tools that are combined to collect logs and metrics from server systems, store them in a queryable database, and present them in a visual and easy-to-consume way.
+In the following sections, we will give an overview of the components and how they work together.
+
+
+=== Components
+
+The monitoring solution proposed in this document consists of several components.
+
+.Monitoring Components
+image::sap-infra-monitoring-hwmonitoring_components.png[Hardware Monitoring Components,scaledwidth=100%]
+
+These components can be categorized by their use:
+
+Data Sources:: Components that simplify the collection of monitoring data, providing measurements or collected data in a way that the data storage components can pick them up.
+Data Storage:: Components that store the data coming from the data sources, and provide a mechanism to query the data.
+Data Visualization and Notification:: Components that allow a visual representation (and notification) of the data stored in the data storage components, to make the (possibly aggregated) data easy to understand and analyze.
+
+The following sections describe these components.
+
+
+==== Data sources
+
+The data source components collect data from the operating system or hardware interfaces, and provide them to the data storage layer.
+
+// ===== PCM general
+include::SLES4SAP-sap-infra-monitoring-pcm.adoc[tag=pcm-general]
+
+// ===== Collectd general
+include::SLES4SAP-sap-infra-monitoring-collectd.adoc[tag=collectd-general]
+
+// ===== Prometheus Node Exporter
+include::SLES4SAP-sap-infra-monitoring-nodeexporter.adoc[tag=nodeexporter-general]
+
+// ===== Prometheus IPMI exporter general
+include::SLES4SAP-sap-infra-monitoring-ipmi.adoc[tag=ipmi-general]
+
+// ===== Promtail general
+include::SLES4SAP-sap-infra-monitoring-promtail.adoc[tag=promtail-general]
+
+==== Data collection
+
+On the data collection layer, we use two tools, covering different kinds of data: metrics and logs.
+
+// ===== Prometheus general
+include::SLES4SAP-sap-infra-monitoring-prometheus.adoc[tag=prom-general]
+
+// ===== Loki general
+include::SLES4SAP-sap-infra-monitoring-loki.adoc[tag=loki-general]
+
+
+==== Data visualization and notification
+
+With the wealth of data collected in the previous steps, tooling is needed to make the data accessible.
+Through aggregation and visualization data becomes meaningful and consumable information.
+
+// ===== Grafana general
+include::SLES4SAP-sap-infra-monitoring-grafana.adoc[tag=grafana-general]
+
+// ===== Alertmanager general
+include::SLES4SAP-sap-infra-monitoring-alertmanager.adoc[tag=alert-general]
+
+
+== Implementing monitoring for SAP systems
+
+The following sections show how to set up a monitoring solution based on the tools that have been introduced in the solution overview.
+
+
+// === Prometheus Node Exporter implementing
+include::SLES4SAP-sap-infra-monitoring-nodeexporter.adoc[tag=nodeexporter-impl]
+
+// === Collectd implementing
+include::SLES4SAP-sap-infra-monitoring-collectd.adoc[tag=collectd-impl]
+
+// === PCM implementing
+include::SLES4SAP-sap-infra-monitoring-pcm.adoc[tag=pcm-impl]
+
+// === Prometheus IPMI exporter implementing
+include::SLES4SAP-sap-infra-monitoring-ipmi.adoc[tag=ipmi-impl]
+
+// === Prometheus implementing
+include::SLES4SAP-sap-infra-monitoring-prometheus.adoc[tag=prometheus-inst]
+// ==== Prometheus alert
+include::SLES4SAP-sap-infra-monitoring-prometheus.adoc[tag=prometheus-alert]
+
+// === Loki implementing
+include::SLES4SAP-sap-infra-monitoring-loki.adoc[tag=loki-impl]
+// ==== Loki Alert 
+include::SLES4SAP-sap-infra-monitoring-loki.adoc[tag=loki-alert]
+
+// === Promtail general
+include::SLES4SAP-sap-infra-monitoring-promtail.adoc[tag=promtail-impl]
+
+// === Grafana general
+include::SLES4SAP-sap-infra-monitoring-grafana.adoc[tag=grafana-impl]
+
+// === Alertmanager implementation
+include::SLES4SAP-sap-infra-monitoring-alertmanager.adoc[tag=alert-impl]
+
+
+== Practical use cases
+
+The following sections describe some practical use cases of the tooling set up in the previous chapter.
+
+=== CPU
+I/O performance is very important on SAP systems. By looking for the *iowait* metric in command line tools like `top` or `sar`, you can only see a single
+value without any relation. The picture below is showing such a value in a certain timeframe.
+
+image::sap-infra-monitoring-iowait_values.png[iowait over a certain time,scaledwidth=70%,title="iowait over certain timeframe"]
+
+An *iowait* of 2% might not show any problem at first glance. But if you look at *iowait* as part of the whole CPU load, the picture is completely
+different to what you saw before. The reason is that the total CPU load in the example is only a little higher then *iowait*.
+
+image::sap-infra-monitoring-iowait_procent_of_total.png[iowait in Percent of the total CPU load, scaledwidth=70%,title="iowait in Percent of total CPU load"]
+
+In our example, you now see an *iowait* value of about 90% of the total CPU load.
+
+To get the percent of *iowait* of the total CPU load, use the following formula:
+----
+100 / (1-CPU_IDLE) * CPU_IOWAIT
+----
+
+
+The metrics used are:
+
+* `node_cpu_seconds_total{mode="idle"}`
+* `node_cpu_seconds_total{mode="iowait"}`
+
+
+Conclusion:: A high *iowait* in relation to the overall CPU load is indicating a low throughput. As a result, the IO performance might be very bad.
+An alert could be triggert by setting a proper threshold if the *iowait* is going through a certain value.
+
+
+=== Memory
+
+Memory performance in modern servers is not only influenced by its speed, but mainly by the way it is accessed.
+The Non-Uniform Memory Access (NUMA) architecture used in modern systems is a way of building very large multi-processor systems so that every CPU
+(that is a group of CPU cores) has a certain amount of memory directly attached to it.
+Multiple CPUs (multiple groups of processors cores) are then connected together using special bus systems (for example UPI) to provide processor data coherency.
+Memory that is "local" to a CPU can be accessed with maximum performance and minimal latency.
+If a process running on a CPU core needs to access memory that is attached to another CPU, it can do so. However, this comes at the price of added latency,
+because it needs to go through the bus system connecting the CPUs.
+
+
+==== Non-Uniform Memory Access (NUMA) example
+
+There are two exporters at hand which can help to provide the metrics data. The `node_exporter` has an option `--collector.meminfo_numa`
+which must be enabled in the configuration file `/etc/sysconfig/prometheus-node_exporter`. In the example below the `collectd` plugin `numa` was used.
+
+We are focusing on two metrics:
+
+* numa_hit: A process wanted to allocate memory attached to a certain NUMA node (mostly the one it is running on), and succeeded.
+* numa_miss: A process wanted to allocate memory attached to a certain NUMA node, but ended up with memory attached to a different NUMA node.
+
+////
+numa_foreign  A process wanted to allocate on this node, but ended up with memory from another one.
+local_node    A process ran on this node and got memory from it.
+other_node    A process ran on this node and got memory from another node.
+interleave_hit  Interleaving wanted to allocate from this node and succeeded.
+numa_hit: Number of pages allocated from the node the process wanted.
+numa_miss: Number of pages allocated from this node, but the process preferred another node.
+numa_foreign: Number of pages allocated another node, but the process preferred this node.
+local_node: Number of pages allocated from this node while the process was running locally.
+other_node: Number of pages allocated from this node while the process was running remotely (on another node).
+interleave_hit: Number of pages allocated successfully with the interleave strategy
+////
+
+image::sap-infra-monitoring-grafana-numa.png[NUMA ratio NUMA nodes,scaledwidth=100%,title="NUMA miss ratio for both NUMA nodes"]
+
+The metric used is `collectd_numa_vmpage_action_total`.
+
+Conclusion:: If a process attempts to get a page from its local node, but this node is out of free pages, the
+`numa_miss` of that node will be incremented (indicating that the node is out of memory) and another node
+will accommodate the process's request. To know which nodes are "lending memory" to the
+out-of-memory node, you need to look at `numa_foreign`. Having a high value for `numa_foreign` for a
+particular node indicates that this node's memory is underutilized so the node is frequently accommodating
+memory allocation requests that failed on other nodes.
+A high amount of `numa_miss` indicates a performance degradation for memory based applications like SAP HANA.
+
+==== Memory module observation
+
+Today more and more application data are hold in the main memory. Examples are _Dynamic random access memory_ (DRAM) or _Persistent memory_ PMEM.
+The observation of this component became quite important. This is because systems with a high amount of main memory, for example multiple terabytes,
+are populated with a corresponding number of modules. The example below represents a memory hardware failure which was not effecting the system with a downtime,
+but a maintenance window should now be scheduled to replace faulty modules.
+
+image::sap-infra-monitoring-grafana-memory2.png[Memory errors,scaledwidth=100%,title="Memory module failure"]
+
+The example shows a reduction of available space at the same time as the hardware count is increasing.
+
+The metric used here is `node_memory_HardwareCorrupted_bytes`.
+
+Memory errors (correctable)  also correlate with the CPU performance as shown in the example below.
+For each of the captured memory failure event, an increase of the CPU I/O is shown.
+
+image::sap-infra-monitoring-grafana-memory_failure.png[Memory failure metrix,scaledwidth=70%,align="center",title="Memory failure"]
+
+Conclusion:: The risk that one of the modules becomes faulty increases with the total amount of modules per system.
+The observation of memory correctable errors and uncorrectable errors is essential. Features like Intel RAS can
+help to avoid application downtime if the failure could be handled by the hardware.
+
+=== Network
+
+Beside the fact that the network work must be available and the throughput must be fit, the network latency is very important, too.
+For cluster setups and applications which are working in a sync mode, like SAP HANA with HANA system replication, the network latency becomes even more relevant.
+The `collectd` plugin ping can help here to observe the network latency over time.
+The Grafana dashboard below visualizes the network latency over the past one hour.
+
+image::sap-infra-monitoring-grafana-latency.png[collectd ping,scaledwidth=100%,title="collectd latency check"]
+
+The red line is a threshold which can be used to trigger an alert.
+
+The metrics used here are `collectd_ping` and `collectd_ping_ping_droprate`.
+
+Conclusion:: A high value or peak over a long period (multiple time stamps) indicates network response time issues at least to the ping destination.
+An increasing amount of the `ping_droprate` points to some issues with the ping destination in regards to responding to the ping request.
+
+=== Storage
+
+////
+==== Storage performance
+
+//da nehmen wir was wir haben / I/O und disk full
+#stress test
+https://linuxreviews.org/HOWTO_Test_Disk_I/O_Performance#fio_-_The_.22flexible_I.2FO_tester.22
+fio --randrepet=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=250M --readwrite=randrw --rwmixread=80
+
+it enables you to monitor the Read and Write operations of logical disk on your system and set thresholds. You get alerted if below-mentioned metrics reach the levels preset by you:
+  Writes/sec – write operations rate.
+  Reads/sec – read operations rate.
+  Busy time – the % of the elapsed time when your particular disk drive was busy in servicing write or read requests.
+  Queue length – the number of requests on the disk that are in the queue.
+
+
+Conclusion:: can even early detect the potential causes of storage subsystem failures and can reduce the risk of unexpected downtime.
+////
+
+==== Storage capacity
+Monitoring disk space utilization of the server is critical and important for maximizing application availability.
+Detecting and monitoring - unexpected or expected - growth of data on the disk will help preventing _disk full_ situations, and therefore application unavailability.
+
+image::sap-infra-monitoring-grafana-storage-disk.png[growing filesystem,scaledwidth=100%,title="disk free capacity is dropping"]
+
+The example above represents a continuously growing file system.
+
+The metrics used are `node_filesystem_free_bytes` and `node_filesystem_size_bytes`.
+
+After a _disk full_ situation many side effects are shown:
+
+* System load is going high
+* Disk IOps dropping down
+
+image::sap-infra-monitoring-grafana-storage-full.png[filesystem full,scaledwidth=100%,title="side effects after disk full"]
+
+
+Conclusion:: Predictive alerting can avoid a situation where the file system runs out of space and the system becomes unavailable.
+Setting up a simple alerting is a great way to help ensure that you do not encounter any surprises.
+
+// === Extend Prometheus node_exporter function area
+include::SLES4SAP-sap-infra-monitoring-nodeexporter.adoc[tag=node-extend]
+
+== Miscellaneous
+
+// Prometheus maintenance
+include::SLES4SAP-sap-infra-monitoring-prometheus.adoc[tag=prometheus-maint]
+
+// Promtail templates, labels, drop
+include::SLES4SAP-sap-infra-monitoring-promtail.adoc[tag=promtail-deep]
+
+
+== Summary
+
+With SAP systems such as SAP S/4HANA supporting mission-critical business functions, the need for maximized system availability becomes crucial.
+The solution described in this document provides the tooling necessary to enable detection and potentially prevention of causes for downtime of those systems.
+We have also provided some practical use cases highlighting how this tooling can be used to detect and prevent some common issues that are usually hard to detect.
+
+
+////
+[[sec-appendix]]
+== Appendix
+
+=== Useful metrics
+////
+
+++++
+<?pdfpagebreak?>
+++++
+
+:leveloffset: 0
+// Standard SUSE Best Practices includes
+== Legal notice
+include::common_sbp_legal_notice.adoc[]
+
+++++
+<?pdfpagebreak?>
+++++
+
+// Standard SUSE Best Practices includes
+:leveloffset: 0
+include::common_gfdl1.2_i.adoc[]

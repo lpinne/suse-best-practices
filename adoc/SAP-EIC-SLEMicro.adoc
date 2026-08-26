@@ -1,0 +1,137 @@
+[#SLEMicro]
+
+=== Installing and configuring {slem}
+
+On each server in your environment for {eic} and {rancher}, install {slem} {slem_version} as the operating system.
+There are several methods to install {slem} {slem_version} on your hardware or virtual machine. 
+A list of all possible solutions are available in our Documentation  https://documentation.suse.com/sle-micro/{slem_version}/[SLE Micro 6.0]. 
+
+At the end of the installation process, in the summary window, you need to verify that the following security settings are configured:
+
+   ** The firewall will be disabled.
+   ** The SSH service will be enabled.
+   ** SELinux will be set in permissive mode.
+
+Set SELinux to _permissive_ mode, because otherwise, some components of the Edge Integration Cell will violate SELinux rules, and the application will not work. 
+
+
+TIP: If you have already set up all machines and the operating system, skip this chapter.
+
+=== Registering your system
+
+To get your system up-to-date, you need to register it with SUSE Manager, an RMT server, or directly with the SCC Portal. 
+Find the registration process with a direct connection to SCC described in the instructions below. For more information, see the {slem} documentation.
+
+Registering the system is possible from the command line using the `transactional-update register` command. 
+For information that goes beyond the scope of this section, refer to the inline documentation with *SUSEConnect --help*. 
+
+To register {slem} with SUSE Customer Center, run `transactional-update register` as follows:
+[source, bash]
+----
+sudo transactional-update register -r REGISTRATION_CODE -e EMAIL_ADDRESS
+----
+To register with a local registration server, additionally specify the URL to the server:
+
+[source, bash]
+----
+sudo  transactional-update register -r REGISTRATION_CODE -e EMAIL_ADDRESS \
+--url "https://suse_register.example.com/"
+----
+Do not forget to replace
+
+* *REGISTRATION_CODE* with the registration code you received with your copy of {slem}. 
+* *EMAIL_ADDRESS* with the e-mail address associated with the SUSE account you or your organization uses to manage subscriptions.
+
+Reboot your system to switch to the latest snapshot. {slem} is now registered.
+
+Find more information about registering your system in the {slem} {slem_version} Deployment Guide section link:https://documentation.suse.com/sle-micro/5.4/html/SLE-Micro-all/cha-selfinstal-procedure.html[Deploying selfinstall images]. 
+
+=== Updating your system
+
+Log in to the system. After your system is registered, you can update it with the `transactional-update` command.
+
+[source, bash]
+----
+sudo transactional-update
+----
+
+=== Disabling automatic reboot
+
+By default {slem} runs a timer for `transactional-update` in the background which could automatically reboot your system. 
+Disable it with the following command:
+
+[source, bash]
+----
+sudo systemctl --now disable transactional-update.timer
+----
+
+=== Preparing for {lh}
+For {lh},  some preparation steps are required. First, install some additional packages on all worker nodes. 
+Then, attach a second disk to the worker nodes, create a file system on top of it, and mount it to the default {lh} location. 
+The size of the second disk will depend on your use case. 
+
+Install some packages as a requirement for {lh} and Logical Volume Management for adding a file system to {lh}.
+[source, bash]
+----
+sudo transactional-update pkg install lvm2 jq nfs-client cryptsetup open-iscsi
+----
+
+After the required packages are installed, you need to reboot your machine. 
+[source, bash]
+----
+sudo reboot
+----
+
+Now you can enable the `iscsid` server.
+
+[source, bash]
+----
+sudo systemctl enable iscsid  --now
+----
+
+==== Creating file system for {lh}
+
+The next step is to create a new logical volume with the Logical Volume Management. 
+
+First, you need to create a new physical volume. In our case, the second disk is called _vdb_. Use this as {lh} volume.
+[source, bash]
+----
+sudo pvcreate /dev/vdb
+----
+
+After the physical volume is created, create a volume group called _vgdata_:
+[source, bash]
+----
+sudo vgcreate vgdata /dev/vdb
+----
+
+Now create the logical volume; use 100% of the disk. 
+[source, bash]
+----
+sudo lvcreate -n lvlonghorn -l100%FREE vgdata
+----
+
+On the logical volume, create the XFS file system. You do not need to create a partition on top of it.
+[source, bash]
+----
+sudo mkfs.xfs /dev/vgdata/lvlonghorn
+----
+
+Before you can mount the device, you need to create the directory structure.
+[source, bash]
+----
+sudo mkdir -p /var/lib/longhorn
+----
+
+Add an entry to _fstab_ to ensure that the mount of the file system is persistent:
+[source, bash]
+----
+sudo echo -e "/dev/vgdata/lvlonghorn /var/lib/longhorn xfs defaults 0 0" >> /etc/fstab
+----
+
+Finally, you can mount the file system as follows:
+[source, bash]
+----
+sudo mount -a
+----
+

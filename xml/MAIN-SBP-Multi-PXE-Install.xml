@@ -4,31 +4,82 @@
 <!ENTITY % entity SYSTEM "entity-decl.ent">
 %entity;
 ]>
+
 <article role="sbp" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="art-sbp-rpm-packaging"
-    xml:lang="en">
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+    xmlns:its="http://www.w3.org/2005/11/its" xml:id="art-sbp-multi-pxe" xml:lang="en">
+
     <info>
         <title>How to Set Up a Multi-PXE Installation Server</title>
         <subtitle/>
-        <!--<orgname>SUSE Best Practices</orgname>-->
-        <productname>SUSE Linux Enterprise Server</productname>
-        <productnumber/>
-        <author>
-            <personname>
-                <firstname>David</firstname>
-                <surname>Byte, Senior Technology Strategist, SUSE</surname>
-            </personname>
-            <!--<personname>
-                <firstname>David</firstname>
-                <surname>Byte</surname>
-            </personname>
-            <affiliation>
-                <jobtitle>Senior Technology Strategist</jobtitle>
-                <orgname>SUSE</orgname>
-            </affiliation>-->
-        </author>
-        <date>September 25, 2018</date>
 
+        <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+            <dm:bugtracker>
+                <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+                <dm:product>How to Set Up a Multi-PXE Installation Server</dm:product>
+            </dm:bugtracker>
+            <dm:editurl>https://github.com/SUSE/suse-best-practices/edit/main/xml/</dm:editurl>
+        </dm:docmanager>
+
+        <meta name="series" its:translate="no">Best Practices</meta>
+        <meta name="category" its:translate="no">
+            <phrase>Systems Management</phrase>
+        </meta>
+        <meta name="task" its:translate="no">
+            <phrase>Installation</phrase>
+            <phrase>Deployment</phrase>
+        </meta>
+        <meta name="title" its:translate="yes">How to Set Up a Multi-PXE Installation Server</meta>
+        <meta name="description" its:translate="yes">How to set up a multi-architecture PXE environment for the
+        installation of SLES on x86_64 and ARMv8 platforms with both BIOS and EFI</meta>
+        <meta name="social-descr" its:translate="yes">Setting up a multi-PXE installation server with SLES</meta>       
+        <meta name="productname" its:translate="no">
+            <productname version="12 SP3">SUSE Linux Enterprise Server</productname>
+            <productname version="12 SP4">SUSE Linux Enterprise Server</productname>
+            <productname version="12 SP5">SUSE Linux Enterprise Server</productname>          
+        </meta>
+
+        <meta name="platform" its:translate="no">SUSE Linux Enterprise Server 12</meta>
+
+        <authorgroup>
+            <author>
+                <personname>
+                    <firstname>David</firstname>
+                    <surname>Byte</surname>
+                </personname>
+                <affiliation>
+                    <jobtitle>Senior Technology Strategist</jobtitle>
+                    <orgname>SUSE</orgname>
+                </affiliation>
+            </author>
+<!--            <editor>
+            <orgname></orgname>
+            </editor>
+            <othercredit>
+            <orgname></orgname>
+            </othercredit>-->
+        </authorgroup>
+
+        <cover role="logos">
+            <mediaobject>
+                <imageobject role="fo">
+                    <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
+                </imageobject>
+                <imageobject role="html">
+                    <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+                </imageobject>
+                <textobject><phrase>SUSE logo</phrase></textobject>
+            </mediaobject>
+        </cover>
+        
+        <revhistory xml:id="rh-art-sbp-multi-pxe">
+            <revision>
+                <date>2018-09-25</date>
+                <revdescription>
+                    <para> </para>
+                </revdescription>
+            </revision>
+        </revhistory>
 
         <abstract>
 
@@ -39,6 +90,16 @@
             <para>Components that usually should be hosted on the installation server are also
                 included. This helps improving deployment times in multi-architecture
                 environments.</para>
+
+            <para>
+                <emphasis role="strong">Disclaimer: </emphasis> Documents published as part of the
+                SUSE Best Practices series have been contributed voluntarily by SUSE employees and
+                third parties. They are meant to serve as examples of how particular actions can be
+                performed. They have been compiled with utmost attention to detail. However, this
+                does not guarantee complete accuracy. SUSE cannot verify that actions described in
+                these documents do what is claimed or whether actions described have unintended
+                consequences. SUSE LLC, its affiliates, the authors, and the translators may not be
+                held liable for possible errors or the consequences thereof. </para>
 
         </abstract>
     </info>
@@ -349,8 +410,8 @@ cp -a linux initrd /srv/tftpboot/EFI/armv8/boot</screen>
 
         <para>The SMT service provides a local repository mirror for updates to your software.
              Follow the instructions in the Subscription Management Tool Guide at <link
-                xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/smt-installation.html"
-                >https://documentation.suse.com/sles/12-SP4/html/SLES-all/smt-installation.html</link>
+                xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/smt-installation.html"
+                >https://documentation.suse.com/sles/12-SP5/html/SLES-all/smt-installation.html</link>
             to install and configure SMT. Be sure to select both the pool and update repositories
             for each product you are supporting with this server.</para>
 
@@ -366,33 +427,11 @@ cp -a linux initrd /srv/tftpboot/EFI/armv8/boot</screen>
     </sect1>
 
 
-    <sect1 xml:id="sec-legal-notice">
-        <title>Legal Notice</title>
-        <para>Copyright &copy;2006–2020 SUSE LLC and contributors. All rights reserved. </para>
-        <para>Permission is granted to copy, distribute and/or modify this document under the terms
-            of the GNU Free Documentation License, Version 1.2 or (at your option) version 1.3; with
-            the Invariant Section being this copyright notice and license. A copy of the license
-            version 1.2 is included in the section entitled <quote>GNU Free Documentation
-                License</quote>.</para>
-        <para>SUSE, the SUSE logo and YaST are registered trademarks of SUSE LLC in the United
-            States and other countries. For SUSE trademarks, see <link
-                xlink:href="http://www.suse.com/company/legal/"
-                >http://www.suse.com/company/legal/</link>. Linux is a registered trademark of Linus
-            Torvalds. All other names or trademarks mentioned in this document may be trademarks or
-            registered trademarks of their respective owners.</para>
-        <para>This article is part of a series of documents called "SUSE Best Practices". The
-            individual documents in the series were contributed voluntarily by SUSE's employees and
-            by third parties.</para>
-        <para>The articles are intended only to be one example of how a particular action could be
-            taken. They should not be understood to be the only action and certainly not to be the
-            action recommended by SUSE. Also, SUSE cannot verify either that the actions described
-            in the articles do what they claim to do or that they don't have unintended
-            consequences.</para>
-        <para>Therefore, we need to specifically state that neither SUSE LLC, its affiliates, the
-            authors, nor the translators may be held liable for possible errors or the consequences
-            thereof. Below we draw your attention to the license under which the articles are
-            published.</para>
-    </sect1>
-    <?pdfpagebreak style="suse2013-sbp" formatter="fop"?>
+
+    <?pdfpagebreak style="sbp" formatter="fop"?>
+
+    <xi:include href="sbp-legal-notice.xml"/>
+
+    <?pdfpagebreak style="sbp" formatter="fop"?>
     <xi:include href="license-gfdl.xml"/>
 </article>

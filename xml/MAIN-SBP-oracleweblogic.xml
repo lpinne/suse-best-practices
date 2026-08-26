@@ -4,40 +4,95 @@
 <!ENTITY % entity SYSTEM "entity-decl.ent">
 %entity;
 ]>
+
 <article role="sbp" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="art-sbp-oraclerac"
-    xml:lang="en">
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+    xmlns:its="http://www.w3.org/2005/11/its" xml:id="art-sbp-weblogic-sles12sp1" xml:lang="en">
 
     <info>
-        <title>Installing Oracle WebLogic Server 12cR2 on SUSE Linux Enterprise Server 12 SP1 </title>
-        <subtitle>For x86-64 Architectures</subtitle>
-        <!--        <orgname>SUSE Best Practices</orgname>-->
-        <productname>SUSE Linux Enterprise Server</productname>
-        <productnumber>12 SP1</productnumber>
+        <title>Oracle WebLogic Server 12cR2 on SUSE Linux Enterprise Server 12 SP1</title>
+        <subtitle>Installation Guide for x86-64 Architectures</subtitle>
 
-        <author>
-            <personname>
-                <firstname>Chen</firstname>
-                <surname>Wu, ISV Technical Manager, SUSE</surname>
-            </personname>
-            <!--<affiliation>
-                <jobtitle>ISV Technical Manager</jobtitle>
-                <orgname>&suse;</orgname>
-            </affiliation>-->
-        </author>
+        <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+            <dm:bugtracker>
+                <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+                <dm:product>Oracle WebLogic Server 12cR2 on SUSE Linux Enterprise Server 12 SP1
+                </dm:product>
+            </dm:bugtracker>
+            <dm:editurl>https://github.com/SUSE/suse-best-practices/edit/main/xml/</dm:editurl>
+        </dm:docmanager>
 
-        <author>
-            <personname>
-                <firstname>Arun</firstname>
-                <surname>Singh, ISV Technical Manager, SUSE</surname>
-            </personname>
-            <!--<affiliation>
-                <jobtitle>ISV Technical Manager</jobtitle>
-                <orgname>&suse;</orgname>
-            </affiliation>-->
-        </author>
+        <meta name="series" its:translate="no">Best Practices</meta>
+        <meta name="category" its:translate="no">
+            <phrase>3rd party</phrase>
+        </meta>
+        <meta name="task" its:translate="no">
+            <phrase>Installation</phrase>
+            <phrase>Integration</phrase>
+            <phrase>Web</phrase>           
+        </meta>
+        <meta name="title" its:translate="yes">Oracle WebLogic Server 12cR2 on SUSE Linux Enterprise Server 12
+            SP1</meta>
+        <meta name="description" its:translate="yes">This document provides the details for installing Oracle WebLogic
+        Server 12cR2 on SUSE Linux Enterprise Server 12 SP1. </meta>
+        <meta name="social-descr" its:translate="yes">Installing Oracle WebLogic Server 12cR2 on SLES 12 </meta>        
+        <meta name="productname" its:translate="no">
+            <productname version="12 SP1">SUSE Linux Enterprise Server</productname>
+        </meta>
 
-        <date>January 23, 2017</date>
+        <meta name="platform" its:translate="no">SUSE Linux Enterprise Server 12 SP1</meta>
+        <meta name="platform" its:translate="no">Oracle WebLogic Server 12cR2</meta>
+
+        <authorgroup>
+            <author>
+                <personname>
+                    <firstname>Chen</firstname>
+                    <surname>Wu</surname>
+                </personname>
+                <affiliation>
+                    <jobtitle>ISV Technical Manager</jobtitle>
+                    <orgname>SUSE</orgname>
+                </affiliation>
+            </author>
+            <author>
+                <personname>
+                    <firstname>Arun</firstname>
+                    <surname>Singh</surname>
+                </personname>
+                <affiliation>
+                    <jobtitle>ISV Technical Manager</jobtitle>
+                    <orgname>SUSE</orgname>
+                </affiliation>
+            </author>
+            <!--            <editor>
+                <orgname></orgname>
+                </editor>
+                <othercredit>
+                <orgname></orgname>
+                </othercredit>-->
+        </authorgroup>
+
+        <cover role="logos">
+            <mediaobject>
+                <imageobject role="fo">
+                    <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
+                </imageobject>
+                <imageobject role="html">
+                    <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+                </imageobject>
+                <textobject><phrase>SUSE logo</phrase></textobject>
+            </mediaobject>
+        </cover>
+        
+        <revhistory xml:id="rh-art-sbp-weblogic-sles12sp1">
+            <revision>
+                <date>2017-01-23</date>
+                <revdescription>
+                    <para> </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+
 
         <abstract>
             <para>Oracle WebLogic Server 12c R2 is a reliable application server for building and
@@ -52,6 +107,17 @@
                 in enterprises and have created world-class solutions that offer real-grid benefits
                 for IT data centers today. This document provides the details for installing Oracle
                 WebLogic Server 12cR2 on SUSE Linux Enterprise Server 12 SP1.</para>
+
+            <para>
+                <emphasis role="strong">Disclaimer: </emphasis> Documents published as part of the
+                SUSE Best Practices series have been contributed voluntarily by SUSE employees and
+                third parties. They are meant to serve as examples of how particular actions can be
+                performed. They have been compiled with utmost attention to detail. However, this
+                does not guarantee complete accuracy. SUSE cannot verify that actions described in
+                these documents do what is claimed or whether actions described have unintended
+                consequences. SUSE LLC, its affiliates, the authors, and the translators may not be
+                held liable for possible errors or the consequences thereof. </para>
+
         </abstract>
     </info>
 
@@ -121,7 +187,7 @@
             <itemizedlist>
                 <listitem>
                     <para>SUSE Linux Enterprise Server 12 SP1 (x86_64)</para>
-                    <para>(<link xlink:href="http://download.suse.de/install"/>)</para>
+                    <para>(<link xlink:href="https://www.suse.com/download/sles/"/>)</para>
                 </listitem>
             </itemizedlist>
 
@@ -182,7 +248,7 @@
             <title>Installing &sls; 12</title>
             <para>Install &sls; 12 on your testing machine. To do so, follow the instructions in
                 the official &sls; documentation at <link
-                    xlink:href="https://documentation.suse.com/sles/12-SP1/"/>
+                    xlink:href="https://documentation.suse.com/sles/12-SP5/"/>
             </para>
 
             <figure>
@@ -201,7 +267,7 @@
 
             <para>In YaST, select the patterns you need. Make sure you select the patterns and
                 packages required to run Oracle products (for example
-                    <command>orarun</command>).</para>
+                <command>orarun</command>).</para>
 
             <figure>
                 <title>Installation of &sls;- 2</title>
@@ -269,10 +335,7 @@
 
             <para>Log in to the target system (&sls; 12 64-bit operating system) as a
                 non-administration user. Download the Oracle WebLogic Server 12cR2 (12.2.1) from
-                    <link
-                    xlink:href="http://www.oracle.com/technetwork/middleware/fusion-
-                middleware/downloads/index.html"
-                />. </para>
+                    the Oracle Web site. </para>
 
             <note>
                 <title>Permissions</title>
@@ -525,7 +588,7 @@
                     </figure>
 
                     <para>This screen appears at the conclusion of the installation. Select the
-                            option<emphasis role="strong">Automatically Launch the Configuration
+                            option <emphasis role="strong">Automatically Launch the Configuration
                             Wizard</emphasis>, then click <emphasis role="strong">Finish</emphasis>
                         to exit the installer.</para>
                 </step>
@@ -735,7 +798,7 @@
                         </mediaobject>
                     </figure>
 
-                    <para>When you see the message <emphasis role="strong">Oracle Weblogic Server
+                    <para>When you see the message <emphasis role="strong">Oracle WebLogic Server
                             Configuration Succeeded</emphasis>, record the <emphasis role="strong"
                             >Domain Location</emphasis> and <emphasis role="strong">Admin Server
                             URL</emphasis>. Click <emphasis role="strong">Finish</emphasis> to exit
@@ -774,7 +837,8 @@
                 <title>Oracle WebLogic Server Administration Console</title>
                 <mediaobject>
                     <imageobject role="fo">
-                        <imagedata fileref="oracle-weblog-adminconsole.png" width="70%" format="PNG"/>
+                        <imagedata fileref="oracle-weblog-adminconsole.png" width="70%" format="PNG"
+                        />
                     </imageobject>
                     <imageobject role="html">
                         <imagedata fileref="oracle-weblog-adminconsole.png" width="80%" format="PNG"
@@ -800,44 +864,12 @@
             is suitable for a production system.</para>
 
     </sect1>
-    
-    <sect1 xml:id="sec-legal-notice">
-        <title>Legal Notice</title>
-        <para>Copyright &copy;2006–2020 SUSE LLC and contributors. All
-            rights reserved. </para>
-        <para>Permission is granted to copy, distribute and/or modify this
-            document under the terms of the GNU Free Documentation License,
-            Version 1.2 or (at your option) version 1.3; with the Invariant
-            Section being this copyright notice and license. A copy of the
-            license version 1.2 is included in the section entitled <quote>GNU
-                Free Documentation License</quote>.</para>
-        <para>SUSE, the SUSE logo and YaST are registered trademarks of SUSE
-            LLC in the United States and other countries. For SUSE trademarks,
-            see <link xlink:href="http://www.suse.com/company/legal/"
-                >http://www.suse.com/company/legal/</link>. Linux is a registered
-            trademark of Linus Torvalds. All other names or trademarks mentioned
-            in this document may be trademarks or registered trademarks of their
-            respective owners.</para>
-        <para>This article is part of a series of documents called "SUSE Best
-            Practices". The individual documents in the series were contributed
-            voluntarily by SUSE's employees and by third parties.</para>
-        <!--  <para>The articles are intended only to be one example of how a particular action could be
-            taken. They should not be understood to be the only action and certainly not to be the
-            action recommended by SUSE. Also, SUSE cannot verify either that the actions described
-            in the articles do what they claim to do or that they don't have unintended
-            consequences.</para>-->
-        <para> All information found in this article has been compiled with
-            utmost attention to detail. However, this does not guarantee complete
-            accuracy.
-            <!--Neither SUSE LLC, the authors, nor the translators shall be held liable
-                for possible errors or the consequences thereof. --></para>
-        <para>Therefore, we need to specifically state that neither SUSE LLC,
-            its affiliates, the authors, nor the translators may be held liable
-            for possible errors or the consequences thereof. Below we draw your
-            attention to the license under which the articles are
-            published.</para>
-    </sect1>
 
-    <?pdfpagebreak style="suse2013-sbp" formatter="fop"?>
+
+    <?pdfpagebreak style="sbp" formatter="fop"?>
+
+    <xi:include href="sbp-legal-notice.xml"/>
+
+    <?pdfpagebreak style="sbp" formatter="fop"?>
     <xi:include href="license-gfdl.xml"/>
 </article>

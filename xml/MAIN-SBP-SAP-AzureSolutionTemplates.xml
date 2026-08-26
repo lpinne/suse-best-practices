@@ -13,41 +13,104 @@
 <article role="sbp" xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
-  xml:id="art-sbp-hanaonkvm-sles12sp2" xml:lang="en">
+  xmlns:its="http://www.w3.org/2005/11/its"
+  xml:id="art-sbp-sap-azure-templates" xml:lang="en">
 
 
   <info>
     <title>SUSE and Microsoft Solution Templates for SAP
-      Applications</title>
+      applications</title>
     <subtitle>Simplified Deployment on Microsoft Azure</subtitle>
-    <productname>SUSE Linux Enterprise Server for SAP Applications</productname>
-    <!--<productname>SUSE Linux Enterprise Server</productname>-->
-    <productnumber>12</productnumber>
 
-    <author>
-      <!--   <personname>
-        <firstname>Peter</firstname>
-        <surname>Schinagl, Technical Architect SAP, SUSE</surname>
-        </personname>-->
+    <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+      <dm:bugtracker>
+        <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+        <dm:product>SUSE and Microsoft Solution Templates for SAP
+          applications</dm:product>
+      </dm:bugtracker>
+      <dm:editurl>https://github.com/SUSE/suse-best-practices/edit/main/xml/</dm:editurl>
+    </dm:docmanager>
+
+    <meta name="series" its:translate="no">Best Practices</meta>
+    <meta name="category" its:translate="no">
+      <phrase>SAP</phrase>
+    </meta>
+    <meta name="task" its:translate="no">
+      <phrase>Automation</phrase>
+      <phrase>Deployment</phrase>
+      <phrase>Cloud</phrase>
+    </meta>
+    <meta name="title" its:translate="yes">SUSE and Microsoft Solution Templates for SAP applications</meta>
+    <meta name="description" its:translate="yes">Predefined solution templates for SAP applications from
+    SUSE and Microsoft for simplified deployment on Microsoft Azure.</meta>
+    <meta name="social-descr" its:translate="yes">Predefined solution templates SLES for SAP on Azure</meta>
+    <meta name="productname" its:translate="no">
+      <productname version="12 SP3">SUSE Linux Enterprise Server for SAP applications</productname>
+      <productname version="12 SP4">SUSE Linux Enterprise Server for SAP applications</productname>
+      <productname version="12 SP5">SUSE Linux Enterprise Server for SAP applications</productname>
+    </meta>
+
+    <meta name="platform" its:translate="no">SUSE Linux Enterprise Server for SAP applications 12</meta>
+    <meta name="platform" its:translate="no">Microsoft Azure</meta>
+
+      <authorgroup>
+      <author>
       <personname>
-        <firstname>Peter</firstname>
-        <surname>Schinagl, Technical Architect SAP, SUSE</surname>
+      <firstname>Peter</firstname>
+      <surname>Schinagl</surname>
       </personname>
-      <!--      <affiliation>
-        <jobtitle>Senior Software Engineer</jobtitle>
-        <orgname>SUSE</orgname>
-        </affiliation>-->
-    </author>
+      <affiliation>
+      <jobtitle>Technical Architect SAP</jobtitle>
+      <orgname>SUSE</orgname>
+      </affiliation>
+      </author>
+<!--       <editor>
+      <orgname></orgname>
+      </editor>
+      <othercredit>
+      <orgname></orgname>
+      </othercredit>-->
+      </authorgroup>
 
+      <cover role="logos">
+        <mediaobject>
+          <imageobject role="fo">
+            <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
+          </imageobject>
+          <imageobject role="html">
+            <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+          </imageobject>
+          <textobject><phrase>SUSE logo</phrase></textobject>
+        </mediaobject>
+      </cover>
 
-    <date>May 8, 2018</date>
+    <revhistory xml:id="rh-art-sbp-sap-azure-templates">
+      <revision>
+        <date>2018-05-08</date>
+        <revdescription>
+          <para> </para>
+        </revdescription>
+      </revision>
+    </revhistory>
 
 
     <abstract>
 
       <para>This document describes several predefined solution templates
-        for SAP Applications from SUSE and Microsoft for simplified
+        for SAP applications from SUSE and Microsoft for simplified
         deployment on Microsoft Azure.</para>
+
+      <para>
+        <emphasis role="strong">Disclaimer: </emphasis>
+        Documents published as part of the SUSE Best Practices series have been contributed voluntarily
+        by SUSE employees and third parties. They are meant to serve as examples of how particular
+        actions can be performed. They have been compiled with utmost attention to detail. However,
+        this does not guarantee complete accuracy. SUSE cannot verify that actions described in these
+        documents do what is claimed or whether actions described have unintended consequences.
+        SUSE LLC, its affiliates, the authors, and the translators may not be held liable for possible errors
+        or the consequences thereof.
+      </para>
+
 
     </abstract>
   </info>
@@ -179,7 +242,7 @@
     <title>SAP HANA 2-tier (DB-tier) Template</title>
     <para>The template provides and deploys a VM that is customized for use
       with SAP HANA, using the latest pay-as-you-go (PAYG) version of the
-      SUSE Linux Enterprise Server for SAP Applications (SLES4SAP).</para>
+      SUSE Linux Enterprise Server for SAP applications (SLES4SAP).</para>
     <para>It deploys one server on Premium Storage (Premium_LRS) and uses
       Managed Disks.</para>
 
@@ -575,7 +638,7 @@
     <para>The template provides and deploys several VMs which are
       customized for use with SAP Netweaver and SAP HANA as database, using
       the latest pay-as-you-go (PAYG) version of the SUSE Linux Enterprise
-      Server for SAP Applications (SLES4SAP).</para>
+      Server for SAP applications (SLES4SAP).</para>
     <para>It deploys all server on Premium Storage (Premium_LRS) and using
       Managed Disks.</para>
 
@@ -620,8 +683,8 @@
       <screen>sudo saptune solution apply HANA</screen>
 
       <para>For more details see the documentation at <link
-        xlink:href="https://documentation.suse.com/sles-sap/12-SP4/html/SLES4SAP-guide/cha-s4s-tune.html#sec-saptune"
-        >https://documentation.suse.com/sles-sap/12-SP4/html/SLES4SAP-guide/cha-s4s-tune.html#sec-saptune</link></para>
+        xlink:href="https://documentation.suse.com/sles-sap/12-SP5/html/SLES4SAP-guide/cha-tune.html"
+        >https://documentation.suse.com/sles-sap/12-SP5/html/SLES4SAP-guide/cha-tune.html</link></para>
     </sect2>
 
     <sect2 xml:id="sec-disk-overview-2">
@@ -980,7 +1043,7 @@
         role="strong">twice</emphasis> to be used in an HA configuration.
       They are customized for use with SAP Netweaver and SAP HANA as
       database, using the latest pay-as-you-go (PAYG) version of the SUSE
-      Linux Enterprise Server for SAP Applications (SLES4SAP).</para>
+      Linux Enterprise Server for SAP applications (SLES4SAP).</para>
     <para>It deploys all servers on Premium Storage (Premium_LRS) and using
       Managed Disks.</para>
 
@@ -1029,8 +1092,8 @@
       <screen>sudo saptune solution apply HANA</screen>
 
       <para>For more details see the documentation at <link
-        xlink:href="https://documentation.suse.com/sles-sap/12-SP4/html/SLES4SAP-guide/cha-s4s-tune.html#sec-saptune"
-        >https://documentation.suse.com/sles-sap/12-SP4/html/SLES4SAP-guide/cha-s4s-tune.html#sec-saptune</link></para>
+        xlink:href="https://documentation.suse.com/sles-sap/12-SP5/html/SLES4SAP-guide/cha-tune.html"
+        >https://documentation.suse.com/sles-sap/12-SP5/html/SLES4SAP-guide/cha-tune.html</link></para>
     </sect2>
 
     <sect2 xml:id="sec-other-settings">
@@ -1472,7 +1535,7 @@
   <sect1
     xml:id="sec-quick-guide-to-install-sap-hana-on-a-suse-linux-enterprise-server-for-sap-applications">
     <title>Quick Guide to Install SAP HANA on a SUSE Linux Enterprise
-      Server for SAP Applications</title>
+      Server for SAP applications</title>
     <para>This section leads you through the installation of a default SAP
       HANA on SUSE Linux Enterprise Server.</para>
     <para>It does not replace the SAP documentation - <emphasis
@@ -1582,7 +1645,7 @@ az storage file upload --share-name mediashare/SapBits --source ~/Download/51052
 az storage file upload --share-name mediashare/SapBits --source /Download/51052325_part4.rar</screen>
 
       <para>The next steps need to be done on your virtual machine you
-        created for HANA in Azure. Log in to this machine.nius.</para>
+        created for HANA in Azure. Log in to this machine.</para>
       <para>Mount it on the SUSE Linux Enterprise Server system in Azure
         with the command:</para>
       <screen>sudo zypper in cifs-utils unrar
@@ -1987,44 +2050,12 @@ etc...</screen>
     </sect2>
   </sect1>
 
-  <sect1 xml:id="sec-legal-notice">
-    <title>Legal Notice</title>
-    <para>Copyright &copy;2006–2020 SUSE LLC and contributors. All
-      rights reserved. </para>
-    <para>Permission is granted to copy, distribute and/or modify this
-      document under the terms of the GNU Free Documentation License,
-      Version 1.2 or (at your option) version 1.3; with the Invariant
-      Section being this copyright notice and license. A copy of the
-      license version 1.2 is included in the section entitled <quote>GNU
-        Free Documentation License</quote>.</para>
-    <para>SUSE, the SUSE logo and YaST are registered trademarks of SUSE
-      LLC in the United States and other countries. For SUSE trademarks,
-      see <link xlink:href="http://www.suse.com/company/legal/"
-        >http://www.suse.com/company/legal/</link>. Linux is a registered
-      trademark of Linus Torvalds. All other names or trademarks mentioned
-      in this document may be trademarks or registered trademarks of their
-      respective owners.</para>
-    <para>This article is part of a series of documents called "SUSE Best
-      Practices". The individual documents in the series were contributed
-      voluntarily by SUSE's employees and by third parties.</para>
-    <!--  <para>The articles are intended only to be one example of how a particular action could be
-      taken. They should not be understood to be the only action and certainly not to be the
-      action recommended by SUSE. Also, SUSE cannot verify either that the actions described
-      in the articles do what they claim to do or that they don't have unintended
-      consequences.</para>-->
-    <para> All information found in this book has been compiled with utmost
-      attention to detail. However, this does not guarantee complete
-      accuracy.
-      <!--Neither SUSE LLC, the authors, nor the translators shall be held liable
-        for possible errors or the consequences thereof. --></para>
-    <para>Therefore, we need to specifically state that neither SUSE LLC,
-      its affiliates, the authors, nor the translators may be held liable
-      for possible errors or the consequences thereof. Below we draw your
-      attention to the license under which the articles are
-      published.</para>
-  </sect1>
 
-  <?pdfpagebreak style="suse2013-sbp" formatter="fop"?>
+  <?pdfpagebreak style="sbp" formatter="fop"?>
+
+  <xi:include href="sbp-legal-notice.xml"/>
+
+  <?pdfpagebreak style="sbp" formatter="fop"?>
   <xi:include href="license-gfdl.xml"/>
 
 </article>

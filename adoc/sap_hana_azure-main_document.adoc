@@ -35,7 +35,11 @@ Handing over the document to the documentation team
 
 :localdate:
 
-= Getting Started with SAP HANA High Availability Cluster Automation Operating on Azure
+
+// defining article ID
+[#art-saphana-automation-azure]
+
+= SAP HANA High Availability Cluster Automation Operating on Azure: Getting Started
 
 // Revision {revision} from {date}
 
@@ -89,8 +93,8 @@ Variables
 :SUSEReg: SUSE(R)
 :sleReg: {SUSEReg} Linux Enterprise
 :slesReg: {sleReg} Server
-:sles4sapReg: {slesReg} for {SAP} Applications
-:sles: SUSE Linux Enterprise Server for SAP Applications
+:sles4sapReg: {slesReg} for {SAP} applications
+:sles: SUSE Linux Enterprise Server for SAP applications
 
 :projName: Automated SAP HA Deployments in Public/Private Clouds with Terraform
 :projUser: USERNAME
@@ -132,9 +136,17 @@ include::sap_hana_azure-05-env_destroy.adoc[]
 
 include::sap_hana_azure-appendix.adoc[]
 
+++++
+<?pdfpagebreak?>
+++++
+
 // Standard SUSE Best Practices includes
 == Legal Notice
 include::sap_hana_azure-common_sbp_legal_notice.adoc[]
+
+++++
+<?pdfpagebreak?>
+++++
 
 // Standard SUSE Best Practices includes
 include::sap_hana_azure-common_gfdl1.2_i.adoc[]

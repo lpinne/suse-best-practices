@@ -8,33 +8,90 @@
 <article role="sbp" xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
-    xml:id="art-sbp-rpm-packaging" xml:lang="en">
+    xmlns:its="http://www.w3.org/2005/11/its"
+    xml:id="art-sbp-kmp-manual-12-15" xml:lang="en">
 
     <info>
-        <title>Kernel Module Packages Manual for SUSE Linux Enterprise 12
-            SP2 or later and SUSE Linux Enterprise 15</title>
-        <subtitle/>
-        <!--<orgname>SUSE Best Practices</orgname>-->
-        <productname>SUSE Linux Enterprise</productname>
-        <productnumber> 12 SP2+, 15</productnumber>
+        <title>Kernel Module Packages Manual</title>
+        <subtitle>SUSE Linux Enterprise 12 SP2 or later and SUSE Linux Enterprise 15</subtitle>
 
-        <author>
+        <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+            <dm:bugtracker>
+                <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+                <dm:product>Kernel Module Packages Manual for SUSE Linux Enterprise 12
+                    SP2 or later and SUSE Linux Enterprise 15</dm:product>
+            </dm:bugtracker>
+            <dm:editurl>https://github.com/SUSE/suse-best-practices/edit/main/xml/</dm:editurl>
+        </dm:docmanager>
+
+        <meta name="series" its:translate="no">Best Practices</meta>
+        <meta name="category" its:translate="no">
+            <phrase>Systems Management</phrase>
+        </meta>
+        <meta name="task" its:translate="no">
+            <phrase>Packaging</phrase>
+        </meta>
+        <meta name="title" its:translate="yes">Kernel Module Packages Manual</meta>
+        <meta name="description" its:translate="yes">The document specifies the requirements for RPM packages that contain kernel modules,
+        and describes the processes surrounding those packages. </meta>
+        <meta name="social-descr" its:translate="yes">Describes requirements for RPM kernel module packages</meta>
+        <meta name="productname" its:translate="no">
+            <productname version="12 SP2">SUSE Linux Enterprise</productname>
+            <productname version="12 SP3">SUSE Linux Enterprise</productname>
+            <productname version="12 SP4">SUSE Linux Enterprise</productname>
+            <productname version="12 SP5">SUSE Linux Enterprise</productname>
+            <productname version="15 SP1">SUSE Linux Enterprise</productname>
+            <productname version="15 SP2">SUSE Linux Enterprise</productname>
+            <productname version="15 SP3">SUSE Linux Enterprise</productname>
+            <productname version="15 SP4">SUSE Linux Enterprise</productname>
+            <productname version="15 SP5">SUSE Linux Enterprise</productname>
+            <productname version="15 SP6">SUSE Linux Enterprise</productname>
+        </meta>
+
+        <meta name="platform" its:translate="no">SUSE Linux Enterprise Server 12 SP2 and later</meta>
+        <meta name="platform" its:translate="no">SUSE Linux Enterprise Server 15</meta>
+
+            <authorgroup>
+            <author>
             <personname>
-                <firstname>Document Owner: Ann</firstname>
-                <surname>Davis, Senior Software Engineer, SUSE</surname>
-            </personname>
-            <!--<personname>
-                <firstname>Document Owner: Ann</firstname>
-                <surname>Davis</surname>
+            <firstname>Document Owner: Ann</firstname>
+            <surname>Davis</surname>
             </personname>
             <affiliation>
                 <jobtitle>Senior Software Engineer</jobtitle>
-                <orgname>SUSE</orgname>
-            </affiliation>-->
-        </author>
-        <date>July 31, 2019</date>
-        <!--<date><?dbtimestamp format="B d, Y" ?></date>
--->
+            <orgname>SUSE</orgname>
+            </affiliation>
+            </author>
+<!--            <editor>
+            <orgname></orgname>
+            </editor>
+            <othercredit>
+            <orgname></orgname>
+            </othercredit>-->
+            </authorgroup>
+
+            <cover role="logos">
+              <mediaobject>
+                <imageobject role="fo">
+                  <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
+                </imageobject>
+                <imageobject role="html">
+                  <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+                </imageobject>
+                <textobject><phrase>SUSE logo</phrase></textobject>
+              </mediaobject>
+            </cover>
+
+        <revhistory xml:id="rh-art-sbp-kmp-manual-12-15">
+            <revision>
+                <date>2022-02-15</date>
+                <revdescription>
+                    <para> </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+
+
         <abstract>
             <para>SUSE-based distributions use the RPM Package Manager for
                 software management. As such, any external kernel modules
@@ -55,6 +112,18 @@
                 to SUSE Linux Enterprise Server 12 (Service Pack 2 and
                 later), and SUSE Linux Enterprise Server 15, and all
                 products based on these versions. </para>
+
+            <para>
+                <emphasis role="strong">Disclaimer: </emphasis>
+                Documents published as part of the SUSE Best Practices series have been contributed voluntarily
+                by SUSE employees and third parties. They are meant to serve as examples of how particular
+                actions can be performed. They have been compiled with utmost attention to detail. However,
+                this does not guarantee complete accuracy. SUSE cannot verify that actions described in these
+                documents do what is claimed or whether actions described have unintended consequences.
+                SUSE LLC, its affiliates, the authors, and the translators may not be held liable for possible errors
+                or the consequences thereof.
+            </para>
+
         </abstract>
     </info>
 
@@ -84,9 +153,8 @@
         <para>Developers who want to build for SUSE Linux Enterprise Server
             versions before SUSE Linux Enterprise Server 12 SP2 should use
             previous versions of this document <link
-                xlink:href="https://documentation.suse.com/sbp/all/html/SBP-KMP-Manual/index.html"
-                >SUSE SolidDriver Documentation: Kernel Module Packages
-                Manual for Code 11 </link>.</para>
+                xlink:href="https://documentation.suse.com/sbp/systems-management/html/SBP-KMP-Manual/"
+                >Kernel Module Packages Manual</link>.</para>
 
         <para>Appendix B provides a list of changes that have been made to
             this document to accommodate new features.</para>
@@ -175,7 +243,7 @@
     </sect1>
 
     <sect1 xml:id="sec-kernel-packages">
-        <title>Kernel Packages</title>
+        <title>Kernel packages</title>
 
         <para>Each product based on SUSE Linux Enterprise 12 SP2 or SUSE
             Linux Enterprise 15 contains a set of kernel packages that share
@@ -236,7 +304,7 @@
     </sect1>
 
     <sect1 xml:id="sec-kernel-modules">
-        <title>Kernel Modules</title>
+        <title>Kernel modules</title>
 
         <para>Documentation on general kernel module building can be found
             in abundance on the Internet. Two good lectures are: </para>
@@ -285,7 +353,7 @@
             the file system and the RPM database.</para>
 
         <note>
-            <title>Where to Store Modules</title>
+            <title>Where to store modules</title>
             <para>Modules intended to take precedence over in-kernel
                 modules of the same name should be stored below
                     <filename>/lib/modules/VERSION-RELEASE-FLAVOR/updates/</filename>.
@@ -439,7 +507,7 @@
                     same names as the modules being installed.</para>
 
                 <note>
-                    <title>RAM Disk Rebuild</title>
+                    <title>RAM disk rebuild</title>
                     <para>The <option>-b</option> option simply forces a
                         RAM disk rebuild using the existing RAM disk
                         configuration. If the existing RAM disk
@@ -540,7 +608,7 @@
         <para>The generated packages would contain the following module,
             and require and provide the following symbols:</para>
         <table>
-            <title>Package Information</title>
+            <title>Package information</title>
             <tgroup cols="4">
                 <colspec colwidth="2cm"/>
                 <colspec colwidth="2.4*"/>
@@ -580,11 +648,11 @@
 
     </sect1>
     <sect1 xml:id="sec-provides-requires">
-        <title>RPM Provides and Requires</title>
+        <title>RPM <emphasis role="strong">Provides</emphasis> and <emphasis role="strong">Requires</emphasis></title>
         <para>Kernels export symbols that kernel modules use. Symbols have
             version checksums attached, and the checksums of the exported
             kernel symbols must match the checksums of the kernel symbols
-            that the kernel module package uses. </para>
+            that the Kernel Module Package uses. </para>
 
         <para>Similarly, at an RPM level, each
                 <package>kernel-FLAVOR</package> package (for example
@@ -637,7 +705,7 @@
                 <filename>/usr/src/linux/Documentation/kbuild/</filename>
             from the <package>kernel-source</package> package. Trying to
             emulate <package>kbuild</package> will lead to various problems
-            including mis-compilations and missing or wrong symbol
+            including miscompilations and missing or wrong symbol
             versions, and increased support load because of subtle
             breakages.</para>
 
@@ -698,7 +766,7 @@
         <para>See the build(1) manual page for further information.</para>
 
         <note>
-            <title>Building External Modules</title>
+            <title>Building external modules</title>
             <para>For building external modules, you need to have both the
                     <package>kernel-source</package> and
                     <package>kernel-FLAVOR-devel</package> packages
@@ -738,7 +806,7 @@
             scope of this document.</para>
 
         <sect2 xml:id="sec-signing-packages">
-            <title>Signing Packages</title>
+            <title>Signing packages</title>
 
             <para>All packages that are provided in SUSE Linux Enterprise
                 Server and SUSE Linux Enterprise Desktop are digitally
@@ -749,9 +817,9 @@
                     xlink:href="https://drivers.suse.com/doc/Usage/Package_Signing_Key.html#package-signing-key"
                     >https://drivers.suse.com/doc/Usage/Package_Signing_Key.html#package-signing-key</link>.
                 Partners who build and/or provide their own packages are
-                encouraged to sign them with their own keys. </para>
+                encouraged to sign them with their company keys. </para>
 
-            <para>Developers may want to sign packages for testing purposes
+            <para>For testing purposes, developers can sign packages
                 using their own personal and/or test keys. RPM uses GnuPG
                 (gpg) for signing. To sign packages, a private/public key
                 pair must be installed on the GNU Privacy Guard (GPG)
@@ -798,7 +866,7 @@ package.rpm: (sha1) dsa sha1 md5 gpg OK</screen>
         </sect2>
 
         <sect2 xml:id="sec-signing-module-object">
-            <title>Signing Module Object Files <emphasis role="italic"
+            <title>Signing module object files <emphasis role="italic"
                     >(UEFI Secure Boot)</emphasis></title>
 
             <para>Although using signed packages and other OS security
@@ -806,7 +874,7 @@ package.rpm: (sha1) dsa sha1 md5 gpg OK</screen>
                 cannot prevent system subversion before the OS has booted.
                 To address pre-OS security concerns, the UEFI Secure Boot
                 specification (see <link
-                    xlink:href="http://www.uefi.org/specs"
+                    xlink:href="http://www.uefi.org/specifications"
                     >http://www.uefi.org/specs</link>) details a protocol
                 to prevent the loading of boot loaders or kernels
                 (including modules) that are not signed with an approved
@@ -828,7 +896,7 @@ package.rpm: (sha1) dsa sha1 md5 gpg OK</screen>
                 (reboot and system-owner approval required).</para>
 
             <sect3 xml:id="sec-creating-key">
-                <title>Creating a Key and Certificate</title>
+                <title>Creating a key and certificate</title>
 
                 <para>Module signing requires having access to a digital
                     key and certificate. Official keys and certificates are
@@ -844,7 +912,8 @@ package.rpm: (sha1) dsa sha1 md5 gpg OK</screen>
 
                 <screen>export USER="your company name"
 openssl req -new -x509 -newkey rsa:2048 -sha256 -keyout key.asc -out cert.der \
-            -outform der -nodes -days 4745 -subj "/CN=$USER/"</screen>
+            -outform der -nodes -days 4745 -addext "extendedKeyUsage=codeSigning" \
+            -subj "/CN=$USER/"</screen>
 
                 <para>The above sequence of commands will create a
                         <filename>key.asc</filename> key file and a
@@ -852,50 +921,95 @@ openssl req -new -x509 -newkey rsa:2048 -sha256 -keyout key.asc -out cert.der \
                     the current working directory. The
                         <option>4745</option> option generates a
                     certificate which will be valid for 13 years.</para>
+                <note><title>Extended Key Usage (EKU) setting</title>
+                    <para>The <option>-addext "extendedKeyUsage=codeSigning"</option>
+                        openssl option has been added to this document as of October
+                        2021. The EKU codeSigning setting is now required for
+                        latest kernel releases of SUSE Linux Enterprise 15 SP2 and all
+                        kernels of subsequent service packs to accept the certificate
+                        for signature verification of kernel modules.
+                        </para>
+                    <para><emphasis role="bold">The <option>-addext</option> option requires
+                        OpenSSL version 1.1.1 or later.</emphasis> For earlier versions
+                        of OpenSSL, consult the documentation for setting the EKU.</para>
+                </note>
             </sect3>
 
             <sect3 xml:id="sec-sign-modules-during-packaging">
-                <title>Signing Modules During Packaging</title>
+                <title>Signing modules during packaging</title>
 
-                <para>Previous versions of this document provided
-                    information and example spec files to use for signing
-                    modules during packaging. Because of changes made to
-                    the signing facilities in the kernel, the examples only
-                    applied when building modules for SUSE Linux Enterprise
-                    Server versions from SUSE Linux Enterprise Server 11
-                    SP3 to SUSE Linux Enterprise Server 12 SP1.</para>
-
-                <para>For SUSE Linux Enterprise Server 12 SP2 and later
-                    versions, it is possible to sign modules during
-                    packaging, but different steps are required and are
-                    beyond the scope of this document. Furthermore, since
-                    most organizations maintain their private keys in
-                    secured environments separate from their build
-                    environments, this document encourages developers to
-                    adopt the practice of signing their external modules
-                    after packaging by using the SUSE Linux Enterprise
-                    Server <command>modsign-repackage</command> command.
-                    This command unpacks a KMP, signs any included modules,
-                    and repackages the KMP. The following section describes
-                    how to use <command>modsign-repackage</command>.</para>
-
-                <para>Developers who are building KMPs for SUSE Linux
-                    Enterprise Server 12 SP1 and earlier versions and who
-                    want to sign their modules during packaging are
-                    referred to the previous version of this document <link
-                        xlink:href="https://documentation.suse.com/sbp/all/html/SBP-KMP-Manual/index.html"
-                        >SUSE SolidDriver Documentation: Kernel Module
-                        Packages Manual for Code 11</link>. Developers who
-                    are building KMPs for SUSE Linux Enterprise Server 12
-                    SP2 and later versions and who want to sign their
-                    modules during packaging are referred to the <emphasis
-                        role="strong">module-signing.rst</emphasis>
-                    document in the kernel-source package. </para>
+                <para>Signing modules as part of the packaging process
+                    requires making several changes to the KMP spec file.
+                    The spec file template in Appendix A.1 includes these
+                    changes, which are:</para>
+                <orderedlist>
+                    <listitem>
+                        <para>List the certificate file as a <emphasis
+                                role="strong">%Source</emphasis> file. The
+                            top-level directory of the build structure
+                            (where the spec file is located) should include
+                            both a private key file and a certificate file.
+                            The spec file should list the certificate as a
+                                <emphasis>%Source</emphasis> file. The spec
+                            file should not list the key file (since the
+                            private key should not be included in the
+                            source KMP).</para>
+                        <note>
+                            <title>Naming</title>
+                            <para>To be recognized by the kernel Makefile,
+                                the key file must be named
+                                    <quote>signing_key.priv</quote> and the
+                                certificate file must be named
+                                    <quote>signing_key.x509</quote>. The
+                                example above describes how to use the
+                                    <command>openssl req</command> command
+                                to create a <filename>key.asc</filename>
+                                key file and a
+                                    <filename>cert.der</filename>
+                                certificate file; to use these files at
+                                packaging-time, they should be renamed to
+                                    <quote>signing_key.priv</quote> and
+                                    <quote>signing_key.x509</quote>.</para>
+                        </note>
+                    </listitem>
+                    <listitem>
+                        <para>Invoke the <emphasis
+                                role="strong">%kernel_module_package</emphasis>
+                            macro with the <option>-c
+                                %_sourcedir/signing_key.x509</option>
+                            option to generate a
+                                <package>&lt;name>-ueficert</package>
+                            package which installs the certificate and
+                            calls the <command>mokutil</command> utility to
+                            enroll the public key. The actual module
+                            signing is handled in the <emphasis
+                                role="strong">%install</emphasis> section
+                            of the spec file.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Add <emphasis
+                                role="strong">%install</emphasis> section
+                            code to invoke the kernel-sign-file file to
+                            sign the modules.</para>
+                    </listitem>
+                </orderedlist>
+                <note>
+                    <title>Own Keys and Certificates</title>
+                    <para>The Appendix A.1 sample spec file is designed to be
+                        used by developers and packagers who provide their
+                        own keys and certificates and their own build
+                        environments.  Developers/packagers who use the
+                        Open Build Service should modify their spec file
+                        as described in the pesign-obs-integration package
+                        <link
+                                xlink:href="https://github.com/openSUSE/pesign-obs-integration/blob/master/README"
+                                >README</link>.</para>
+                </note>
 
             </sect3>
 
             <sect3 xml:id="sec-sign-existing-kmp">
-                <title>Signing an Existing KMP</title>
+                <title>Signing an existing KMP</title>
 
                 <para>The <package>pesign-obs-integration</package> package
                     in SUSE Linux Enterprise Server provides a
@@ -918,7 +1032,7 @@ openssl req -new -x509 -newkey rsa:2048 -sha256 -keyout key.asc -out cert.der \
                     do the following:</para>
 
 
-                <screen>modsign-repackage -c ./cert.der -k ./key.asc 
+                <screen>modsign-repackage -c ./cert.der -k ./key.asc
                     ./suse-hello-kmp-default-1.0-k4.4.73_5-0.x86_64.rpm</screen>
 
                 <para>The above command creates the following directories
@@ -936,11 +1050,11 @@ openssl req -new -x509 -newkey rsa:2048 -sha256 -keyout key.asc -out cert.der \
 
                 <screen>
 rpm2cpio suse-hello-kmp-default-1.0-k4.4.73_5-0.x86_64.rpm | cpio -idv
-modinfo ./lib/modules/4.4.73-5-default/updates/hello.ko | grep signature    
+modinfo ./lib/modules/4.4.73-5-default/updates/hello.ko | grep signature
 </screen>
                 <note>
-                    <title><package>rpm-build</package> Must be
-                        Installed</title>
+                    <title><package>rpm-build</package> must be
+                        installed</title>
                     <para><package>modsign-repackage</package> uses the
                             <package>/usr/bin/rpmbuild</package> utility
                         which is provided by the SUSE Linux Enterprise
@@ -953,7 +1067,7 @@ modinfo ./lib/modules/4.4.73-5-default/updates/hello.ko | grep signature
             </sect3>
 
             <sect3 xml:id="sec-secure-boot-kmp">
-                <title>Installation of Secure-boot-enabled KMPs</title>
+                <title>Installation of secure-boot-enabled KMPs</title>
 
                 <para>As discussed above, secure-boot-enabled KMPs include
                     an additional <package>&lt;NAME>-ueficert</package>
@@ -1009,7 +1123,7 @@ modinfo ./lib/modules/4.4.73-5-default/updates/hello.ko | grep signature
     </sect1>
 
     <sect1 xml:id="sec-installation-and-kmp">
-        <title>System Installation and Kernel Module Packages</title>
+        <title>System installation and Kernel Module Packages</title>
 
         <para>Initial system installation is carried out by YaST from some
             installation media (CDs or DVDs, network locations, etc.). As
@@ -1070,7 +1184,7 @@ modinfo ./lib/modules/4.4.73-5-default/updates/hello.ko | grep signature
 
     </sect1>
     <sect1 xml:id="sec-kernel-updates">
-        <title>Kernel Updates and Kernel Module Packages</title>
+        <title>Kernel updates and Kernel Module Packages</title>
 
         <para>After all software repositories that should be checked for
             updates have been added, the package manager will automatically
@@ -1081,16 +1195,13 @@ modinfo ./lib/modules/4.4.73-5-default/updates/hello.ko | grep signature
     </sect1>
 
     <sect1 xml:id="sec-appendix-a">
-        <title>Appendix A: Sample Source for <package>suse-hello</package>
+        <title>Appendix A: Sample source for <package>suse-hello</package>
             Kernel Module Package</title>
 
         <para>The following sample is described in the section <xref
-                linkend="sec-kernel-module-packages"/>. Unlike in the
-            previous version of this document <link
-                xlink:href="https://documentation.suse.com/sbp/all/html/SBP-KMP-Manual/index.html"
-                >Kernel Module Packages Manual for Code 11</link>, this
-            spec file will not sign the modules included in the
-            package.</para>
+                linkend="sec-kernel-module-packages"/>.  For a sample
+            spec file that signs modules during packaging, see Appendix
+            A.1.</para>
 
         <para>
             <emphasis role="strong">suse-hello.spec</emphasis>
@@ -1100,15 +1211,15 @@ modinfo ./lib/modules/4.4.73-5-default/updates/hello.ko | grep signature
         <screen>
 # norootforbuild
 
-Name:			suse-hello
-Version:		1.0
-Release:		0
-Summary:		Sample Kernel Module Package
-License:		GPL-2.0
-Group:		    System/Kernel
-Source0:		%{name}-%{version}.tar.bz2
-BuildRequires:	%kernel_module_package_buildreqs
-BuildRoot:		%{_tmppath}/%{name}-%{version}-build
+Name:           suse-hello
+Version:                1.0
+Release:                0
+Summary:                Sample Kernel Module Package
+License:                GPL-2.0
+Group:          System/Kernel
+Source0:                %{name}-%{version}.tar.bz2
+BuildRequires:  %kernel_module_package_buildreqs
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %kernel_module_package
 
@@ -1133,7 +1244,7 @@ done
 export INSTALL_MOD_PATH=$RPM_BUILD_ROOT
 export INSTALL_MOD_DIR=updates
 for flavor in %flavors_to_build; do
-       make -C %{kernel_source $flavor} modules_install M=$PWD/obj/$flavor     
+       make -C %{kernel_source $flavor} modules_install M=$PWD/obj/$flavor
 done
 </screen>
 
@@ -1148,8 +1259,8 @@ done
         </para>
 
         <screen>
-obj-m		:= hello.o
-hello-y	    += main.o
+obj-m           := hello.o
+hello-y     += main.o
 </screen>
 
         <para>
@@ -1204,38 +1315,112 @@ module_init(init_hello);
 module_exit(exit_hello);</screen>
 
     </sect1>
+    <sect1 xml:id="sec-appendix-a1">
+        <title>Appendix A.1: Sample spec file for signing modules
+            during packaging</title>
+        <para>The following spec file can be used to sign modules
+              during packaging as described in Section 8.2.2 above.</para>
+        <para>
+            <emphasis role="strong">suse-hello.spec</emphasis>
+        </para>
 
+        <screen>
+# norootforbuild
 
+Name:           suse-hello
+Version:                1.0
+Release:                0
+Summary:                Sample Kernel Module Package
+License:                GPL-2.0
+Group:          System/Kernel
+Source0:                %{name}-%{version}.tar.bz2
+# Required to sign modules:  Include certificate named “signing_key.x509”
+# Build structure should also include a private key named “signing_key.priv”
+# Private key should not be listed as a source file
+Source1:        signing_key.x509
+BuildRequires:  %kernel_module_package_buildreqs
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
+# Required to sign modules:  The -c option tells the macro to generate a
+# suse-hello-ueficert subpackage that enrolls the certificate
+%kernel_module_package -c %_sourcedir/signing_key.x509
+
+%description
+This package contains the hello.ko module.
+
+%prep
+%setup
+# Required to sign modules:  Copy the signing key to the build area
+cp %_sourcedir/signing_key.* .
+set -- *
+mkdir source
+mv "$@" source/
+mkdir obj
+
+%build
+for flavor in %flavors_to_build; do
+       rm -rf obj/$flavor
+       cp -r source obj/$flavor
+       make -C %{kernel_source $flavor} modules M=$PWD/obj/$flavor
+done
+
+%install
+export INSTALL_MOD_PATH=$RPM_BUILD_ROOT
+export INSTALL_MOD_DIR=updates
+for flavor in %flavors_to_build; do
+       make -C %{kernel_source $flavor} modules_install M=$PWD/obj/$flavor
+       # Required to sign modules:  Invoke kernel-sign-file to sign each module
+       for x in $(find $INSTALL_MOD_PATH/lib/modules/*-$flavor/ -name '*.ko'); do
+               /usr/lib/rpm/pesign/kernel-sign-file -i pkcs7 sha256 $PWD/obj/$flavor/signing_key.priv $PWD/obj/$flavor/signing_key.x509 $x
+       done
+done
+</screen>
+    </sect1>
+
+    <?pdfpagebreak?>
     <sect1 xml:id="sec-appendix-b">
-        <title>Appendix B: Changes and References</title>
+        <title>Appendix B: Changes and references</title>
 
         <sect2 xml:id="sec-doc-updates">
-            <title>Documentation Updates: Changes from the previous version
+            <title>Documentation updates: Changes from the previous version
                 of the document</title>
 
-            <para>The previous version of this document <link
-                xlink:href="https://documentation.suse.com/sbp/all/html/SBP-KMP-Manual/index.html"
-                    >Kernel Module Packages Manual for Code 11</link> has
-                been changed on November 19, 2018 by
-                andavis@suse.com:</para>
+                    <para><emphasis role="bold">February 12, 2022 - andavis@suse.com</emphasis></para>
+                        <itemizedlist>
+                            <listitem>
+                               <para>Added information and sample spec file (Appendix
+                                A.1) for signing modules during packaging.</para>
+                            </listitem>
+                        </itemizedlist>
 
-            <itemizedlist>
-                <listitem>
-                    <para>Limit scope to SUSE Linux Enterprise Server 12
-                        SP2 and later and SUSE Linux Enterprise Server 15.
-                        Previous versions of SUSE Linux Enterprise Server
-                        are covered by the previous version of this
-                        document.</para>
-                </listitem>
-                <listitem>
-                    <para>Remove instructions for signing during
-                        packaging.</para>
-                </listitem>
-                <listitem>
-                    <para>Remove OBS-specific spec file example.</para>
-                </listitem>
-            </itemizedlist>
+                    <para><emphasis role="bold">October 12, 2021 - sbahling@suse.com</emphasis></para>
+                        <itemizedlist>
+                            <listitem>
+                               <para>Added "codeSigning" Extended Key Usage option to OpenSSL command
+                                for creating key/certificate for kernel module signing.</para>
+                            </listitem>
+                        </itemizedlist>
+
+                    <para><emphasis role="bold">November 19, 2018 - andavis@suse.com</emphasis></para>
+                    <para>This document is based on the previous version <link
+                        xlink:href="https://documentation.suse.com/sbp/systems-management/html/SBP-KMP-Manual/">
+                        Kernel Module Packages Manual</link> with the following changes:</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Limit scope to SUSE Linux Enterprise Server 12
+                                SP2 and later and SUSE Linux Enterprise Server 15.
+                                Previous versions of SUSE Linux Enterprise Server
+                                are covered by the previous version of this
+                                document.</para>
+                        </listitem>
+                        <listitem>
+                            <para>Remove instructions for signing during
+                                packaging.</para>
+                        </listitem>
+                        <listitem>
+                            <para>Remove OBS-specific spec file example.</para>
+                        </listitem>
+                    </itemizedlist>
 
         </sect2>
 
@@ -1245,8 +1430,8 @@ module_exit(exit_hello);</screen>
                 <listitem>
                     <para>SUSE SolidDriver Documentation: Kernel Module
                         Packages Manual for Code 11, <link
-                            xlink:href="https://documentation.suse.com/sbp/all/html/SBP-KMP-Manual/index.html"
-                            >https://documentation.suse.com/sbp/all/html/SBP-KMP-Manual/index.html</link></para>
+                            xlink:href="https://documentation.suse.com/sbp/systems-management/html/SBP-KMP-Manual/"
+                            >Kernel Module Packages Manual</link></para>
                 </listitem>
                 <listitem>
                     <para>SUSE SolidDriver Documentation: SUSE Kernel ABI
@@ -1277,21 +1462,13 @@ module_exit(exit_hello);</screen>
                     <para>Jonathan Corbet, Alessandro Rubini, Greg
                         Kroah-Hartman: Linux Device Drivers, Third Edition,
                         February 2005, <link
-                            xlink:href="http://www.oreilly.com/catalog/linuxdrive3/"
-                            >http://www.oreilly.com/catalog/linuxdrive3/</link>
-                        (also available online at <link
                             xlink:href="http://lwn.net/Kernel/LDD3/"
                             >http://lwn.net/Kernel/LDD3/</link></para>
                 </listitem>
                 <listitem>
                     <para>UEFI Specification, <link
-                            xlink:href="http://www.uefi.org/specs"
-                            >http://www.uefi.org/specs</link></para>
-                </listitem>
-                <listitem>
-                    <para>Update Media HOWTO, <link
-                            xlink:href="ftp://ftp.suse.com/pub/people/hvogel/Update-Media-HOWTO"
-                            >ftp://ftp.suse.com/pub/people/hvogel/Update-Media-HOWTO</link></para>
+                        xlink:href="http://www.uefi.org/specifications"
+                        >http://www.uefi.org/specifications</link></para>
                 </listitem>
                 <listitem>
                     <para>Creating Add-Ons, <link
@@ -1302,46 +1479,12 @@ module_exit(exit_hello);</screen>
 
         </sect2>
     </sect1>
-    
-    
-    <sect1 xml:id="sec-legal-notice">
-        <title>Legal Notice</title>
-        <para>Copyright &copy;2006–2020 SUSE LLC and contributors. All
-            rights reserved. </para>
-        <para>Permission is granted to copy, distribute and/or modify this
-            document under the terms of the GNU Free Documentation License,
-            Version 1.2 or (at your option) version 1.3; with the Invariant
-            Section being this copyright notice and license. A copy of the
-            license version 1.2 is included in the section entitled <quote>GNU
-                Free Documentation License</quote>.</para>
-        <para>SUSE, the SUSE logo and YaST are registered trademarks of SUSE
-            LLC in the United States and other countries. For SUSE trademarks,
-            see <link xlink:href="http://www.suse.com/company/legal/"
-                >http://www.suse.com/company/legal/</link>. Linux is a registered
-            trademark of Linus Torvalds. All other names or trademarks mentioned
-            in this document may be trademarks or registered trademarks of their
-            respective owners.</para>
-        <para>This article is part of a series of documents called "SUSE Best
-            Practices". The individual documents in the series were contributed
-            voluntarily by SUSE's employees and by third parties.</para>
-        <!--  <para>The articles are intended only to be one example of how a particular action could be
-            taken. They should not be understood to be the only action and certainly not to be the
-            action recommended by SUSE. Also, SUSE cannot verify either that the actions described
-            in the articles do what they claim to do or that they don't have unintended
-            consequences.</para>-->
-        <para> All information found in this article has been compiled with
-            utmost attention to detail. However, this does not guarantee complete
-            accuracy.
-            <!--Neither SUSE LLC, the authors, nor the translators shall be held liable
-                for possible errors or the consequences thereof. --></para>
-        <para>Therefore, we need to specifically state that neither SUSE LLC,
-            its affiliates, the authors, nor the translators may be held liable
-            for possible errors or the consequences thereof. Below we draw your
-            attention to the license under which the articles are
-            published.</para>
-    </sect1>
 
 
-    <?pdfpagebreak style="suse2013-sbp" formatter="fop"?>
+    <?pdfpagebreak style="sbp" formatter="fop"?>
+
+    <xi:include href="sbp-legal-notice.xml"/>
+
+    <?pdfpagebreak style="sbp" formatter="fop"?>
     <xi:include href="license-gfdl.xml"/>
 </article>

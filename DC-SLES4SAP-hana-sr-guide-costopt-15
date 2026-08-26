@@ -1,0 +1,19 @@
+MAIN="SLES4SAP-hana-sr-guide-costopt-15.adoc"
+
+ADOC_TYPE="article"
+
+ADOC_POST="yes"
+
+# ADOC_ATTRIBUTES="--attribute docdate=2022-12-07"
+
+STYLEROOT=/usr/share/xml/docbook/stylesheet/sbp
+FALLBACK_STYLEROOT=/usr/share/xml/docbook/stylesheet/suse2022-ns
+
+XSLTPARAM="--stringparam publishing.series=sbp"
+
+
+#DRAFT=yes
+ROLE="sbp"
+#PROFROLE="sbp"
+
+DOCBOOK5_RNG_URI="http://docbook.org/xml/5.2/rng/docbookxi.rnc"

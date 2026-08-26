@@ -1,0 +1,102 @@
+<dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+    <dm:bugtracker>
+        <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+        <dm:product>SAP Data Intelligence 3 on SUSE's Kubernetes Stack using VMware vSAN and vSphere</dm:product>
+    </dm:bugtracker>
+</dm:docmanager>
+
+<!--<title>SAP Data Intelligence 3 on SUSE's Kubernetes Stack using VMware vSAN and vSphere</title>-->
+
+<meta name="series">Best Practices</meta>
+<meta name="category">
+    <phrase>SAP</phrase>
+</meta>
+<meta name="task">
+    <phrase>Containerization</phrase>  
+    <phrase>Configuration</phrase>
+    <phrase>Data Intelligence</phrase>
+    <phrase>Installation</phrase>
+</meta>
+<meta name="title">SAP DI3 on RKE 2 with VMware vSAN and vSphere</meta>
+<meta name="description">This document describes the installation and configuration of SAP Data Intelligence 3 deployed on SUSE's RKE2 and VMWare vSphere and vSan. </meta>
+<meta name="social-descr">Configuring SAP DI3 deployed on RKE2 and VMware</meta>
+<meta name="productname">
+    <productname version="15 SP4">SUSE Linux Enterprise Server for SAP applications</productname>
+    <productname version="15 SP5">SUSE Linux Enterprise Server for SAP applications</productname>
+     <productname version="15 SP6">SUSE Linux Enterprise Server for SAP applications</productname>
+     <productname version="2">Rancher Kubernetes Engine</productname>  
+</meta>
+
+<meta name="platform">SUSE Linux Enterprise Server for SAP applications15 SP4</meta>
+<meta name="platform">Rancher Kubernetes Engine 2</meta>
+<meta name="platform">SAP Data Intelligence 3</meta>
+<meta name="platform">VMware vSAN</meta>
+<meta name="platform">VMware vSphere</meta>
+
+    <authorgroup>
+    <author>
+    <personname>
+    <firstname>Dr. Ulrich</firstname>
+    <surname>Schairer</surname>
+    </personname>
+    <affiliation>
+        <jobtitle>SAP Solutions Architect</jobtitle>
+    <orgname>SUSE</orgname>
+    </affiliation>
+    </author>
+    <author>
+    <personname>
+    <firstname>Kevin</firstname>
+    <surname>Klinger</surname>
+    </personname>
+    <affiliation>
+        <jobtitle>SAP Solutions Architect</jobtitle>
+    <orgname>SUSE</orgname>
+    </affiliation>
+    </author>
+<!--    <editor>
+    <orgname></orgname>
+    </editor>
+    <othercredit>
+    <orgname></orgname>
+    </othercredit>-->
+    </authorgroup>
+
+    <cover role="logos">
+      <mediaobject>
+        <imageobject role="fo">
+          <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
+        </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+        </imageobject>
+        <textobject><phrase>SUSE logo</phrase></textobject>
+      </mediaobject>
+    </cover>
+
+<revhistory xml:id="rh-art-art-sapdi3-vmware-vsan">
+    <revision>
+        <date>2023-07-24</date>
+        <revdescription>
+            <para> </para>
+        </revdescription>
+    </revision>
+</revhistory>
+
+<abstract>
+
+        <para>
+SAP Data Intelligence 3 is the tool set to govern big amounts of data, and it runs fully containerized.
+This document describes the installation and configuration of SAP Data Intelligence 3 deployed on SUSE's RKE2 and VMWare vsphere and vsan.
+        </para>
+
+    <para><emphasis role="strong">Disclaimer: </emphasis>
+        Documents published as part of the SUSE Best Practices series have been contributed voluntarily
+        by SUSE employees and third parties. They are meant to serve as examples of how particular
+        actions can be performed. They have been compiled with utmost attention to detail.
+        However, this does not guarantee complete accuracy. SUSE cannot verify that actions described
+        in these documents do what is claimed or whether actions described have unintended consequences.
+        SUSE LLC, its affiliates, the authors, and the translators may not be held liable for possible errors
+        or the consequences thereof.</para>
+
+</abstract>

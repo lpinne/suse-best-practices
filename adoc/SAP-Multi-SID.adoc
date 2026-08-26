@@ -1,3 +1,4 @@
+
 :cluhost1: freki
 :cluhost2: geri
 :cluhost3: sleipnir
@@ -87,8 +88,8 @@
 :sles: {sle} Server
 :slesReg: {sleReg} Server
 :sles4sapAbbr: {slesAbbr} for {SAP}
-:sles4sap: {sles} for {SAP} Applications
-:sles4sapReg: {slesReg} for {SAP} Applications
+:sles4sap: {sles} for {SAP} applications
+:sles4sapReg: {slesReg} for {SAP} applications
 :sleHA: {sle} High Availability
 :s4sClConnector: sap_suse_cluster_connector
 :s4sClConnector3: sap-suse-cluster-connector
@@ -116,12 +117,13 @@
 :file1: hanasr_appendix_docupdates.xml
 :sapnote12: 1984787
 :sapnote11: 1310037
+// TODO PRIO3: :sapnote15:
 :usecase: performance optimized
 :deploymentGuide12: https://documentation.suse.com/sles/12-SP4/html/SLES-all/book-sle-deployment.html
 :autoYastGuide12: https://documentation.suse.com/sles/12-SP4/html/SLES-all/book-autoyast.html
 :haAdminGuide12: https://documentation.suse.com/sle-ha/12-SP4/html/SLE-HA-all/book-sleha.html
-:lauchPadNotes: https://launchpad.support.sap.com/#/notes/
-:reslibrary: https://documentation.suse.com/sbp/all/
+:sapPortal: https://launchpad.support.sap.com/#/notes/
+:reslibrary: https://documentation.suse.com/sbp/sap-12/
 :refsidadm: <sidadm>
 :refHost1: <host1>
 :refInst: <instanceNumber>
@@ -135,6 +137,11 @@
 :docinfo:
 
 :localdate:
+
+// defining article ID
+[#art-sap-multi-sid]
+
+// REVISION 1.0 2019/10
 
 
 = {sapS4} and {sapNW} Multi-SID Cluster Guide
@@ -172,16 +179,17 @@ are either available on the system or on the Internet.
 
 For the latest product documentation updates, see https://documentation.suse.com/.
 
-More guides and best practices documents referring to SUSE Linux Enterprise Server and {sap} can be
-found and downloaded at the SUSE Best Practices Web page:
+More guides and best practices documents referring to SUSE Linux Enterprise Server and {sap} are available 
+for download on the SUSE Best Practices Web pages:
 
-https://documentation.suse.com/sbp/all
+* https://documentation.suse.com/sbp/sap-12/
+* https://documentation.suse.com/sbp/sap-12/
 
 Here you get access to guides for {SAPHANA} system replication
 automation and High Availability (HA) scenarios for {SAPNw} and {s4hana}.
 
 Additional resources, such as customer references, brochures or flyer, can be found at the SUSE Linux
-Enterprise Server for {sap} Applications resource library:
+Enterprise Server for {sap} applications resource library:
 
 https://www.suse.com/products/sles-for-sap/#resources .
 
@@ -224,7 +232,7 @@ The new version of the *{s4sClConnector3}* allows starting, stopping and migrati
 an {sap} instance. The integration between the cluster software and the
 *{sapstartsrv}* also implements the option to run checks of the HA setup using either the
 command line tool *sapcontrol* or the {SAP} management consoles ({SAP} MMC or
-{sap} MC). Since version 3.1.0 and later the maintenance mode of cluster resources 
+{sap} MC). Since version 3.1.0 and later the maintenance mode of cluster resources
 triggered with SAP _sapcontrol_ commands is supported.
 
 === Architecture DB Services
@@ -243,7 +251,7 @@ scale-up scenario, the master assumes responsibility for the {hana}
 databases running in primary mode. The slave is responsible for
 instances that are operated in synchronous (secondary) status.
 
-To make configuring the cluster as simple as possible, SUSE developed the 
+To make configuring the cluster as simple as possible, SUSE developed the
 `{SAPHanaTopRA}` resource agent. This RA runs on all nodes
 of a {sles4sap} cluster and gathers information about the
 statuses and configurations of {hana} system replications. It is
@@ -293,7 +301,7 @@ scenario.
 +
 NOTE: *The cost optimized scenario is not intended to be used for multi-SID configuration.*
 The reason is that, whenever one of the primary systems would be moved to the secondary node,
-a second memory setup for the primary systems would be needed. Otherwise the 
+a second memory setup for the primary systems would be needed. Otherwise the
 removed memory limitation would tell the {hana} to consume all available memory. Currently there
 is no globally defined space where to set such parameters to be used after a takeover.
 
@@ -342,6 +350,12 @@ This guide will cover the following scenarios:
 * Example ENSA1 and ENSA2 in a Two-Node Cluster
 * Example ENSA1 and ENSA2 in a Multi-Node Cluster
 
+Configuration examples in this guide are given with cluster-controlled filesystem resources.
+Nevertheless, also the simple-mount concept based on SAPStartSrv resources
+(https://documentation.suse.com/sbp/sap-15/html/SAP-S4HA10-setupguide-simplemount-sle15/)
+fits well for Multi-SID scenarios.
+// TODO PRIO1: verify simple-mount URL
+
 === Two-Node Setup
 - The hardware configuration of each node must be able to run all resources in case of a fail over
 - Each {sap} system (SID) must be independent from each other
@@ -361,13 +375,13 @@ image::multi-sid-cluster.svg[scaledwidth="100%"]
 
 WARNING: When adding more resources, be aware of the following risks:
 
-* Higher complexity 
+* Higher complexity
 * Higher impact if one nodes goes down
 * Higher administrative effort in case of maintenance activities, like OS patching
 
 ==== Installation
 The installation process is described in the *SUSE Best Practices* guides for {sapS4} and {sapNW}. They can be found here:
-https://documentation.suse.com/sbp/all
+https://documentation.suse.com/sbp/sap-12/
 
 Repeat the steps for preparing the hosts and infrastructure:
 
@@ -389,7 +403,7 @@ The tested setup was done with up to *five* SID in one cluster.
 === Example ENSA1 in a Two-Node Cluster
 //[[2nensa1]]
 As known from the setup based on the *SUSE Best Practices* document for {sapNW}
-(https://documentation.suse.com/sbp/all -> {sapNW} High Availability Cluster 7.40 - Setup Guide),
+(https://documentation.suse.com/sbp/sap-12/html/SAP_HA740_SetupGuide_AWS/index.html),
 the cluster integration can be done with a configuration file. Create one configuration file for each SID
 and load them one by one into the cluster. The description below will help to do the steps in the right direction.
 
@@ -398,7 +412,7 @@ The following tasks must be executed:
 
 * Stop the new installed {sap} system, which will be added to the cluster.
 * Unmount the file system with _umount_ and remove the IP address from the new {sap} system.
-* Check and/or modify the ASCS and ERS profile files and add the section for the {s4sClConnector3} integration, if not done already. 
+* Check and/or modify the ASCS and ERS profile files and add the section for the {s4sClConnector3} integration, if not done already.
 ** for example for {sid2}: __/sapmnt/{sid2}/profile/{sid2}_ASCS{inst-ascs2}_{v-ascs2host}__
 ** for example for {sid2}: __/sapmnt/{sid2}/profile/{sid2}_ERS{inst-ers2}_{v-ers2host}__
 * Modify the _haclient_ group on each cluster node and add the new <sid>adm to it, if not done already.
@@ -429,7 +443,7 @@ primitive rsc_fs_{sid2}_ERS{inst-ers2} Filesystem \
 	op stop timeout=60s interval=0 \
 	op monitor interval=20s timeout=300s
 primitive rsc_ip_{sid2}_ASCS{inst-ascs2} IPaddr2 \
-	params ip={vip-ascs2} \
+	params ip={vip-asc2} \
 	op monitor interval=10s timeout=20s
 primitive rsc_ip_{sid2}_ERS{inst-ers2} IPaddr2 \
 	params ip={vip-ers2} \
@@ -477,7 +491,7 @@ primitive rsc_fs_{sid3}_ERS{inst-ers3} Filesystem \
 	op stop timeout=60s interval=0 \
 	op monitor interval=20s timeout=300s
 primitive rsc_ip_{sid3}_ASCS{inst-ascs3} IPaddr2 \
-	params ip={vip-ascs3} \
+	params ip={vip-asc3} \
 	op monitor interval=10s timeout=20s
 primitive rsc_ip_{sid3}_ERS{inst-ers3} IPaddr2 \
 	params ip={vip-ers3} \
@@ -516,7 +530,7 @@ This is similar to the SID examples before. You must adapt the:
 
 ====
 
-After the configuration has been prepared in a file, this can be loaded into the cluster. 
+After the configuration has been prepared in a file, this can be loaded into the cluster.
 
 .Add the 2nd and further SID into the cluster
 ====
@@ -730,7 +744,7 @@ _As user _{sid2-lc}adm_, for example on ASCS host, check the SAP system
 === Example ENSA2 in a Two-Node Cluster
 //[[2nensa2]]
 As known from the setup based on the *SUSE Best Practice* document for {sapS4}
-(https://documentation.suse.com/sbp/all -> {sapS4} - Enqueue Replication 2 High Availability Cluster - Setup Guide),
+(https://documentation.suse.com/sbp/sap-12/html/SAP_S4HA10_SetupGuide-SLE12/index.html),
 the cluster integration can be done with a configuration file. Create one configuration file for each SID
 and load them one by one into the cluster. The following description will help to do the steps in the right direction.
 
@@ -769,7 +783,7 @@ primitive rsc_fs_{sid2}_ERS{inst-ers2} Filesystem \
 	op stop timeout=60s interval=0 \
 	op monitor interval=20s timeout=300s
 primitive rsc_ip_{sid2}_ASCS{inst-ascs2} IPaddr2 \
-	params ip={vip-ascs2} \
+	params ip={vip-asc2} \
 	op monitor interval=10s timeout=20s
 primitive rsc_ip_{sid2}_ERS{inst-ers2} IPaddr2 \
 	params ip={vip-ers2} \
@@ -811,7 +825,7 @@ primitive rsc_fs_{sid3}_ERS{inst-ers3} Filesystem \
 	op stop timeout=60s interval=0 \
 	op monitor interval=20s timeout=300s
 primitive rsc_ip_{sid3}_ASCS{inst-ascs3} IPaddr2 \
-	params ip={vip-ascs3} \
+	params ip={vip-asc3} \
 	op monitor interval=10s timeout=20s
 primitive rsc_ip_{sid3}_ERS{inst-ers3} IPaddr2 \
 	params ip={vip-ers3} \
@@ -925,12 +939,12 @@ _As user *root*_ showing a cluster configuration for two {sap} systems
 ====
 === Example ENSA1 in a Multi-Node Cluster
 This base setup is already documented in the *SUSE Best Practices* document for {sapNW}
-(https://documentation.suse.com/sbp/all -> {sapS4} - SAP NetWeaver High Availability Cluster 7.40 - Setup Guide - Best Practice Guide).
+(https://documentation.suse.com/sbp/sap-12/html/SAP_NW740_SLE12_SetupGuide/).
 The OS and node preparation must be done for each future cluster member:
 
 * patch level
 * settings for date and time, DNS
-* access to the same fencing device (methode)
+* access to the same fencing device (method)
 
 The major difference compared to the two-node setup is: run the ha-cluster-join command multiple time until all nodes are member of the cluster.
 
@@ -940,12 +954,12 @@ and load them one by one into the cluster. The steps are equal to the steps desc
 
 === Example ENSA2 in a Multi-Node Cluster
 This base setup is already documented in the *SUSE Best Practices* document for {sapS4}
-(https://documentation.suse.com/sbp/all -> {sapS4} - Enqueue Replication 2 High Availability Cluster - Best Practice Guide).
+(https://documentation.suse.com/sbp/sap-12/html/SAP_S4HA10_SetupGuide-SLE12/).
 The OS and node preparation must be done for each future cluster member:
 
 - patch level
 - settings for date and time, DNS
-- access to the same fencing device (methode)
+- access to the same fencing device (method)
 
 The major difference compared to the two-node setup is: run the _ha-cluster-join_ command multiple times until all nodes are member of the cluster.
 
@@ -957,10 +971,10 @@ and load them one by one into the cluster. The steps are equal to the steps desc
 //[[2nensa1ensa2]]
 
 As known from the setup based on the *SUSE Best Practices* document for {sapNW} and {sapS4}
-(https://documentation.suse.com/sbp/all -> {sapNW} High Availability Cluster 7.40 - Setup Guide)
-(https://documentation.suse.com/sbp/all -> {sapS4} - Enqueue Replication 2 High Availability Cluster - Setup Guide),
+(https://documentation.suse.com/sbp/sap-12/html/SAP_NW740_SLE12_SetupGuide/)
+(https://documentation.suse.com/sbp/sap-12/html/SAP_S4HA10_SetupGuide-SLE12/),
 the cluster integration can be done with a configuration file. Create one configuration file for each SID
-and load them one by one into the cluster. 
+and load them one by one into the cluster.
 
 We expect the cluster is already up and running and still runs one ASCS / ERS configuration based on the group concept.
 
@@ -1014,7 +1028,7 @@ NOTE: Under evaluation.
 
 === Testing the New Configuration of Multiple SID in One Cluster
 
-IMPORTANT: A well-defined and overall test of the new configuration is extremely recommended. 
+IMPORTANT: A well-defined and overall test of the new configuration is extremely recommended.
 Read the requirements for each setup carefully. The test procedure will demonstrate if the cluster works as expected.
 We already have described multiple test scenarios in our base Best Practices documentation for
 {sapNW} and {sapS4}.
@@ -1022,6 +1036,10 @@ We already have described multiple test scenarios in our base Best Practices doc
 == Multi-SID - Database Services
 
 NOTE: This is currently under evaluation. Send an e-mail to saphana@suse.com if this might be from interest for you.
+
+++++
+<?pdfpagebreak?>
+++++
 
 // Standard SUSE Best Practices includes
 == Legal Notice

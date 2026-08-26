@@ -6,42 +6,96 @@
 ]>
 
 <article role="sbp" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="art-sbp-amdepyc-sles12sp3"
-  xml:lang="en">
+  xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xmlns:its="http://www.w3.org/2005/11/its"
+  xml:id="art-sbp-suma-ibmpowervm" xml:lang="en">
 
   <info>
-    <title>How to Deploy SUSE Linux Enterprise Products with SUSE Manager on IBM PowerVM</title>
-    <!--<subtitle>Simplified Deployment on Microsoft Azure</subtitle>-->
-    <productname>SUSE Manager</productname>
-    <productnumber>3</productnumber>
+    <title>Deploying SUSE Linux Enterprise Products with SUSE Manager on IBM PowerVM</title>
 
-    <author>
-      <personname>
-        <firstname>Olivier</firstname>
-        <surname>Van Rompuy, Senior System Engineer and Technical Consultant, IRIS</surname>
-      </personname>
-      <!--      <affiliation>
-        <jobtitle>Senior Software Engineer</jobtitle>
-        <orgname>SUSE</orgname>
-        </affiliation>-->
-    </author>
+    <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+      <dm:bugtracker>
+        <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+        <dm:product>Deploying SUSE Linux Enterprise Products with SUSE Manager on IBM
+          PowerVM</dm:product>
+      </dm:bugtracker>
+      <dm:editurl>https://github.com/SUSE/suse-best-practices/edit/main/xml/</dm:editurl>
+    </dm:docmanager>
+
+
+    <meta name="series" its:translate="no">Best Practices</meta>
+    <meta name="category" its:translate="no">
+      <phrase>Systems Management</phrase>
+    </meta>
+    <meta name="task" its:translate="no">
+      <phrase>Deployment</phrase>
+      <phrase>Installation</phrase>
+      <phrase>Configuration</phrase>
+    </meta>
+    <meta name="title" its:translate="yes">Deploying SUSE Linux Enterprise Products with SUSE Manager on IBM
+      PowerVM</meta>
+    <meta name="description" its:translate="yes">Overview of how to deploy SUSE Linux Enterprise products with SUSE
+    Manager on IBM Power Systems</meta>
+    <meta name="social-descr" its:translate="yes">Deploying SLE products with SUMA on IBM Power Systems</meta>
+    <meta name="productname" its:translate="no">
+      <productname version="3.1">SUSE Manager</productname>
+      <productname version="3.2">SUSE Manager</productname>
+      <productname version="4.0">SUSE Manager</productname>
+      <productname version="4.1">SUSE Manager</productname>
+      <productname version="4.2">SUSE Manager</productname>
+      <productname version="4.3">SUSE Manager</productname>
+    </meta>
+
+    <meta name="platform" its:translate="no">SUSE Manager</meta>
+
+
+    <authorgroup>
+      <author>
+        <personname>
+          <firstname>Olivier</firstname>
+          <surname>Van Rompuy</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>Senior System Engineer and Technical Consultant</jobtitle>
+          <orgname>IRIS</orgname>
+        </affiliation>
+      </author>
+      <!--   <editor>
+      <orgname></orgname>
+      </editor>
+      <othercredit>
+      <orgname></orgname>
+      </othercredit>-->
+    </authorgroup>
 
     <cover role="logos">
       <mediaobject>
-        <imageobject>
-          <imagedata fileref="suse.svg"/>
+        <imageobject role="fo">
+          <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
         </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+        </imageobject>
+        <textobject><phrase>SUSE logo</phrase></textobject>
       </mediaobject>
       <mediaobject>
-        <imageobject>
-          <imagedata fileref="iris_canon-4c.jpg"/>
+        <imageobject role="fo">
+          <imagedata fileref="iris_canon-4c.jpg" width="3em" align="center" valign="bottom"/>
         </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="iris_canon-4c.jpg" width="125px" align="center" valign="bottom"/>
+        </imageobject>
+        <textobject><phrase>Iris Canon logo</phrase></textobject>
       </mediaobject>
     </cover>
 
-
-
-    <date>August 14, 2018</date>
+    <revhistory xml:id="rh-art-sbp-suma-ibmpowervm">
+      <revision>
+        <date>2018-08-14</date>
+        <revdescription>
+          <para> </para>
+        </revdescription>
+      </revision>
+    </revhistory>
 
     <abstract>
 
@@ -50,6 +104,17 @@
         maintain your enterprise Linux system deployments across physical, virtual and cloud
         environments via one centralized tool. Described is a base deployment of SUSE Manager 3.1 on
         IBM PowerVM LPARs, including Autoinstallation, AutoYaST and Netboot Integration.</para>
+
+      <para>
+        <emphasis role="strong">Disclaimer: </emphasis> Documents published as part of the SUSE Best
+        Practices series have been contributed voluntarily by SUSE employees and third parties. They
+        are meant to serve as examples of how particular actions can be performed. They have been
+        compiled with utmost attention to detail. However, this does not guarantee complete
+        accuracy. SUSE cannot verify that actions described in these documents do what is claimed or
+        whether actions described have unintended consequences. SUSE LLC, its affiliates, the
+        authors, and the translators may not be held liable for possible errors or the consequences
+        thereof. </para>
+
     </abstract>
   </info>
 
@@ -95,8 +160,8 @@
         for IBM POWER</quote>). Collect your registration codes from the SCC portal site at <link
         xlink:href="https://scc.suse.com">https://scc.suse.com</link>.</para>
 
-    <para>Now choose to add the SUSE Manger Server extension as shown on the screen below, and enter
-        <emphasis role="strong">Next</emphasis>:</para>
+    <para>Now choose to add the SUSE Manager Server extension as shown on the screen below, and
+      enter <emphasis role="strong">Next</emphasis>:</para>
 
     <figure>
       <title>YaST Installation - Extensions and Module Selection</title>
@@ -206,7 +271,7 @@
         Points</emphasis>:</para>
 
     <figure>
-      <title>YaST Installation - Import Moint Points</title>
+      <title>YaST Installation - Import Mount Points</title>
       <mediaobject>
         <imageobject role="fo">
           <imagedata fileref="suma-powervm-yast-importmount.png" width="30%" format="PNG"/>
@@ -445,7 +510,6 @@
     <para>Verify that you can access the new SUSE Manager URL using a browser.</para>
 
     <important>
-      <title/>
       <para>At time of writing this document, in SUSE Linux Enterprise Server 12 SP3 a minor
         workaround needs to be applied to the Apache configuration file to use spacewalk:</para>
 
@@ -554,7 +618,7 @@ HttpProtocolOptions Unsafe</screen>
     </figure>
 
     <para>Now navigate to the <emphasis role="strong">SUSE Products</emphasis> tab and select the
-      SUSE products you need. In this example, SUSE Linux Enterprise Server for SAP Applications 12
+      SUSE products you need. In this example, SUSE Linux Enterprise Server for SAP applications 12
       SP3 has been selected:</para>
 
     <figure>
@@ -717,12 +781,12 @@ Synchronize the base channel :
     <para>In the specific setup at hand, the lifecycle phases are limited to <quote>dev</quote> and
         <quote>prod</quote> (<quote>test</quote> has been removed).</para>
 
-<screen>vi ~/.spacewalk-manage-channel-lifecycle/settings.conf
+    <screen>vi ~/.spacewalk-manage-channel-lifecycle/settings.conf
 phases = dev, prod
 exclude channels =</screen>
 
-    <para>This can be customized as required, which means you can add and remove phases at this stage
-      of the procedure.</para>
+    <para>This can be customized as required, which means you can add and remove phases at this
+      stage of the procedure.</para>
 
     <para>Generate the <quote>dev</quote> channels by promoting the SUSE channels. The same command
       is used to fully synchronize the <quote>dev</quote> channels with the online
@@ -1062,9 +1126,7 @@ INFO: Cloning prod-sles12-sp2-updates-ppc64le-sap-sp2 from dev-sles12-sp2-update
     <para>The default path where the bootstrap scripts reside is
         <filename>/srv/www/htdocs/pub/bootstrap</filename>. </para>
 
-    <para>The URL to access the scripts is <link
-        xlink:href="https://hostname.domain/pub/bootstrap/bootstrap-scriptname.sh"
-        >https://hostname.domain/pub/bootstrap/bootstrap-scriptname.sh</link>.</para>
+    <para>The URL to access the scripts is <emphasis role="italic">https://hostname.domain/pub/bootstrap/bootstrap-scriptname.sh.</emphasis></para>
 
     <para>An already installed SUSE Linux Enterprise Server host can be bootstrapped using the
       following syntax from that host:</para>
@@ -1483,7 +1545,7 @@ if [ $REGISTER_THIS_BOX -eq 1 ] ; then
       exit 1
     fi
 else
-    echo "* explicitely not registering"
+    echo "* explicitly not registering"
 fi
 
 if [ $ALLOW_CONFIG_ACTIONS -eq 1 ] ; then
@@ -1912,7 +1974,7 @@ zypper ref -y;zypper -n patch -l -y;zypper -n patch -l -y;zypper -n up -l -y
       This is the custom bootstrap script you created earlier.</para>
 
     <para>Navigate to <emphasis role="strong">System</emphasis> on the left pane. Select <emphasis
-        role="strong"/>Autoinstallation” and then <emphasis role="strong"/>Profiles”:</para>
+        role="strong">Autoinstallation</emphasis> and then <emphasis role="strong">Profiles:</emphasis></para>
 
     <figure>
       <title>SUSE Manager Web UI - Profiles</title>
@@ -1926,7 +1988,8 @@ zypper ref -y;zypper -n patch -l -y;zypper -n patch -l -y;zypper -n up -l -y
       </mediaobject>
     </figure>
 
-    <para>Now you can create an autoinstallation profile. Click <emphasis role="strong">Upload Kickstart/Autoyast File</emphasis>:</para>
+    <para>Now you can create an autoinstallation profile. Click <emphasis role="strong">Upload
+        Kickstart/Autoyast File</emphasis>:</para>
 
     <figure>
       <title>SUSE Manager Web UI - Button Upload Kickstart/Autoyast File</title>
@@ -1942,7 +2005,7 @@ zypper ref -y;zypper -n patch -l -y;zypper -n patch -l -y;zypper -n up -l -y
 
     <para>The screen below opens. Provide the required details and an AutoYaST script:</para>
 
-   <figure>
+    <figure>
       <title>SUSE Manager Web UI - Create Autoinstallation Profile</title>
       <mediaobject>
         <imageobject role="fo">
@@ -2318,7 +2381,7 @@ cp -r /root/grub2 /srv/tftpboot/boot/
 
     <para>Via the SUSE Manager Web interface, customize the variables for the AutoYaST profile you
       created earlier using the collected values above. Go to <emphasis role="strong"
-        >Systems</emphasis> on the left pane, select <emphasis role="strong"/>Autoinstallation”, and
+        >Systems</emphasis> on the left pane, select <emphasis role="strong">Autoinstallation</emphasis>, and
       then <emphasis role="strong">Profile</emphasis>. Choose <emphasis role="strong">specific
         profile</emphasis> and click the <emphasis role="strong">Variables</emphasis> tab. Here you
       can enter the variables.</para>
@@ -2457,7 +2520,7 @@ cp -r /root/grub2 /srv/tftpboot/boot/
 
     <para>When you run a production PowerVM environment with applications such as SAP HANA or other
       ERP or database systems, spread over several PowerVM LPARs (VMs) and physical IBM Power
-      systems, SUSE Manager is tremendously usefull to centrally manage Linux software levels and
+      systems, SUSE Manager is tremendously useful to centrally manage Linux software levels and
       configurations to satisfy the changing requirements posed by the application vendors. </para>
 
 
@@ -2475,8 +2538,8 @@ cp -r /root/grub2 /srv/tftpboot/boot/
       </listitem>
       <listitem>
         <para>SUSE Manager documentation: <link
-          xlink:href="https://documentation.suse.com/suma/3.2/"
-          >https://documentation.suse.com/suma/3.2/</link></para>
+            xlink:href="https://documentation.suse.com/suma/3.2/"
+            >https://documentation.suse.com/suma/3.2/</link></para>
       </listitem>
       <listitem>
         <para>IBM Knowledge Center: <link xlink:href="https://www.ibm.com/support/knowledgecenter/"
@@ -2520,36 +2583,10 @@ cp -r /root/grub2 /srv/tftpboot/boot/
   </sect1>
 
 
-  <sect1 xml:id="sec-legal-notice">
-    <title>Legal Notice</title>
-    <para>Copyright &copy;2006–2020 SUSE LLC and contributors. All rights reserved. </para>
-    <para>Permission is granted to copy, distribute and/or modify this document under the terms of
-      the GNU Free Documentation License, Version 1.2 or (at your option) version 1.3; with the
-      Invariant Section being this copyright notice and license. A copy of the license version 1.2
-      is included in the section entitled <quote>GNU Free Documentation License</quote>.</para>
-    <para>SUSE, the SUSE logo and YaST are registered trademarks of SUSE LLC in the United States
-      and other countries. For SUSE trademarks, see <link
-        xlink:href="http://www.suse.com/company/legal/">http://www.suse.com/company/legal/</link>.
-      Linux is a registered trademark of Linus Torvalds. All other names or trademarks mentioned in
-      this document may be trademarks or registered trademarks of their respective owners.</para>
-    <para>This article is part of a series of documents called "SUSE Best Practices". The individual
-      documents in the series were contributed voluntarily by SUSE's employees and by third
-      parties.</para>
-    <!--  <para>The articles are intended only to be one example of how a particular action could be
-      taken. They should not be understood to be the only action and certainly not to be the
-      action recommended by SUSE. Also, SUSE cannot verify either that the actions described
-      in the articles do what they claim to do or that they don't have unintended
-      consequences.</para>-->
-    <para> All information found in this article has been compiled with utmost attention to detail.
-      However, this does not guarantee complete accuracy.
-      <!--Neither SUSE LLC, the authors, nor the translators shall be held liable
-        for possible errors or the consequences thereof. --></para>
-    <para>Therefore, we need to specifically state that neither SUSE LLC, its affiliates, the
-      authors, nor the translators may be held liable for possible errors or the consequences
-      thereof. Below we draw your attention to the license under which the articles are
-      published.</para>
-  </sect1>
+  <?pdfpagebreak style="sbp" formatter="fop"?>
+  <xi:include href="sbp-legal-notice.xml"/>
 
-  <?pdfpagebreak style="suse2013-sbp" formatter="fop"?>
+  <?pdfpagebreak style="sbp" formatter="fop"?>
   <xi:include href="license-gfdl.xml"/>
+
 </article>

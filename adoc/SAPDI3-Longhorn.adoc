@@ -1,0 +1,124 @@
+[#Longhorn]
+
+:lh_version: 1.6.2
+
+== Installing {lh}
+
+This chapter details the minimum requirements to install {lh} and describes three different ways for the installation.
+For more details, visit https://longhorn.io/docs/{lh_version}/deploy/install/ 
+
+=== Requirements
+ifndef::slem[]
+Before {lh} can be installed on a Kubernetes cluster,
+all nodes must have the `open-iscsi` package installed, and the ISCSI daemon needs to be started. To do so, run:
+
+[source, bash]
+----
+sudo zypper in -y open-iscsi
+sudo systemctl enable iscsid  --now
+----
+endif::[]
+
+To ensure a node is prepared for {lh}, you can use the following script to check:
+----
+curl -sSfL https://raw.githubusercontent.com/longhorn/longhorn/v1.6.2/scripts/environment_check.sh | bash
+----
+
+
+=== Installing {lh} using {rancher}
+
+Up-to-date and detailed instructions how to install {lh} using {rancher} can be found at
+https://longhorn.io/docs/{lh_version}/deploy/install/install-with-rancher/
+
+
+=== Installing {lh} using Helm
+
+ifdef::eic[]
+To install Longhorn using Helm, run the following commands:
+[source, bash]
+----
+helm repo add rancher-v2.8-charts https://raw.githubusercontent.com/rancher/charts/release-v2.8
+helm repo update
+helm upgrade --install longhorn-crd rancher-v2.8-charts/longhorn-crd \
+--namespace longhorn-system \
+--create-namespace
+helm upgrade --install longhorn rancher-v2.8-charts/longhorn \
+--namespace longhorn-system
+----
+endif::[]
+ifndef::eic[]
+To install Longhorn using Helm, run the following commands:
+[source, bash]
+----
+helm repo add longhorn https://charts.longhorn.io
+helm repo update
+helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace
+----
+
+These commands will add the Longhorn Helm charts to the list of Helm repositories, update the Helm repository, and execute the installation of Longhorn.
+endif::[]
+ifndef::slem[]
+=== Installing {lh} using `kubectl`
+
+You can install {lh} using `kubectl` with the following command:
+
+[subs="attributes"]
+[source, bash]
+----
+kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/v{lh_version}/deploy/longhorn.yaml
+----
+
+
+=== Exposing {lh} UI by creating an Ingress with Basic Authentication
+
+
+* Create a basic _auth_ file:
++
+[source, bash]
+----
+USER=<USERNAME_HERE>; \
+  PASSWORD=<PASSWORD_HERE>; \
+  echo "${USER}:$(openssl passwd -stdin -apr1 <<< ${PASSWORD})" >> auth
+----
+
+* Create a Secret from the file _auth_:
++
+[source, bash]
+----
+kubectl -n longhorn-system create secret generic basic-auth --from-file=auth
+----
+
+* Create the Ingress with basic authentication:
++
+[source, bash]
+----
+cat <<EOF > longhorn-ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: longhorn-ingress
+  namespace: longhorn-system
+  annotations:
+    # type of authentication
+    nginx.ingress.kubernetes.io/auth-type: basic
+    # prevent the controller from redirecting (308) to HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+    # name of the secret that contains the user/password definitions
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    # message to display with an appropriate context why the authentication is required
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required '
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: longhorn-frontend
+          servicePort: 80
+EOF
+
+kubectl -n longhorn-system apply -f longhorn-ingress.yaml
+----
+endif::[]
+
+For more details, visit https://longhorn.io/docs/{lh_version}/deploy/accessing-the-ui/longhorn-ingress/.

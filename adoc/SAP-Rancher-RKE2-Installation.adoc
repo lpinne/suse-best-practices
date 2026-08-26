@@ -1,0 +1,93 @@
+Creating new RKE2 clusters is straightforward  when using {rancher}.
+
+Navigate to the home menu of the {rancher} instance and click the *Create* button:
+
+image::SAP-Rancher-Main-Create.png[title=Rancher home menu,scaledwidth=99%]
+
+
+The window displays the available options for creating new Kubernetes clusters.
+Ensure the toggle button on the right side of the screen is set to *RKE2/K3s*:
+
+image::SAP-Rancher-Create-RKE-Version.png[title=Rancher RKE version selection,scaledwidth=99%]
+
+# tag::install-rke2-custom[]
+To create Kubernetes clusters on existing (virtual) machines, select the *Custom* option at the very bottom:
+
+image::SAP-Rancher-Create-Custom.png[title=Rancher create custom cluster,scaledwidth=99%]
+
+The Kubernetes cluster configuration window appears as shown in the following figure:
+
+image::SAP-Rancher-Create-Config.png[title=Rancher create custom cluster config,scaledwidth=99%]
+
+Enter a cluster name. The name is used only within {rancher} and does not affect workloads.
+Next, select a Kubernetes version supported by the target workload.
+
+If no additional Kubernetes requirements exist, click *Create* at the very bottom.
+Otherwise, consult your administrator before making changes.
+
+After clicking *Create*, the cluster registration view appears as shown in the following figure:
+
+image::SAP-Rancher-Create-Register.png[title=Rancher create registration,scaledwidth=99%]
+
+Select the roles for the nodes. A typical high-availability setup consists of:
+
+* Three etcd / control plane nodes
+* Three worker nodes
+
+Copy the registration command to the shell of each target machines and execute it.
+If the {rancher} instance uses a self-signed certificate, ensure to activate the check box for the text bar containing the registration command.
+
+You can run the command on all nodes in parallel. 
+When all nodes are registered, cluster status at the top changes from "updating" to "active".
+The Kubernetes cluster is now ready for use.
+# end::install-rke2-custom[]
+
+
+[#installRKE2Harvester]
+# tag::install-rke2-harvester[]
+To create Kubernetes clusters using {harvester} to spin up the virtual machines, select *Harvester* in the section "Provision new nodes and create a cluster using RKE2/K3s":
+
+image::SAP-Rancher-Create-Harvester.png[title=Rancher create harvester cluster,scaledwidth=99%]
+
+If a cloud credential is not yet created, the cloud credential view appears as shown in the following figure:
+
+image::SAP-Rancher-Create-Harvester-CloudCredential.png[title=Rancher create harvester cloud credential,scaledwidth=99%]
+
+The *Cluster: Create Harvester* view appears as shown in the following figure:
+
+image::SAP-Rancher-Create-Harvester-Landing.png[title=Rancher create harvester landing,scaledwidth=99%]
+
+Configure the cluster as required.
+For a highly available setup, we recommend using at least:
+
+* Three etcd / control plane nodes
+* Three worker nodes
+
+To do so, configure one pool of machines with a *Machine Count* of 3 and select only *etcd* and *Control Plane* for the roles.
+To create a second pool of machines, clicki *+* sign in the *Machine Pools* section.
+
+image::SAP-Rancher-Create-Harvester-Add-Group.png[title=Rancher create harvester add group,scaledwidth=99%]
+
+For the second pool, set the *Machine Count* to 3 and select only *Worker* for the role.
+
+The Kubernetes-related options include the following settings:
+
+image::SAP-Rancher-Create-Harvester-Cluster-Configuration.png[title=Rancher create harvester k8s config,scaledwidth=99%]
+
+For a basic configuration, adjust *Kubernetes Version* according to your requirements and select
+*harvester* as the *Cloud Provider*.
+After completing the Kubernetes-related configuration, click *Create*. The Kubernetes cluster 
+is created on automatically provisioned virtual machines in {harvester}.
+
+After clicking *Create*, the cluster management view displays the newly defined cluster, as shown in the following figure:
+
+image::SAP-EIC-Harvester-Cluster-Created.png[Kubernetes Cluster,scaledwidth=99%,opts=inline,Embedded]
+
+For details about the deployment, click the specific cluster name to open an overview, as shown in the following figure:
+
+image::SAP-EIC-Harvester-Cluster-Provisioning-State.png[Cluster Provisioning State Overview,scaledwidth=99%,opts=inline,Embedded]
+
+
+//TODO Add application collection to Creation step
+
+# end::install-rke2-harvester[]

@@ -1,9 +1,3 @@
-// TODO PRIO1: Check if now the recommendation for the SAP HANA hook is clear and
-//             the explanation is well understandable
-// TODO PRIO1: Adding addendum for read-enabled
-// TODO PRIO1: Adding addendum for seamless maintenance
-// TODO PRIO1: Adding addendum for disk less SBD setup
-// TODO PRIO1: Cluster-init with more than one ring
 :docinfo:
 
 // Load document variables
@@ -11,6 +5,11 @@ include::Var_SLES4SAP-hana-sr-guide-PerfOpt-12.txt[]
 include::Var_SLES4SAP-hana-sr-guide-PerfOpt-12-param.txt[]
 :docinfo:
 //
+
+// defining article ID
+[#art-sap-hana-srguide-perfopt12]
+
+
 // Start of the document
 //
 
@@ -19,20 +18,20 @@ include::Var_SLES4SAP-hana-sr-guide-PerfOpt-12-param.txt[]
 [[pre.hana-sr]]
 == About This Guide
 
+// TODO PRIO1: Check if now the recommendation for the SAP HANA hook is clear and the explanation is well understandable
+// TODO PRIO1: Adding addendum for read-enabled
+// TODO PRIO1: Adding addendum for seamless maintenance
+// TODO PRIO1: Adding addendum for disk less SBD setup
+// TODO PRIO1: Cluster-init with more than one ring
+//               I am quite sure this was WITHOUT in the past - first test have shown that SLES15SP? did show "with quorum" - lets double-check - also to be done in other guides!
 // TODO PRIO1: Review all lines with "TODO PRIOx:"
 // TODO PRIO1: Should we add a 3 nodes cluster variant with disk less fencing?
 // TODO PRIO1: Add information for active/active (read-enabled) to the document
-// DONE PRIO1: Adapt the document to include standard pages such as the document license
 // TODO PRIO1: Check all command examples + output, if they are still valid
-////
-DONE PRIO1: Describe SAP HANA HA/DR/SR provider hook and minimum package version
-TODO PRIO2: Scale-Up multi sid aka MCOS for the performance optimized scenario
-DONE PRIO1: Convert to use common include files from document team
-TODO PRIO1: Scale-Up with read-enabled (scheduled for 'next' publishing)
-TODO PRIO3: Scale-Up and Handshake takeover (scheduled for 'after next' publishing)
-TODO PRIO3: Scale-Up and multi target (scheduled for 'after next' publishing)
-TODO:
-////
+// TODO PRIO2: Scale-Up multi sid aka MCOS for the performance optimized scenario
+// TODO PRIO1: Scale-Up with read-enabled (scheduled for 'next' publishing)
+// TODO PRIO3: Scale-Up and Handshake takeover (scheduled for 'after next' publishing)
+// TODO PRIO3: Scale-Up and multi target (scheduled for 'after next' publishing)
 
 === Introduction
 
@@ -56,7 +55,7 @@ replications.
 ==== Abstract
 
 This guide describes planning, setup, and basic testing of
-SUSE Linux Enterprise Server for SAP Applications based on
+SUSE Linux Enterprise Server for SAP applications based on
 the high availability solution scenario
 "SAP HANA Scale-Up System Replication Performance Optimized".
 
@@ -100,9 +99,9 @@ developed the scale-out resource agent package `{SAPHanaSR}-ScaleOut`.
 .{hana} System Replication Scale-Out in the Cluster
 image::SAPHanaSR-ScaleOut-Cluster.svg[scaledwidth=70.0%]
 
-With this mode of operation, internal {hana} high availability (HA)
+With this mode of operation, internal {HANA} high availability (HA)
 mechanisms and the resource agent must work together or be coordinated
-with each other. {hana} system replication automation for scale-out
+with each other. {HANA} system replication automation for scale-out
 is described in an own document available on our documentation Web page
 at {reslibrary}. The document for scale-out is named _"{docScaleOut}"_.
 
@@ -111,7 +110,7 @@ at {reslibrary}. The document for scale-out is named _"{docScaleOut}"_.
 {SUSE} has implemented the scale-up scenario with the `{SAPHanaRA}` resource
 agent (RA), which performs the actual check of the {HANA} database
 instances. This RA is configured as a master/slave resource. In the
-scale-up scenario, the master assumes responsibility for the {hana}
+scale-up scenario, the master assumes responsibility for the {HANA}
 databases running in primary mode. The slave is responsible for
 instances that are operated in synchronous (secondary) status.
 
@@ -127,7 +126,7 @@ scenarios or use cases:
 * *Performance optimized* (_A => B_). This scenario and setup *is
 described in this document.*
 +
-.{hana} System Replication Scale-Up in the Cluster - perfomance optimized
+.{hana} System Replication Scale-Up in the Cluster - performance optimized
 image::SAPHanaSR-ScaleUP-perfOpt.svg[scaledwidth=100.0%]
 +
 In the performance optimized scenario an {hana} RDBMS site A is synchronizing
@@ -158,14 +157,14 @@ memory consumption configuration. This why _read enabled_ must not be used in th
 scenario.
 * *Multi Tier* (_A => B -> C_) and *Multi Target* (_B <= A => C_).
 +
-.{hana} System Replication Scale-Up in the Cluster - perfomance optimized chain
+.{hana} System Replication Scale-Up in the Cluster - performance optimized chain
 image::SAPHanaSR-ScaleUP-Chain.svg[scaledwidth=100.0%]
 +
 A _Multi Tier_ system replication has an additional target. In the past this third
 side must have been connected to the secondary (chain topology). With current {saphana}
 versions also _multiple target topology_ is allowed by {sap}.
 +
-.{hana} System Replication Scale-Up in the Cluster - perfomance optimized multi target
+.{hana} System Replication Scale-Up in the Cluster - performance optimized multi target
 image::SAPHanaSR-ScaleUP-MultiTarget.svg[scaledwidth=100.0%]
 +
 Multi tier and multi target systems are implemented as described in this document.
@@ -207,7 +206,7 @@ channels. These calls outs are also called HA/DR providers. This interface can b
 implementing {saphana} hooks written in python. {suse} improved the SAPHanaSR package
 to include such {saphana} hooks to optimize the cluster interface. Using the
 {saphana} hook described in this document allows to inform the cluster immediately
-if the {saphana} system replication brakes. In addition to the {saphana} hook status
+if the {saphana} system replication breaks. In addition to the {saphana} hook status
 the cluster continues to poll the system replication status on regular base.
 
 You can set up the level of automation by setting the parameter
@@ -583,7 +582,7 @@ SAP notes:
 
 // SUSE and SAP are kept literal here not by the reference, because its a quote of an external title
 - 1984787 SUSE LINUX Enterprise Server 12: Installation notes and
-- 2205917 SAP HANA DB: Recommended OS settings for SLES 12 / SLES for SAP Applications 12.
+- 2205917 SAP HANA DB: Recommended OS settings for SLES 12 / SLES for SAP applications 12.
 
 
 ==== Installing Additional Software
@@ -592,10 +591,6 @@ agent for {sapHana} *scale-up* is installed. For the *scale-out* scenario you ne
 Follow the instructions below on each node if you have installed the systems based on SAP note 1984787.
 The pattern _High Availability_ summarizes all tools recommended to be installed on *all* nodes, including the
 _majority maker_.
-
-// DONE PRIO1: To install HA *and* SAPHanaSR now, because we need it during the setup of SAP HANA
-
-// To do so, for example, use zypper:
 
 .Installing additional software for the HA cluster
 ====
@@ -696,7 +691,7 @@ Guide, section _{hana} Database Backup and Recovery_. We provide an
 example with SQL commands. You need to adapt these backup commands to match your
 backup infrastructure.
 
-.Simple backup for the system database and all tenants with one singe backup call
+.Simple backup for the system database and all tenants with one single backup call
 =========================
 As user {refsidadm} enter the following command:
 
@@ -911,12 +906,12 @@ Bring the systems back to the original state:
 
 image::SAPHanaSR-ScaleOut-Plan-Phase5.svg[scaledwidth="100%"]
 
-// DONE: Feedback ps: explain better, when the python hook is needed.
-
-This step is mandatory to inform the cluster immediately if the secondary gets out of sync.
-The hook is called by {SAPHANA} using the HA/DR provider interface in point-of-time when the secondary gets out of
-sync. This is typically the case when the first commit pending is released. The hook is
-called by {SAPHANA} again when the system replication is back.
+This step is mandatory to inform the cluster immediately if the secondary gets
+out of sync.
+The hook is called by {SAPHANA} using the HA/DR provider interface in
+point-of-time when the secondary gets out of sync. This is typically the case
+when the first commit pending is released. The hook is called by {SAPHANA}
+again when the system replication is back.
 
 **Procedure**
 
@@ -926,26 +921,20 @@ called by {SAPHANA} again when the system replication is back.
 . Start {saphana}
 . Test the hook integration
 
+// TODO PRIO2: Steps "Start" and "Test" are missing
+
 === Implementing the Python Hook SAPHanaSR
 
 This step must be done on both sites. {SAPHANA} must be stopped to change the
 global.ini and allow {SAPHANA} to integrate the HA/DR hook script during start.
+Use the hook script SAPHanaSR.py from the SAPHanaSR package (available since version 0.153).
+See manual pages SAPHanaSR.py(7) and SAPHanaSR-manageProvider(8) for details.
 
-- Install the HA/DR hook script into a read/writable directory
 - Integrate the hook into global.ini ({saphana} needs to be stopped for doing that offline)
 - Check integration of the hook during start-up
 
-Use the hook from the SAPHanaSR package (available since version 0.153). Optionally copy it to your preferred
-directory like /hana/share/myHooks. The hook must be available on all SAP HANA cluster nodes.
-
-////
-[subs="specialchars,attributes"]
-----
-{mySite1FirstNode}~ # mkdir -p /hana/shared/myHooks
-{mySite1FirstNode}~ # cp /usr/share/SAPHanaSR-ScaleOut/SAPHanaSR.py /hana/shared/myHooks
-{mySite1FirstNode}~ # chown -R {refsidadm}:sapsys /hana/shared/myHooks
-----
-////
+NOTE: All hook scripts should be used directly from the SAPHanaSR package.
+If the scripts are moved or copied, regular {SUSE} package updates will not work.
 
 .Stop {hana}
 ===================================
@@ -953,7 +942,7 @@ Stop {SAPHANA} either with _HDB_ or using _sapcontrol_.
 
 [subs="specialchars,attributes"]
 ----
-sapcontrol -nr {refInst} -function StopSystem
+~> sapcontrol -nr {refInst} -function StopSystem
 ----
 ===================================
 
@@ -1009,13 +998,14 @@ to start the vi editor for the _/etc/sudoers_ configuration file.
 The user {refsidadm} must be able to set the cluster attributes hana_{refsidLC}_site_srHook_*.
 The {SAPHANA} system replication hook needs password free access. The following
 example limits the sudo access to exactly setting the needed attribute.
+See manual page sudoers(5) for details.
 
 Replace the {refsidLC} by the *lowercase* SAP system ID (like `{sapssid}`).
 
 .Entry in sudo permissions /etc/sudoers file
 ===================================
-Basic sudoers entry to allow <sidadm> to use the srHook.
 
+Basic sudoers entry to allow <sidadm> to use the srHook.
 // command to be allowed used in the hook:
 // "sudo /usr/sbin/crm_attribute -n hana_%s_site_srHook_%s -v %s -t crm_config -s SAPHanaSR"
 
@@ -1028,6 +1018,7 @@ Basic sudoers entry to allow <sidadm> to use the srHook.
 More specific sudoers entries to meet a high security level. All Cmnd_Alias entries must be each defined as a single line entry.
 In the following example the lines might include a line-break forced by document formatting. In our example we would have
 four separate lines with Cmnd_Alias entries, one line for the {refsidadm} user and one or more lines for comments.
+The alias identifier (e.g. SOK_SITEA) needs to be in capitals.
 
 [subs="specialchars,attributes"]
 ----
@@ -1038,8 +1029,8 @@ Cmnd_Alias SOK_SITEB   = /usr/sbin/crm_attribute -n hana_{refsidLC}_site_srHook_
 Cmnd_Alias SFAIL_SITEB = /usr/sbin/crm_attribute -n hana_{refsidLC}_site_srHook_{refSiteB} -v SFAIL -t crm_config -s SAPHanaSR
 {refsidadm} ALL=(ALL) NOPASSWD: SOK_SITEA, SFAIL_SITEA, SOK_SITEB, SFAIL_SITEB
 ----
-
 ===================================
+
 
 //[[cha.s4s.configure-cluster]]
 == {stepCluster}
@@ -1048,10 +1039,8 @@ image::SAPHanaSR-ScaleOut-Plan-Phase6.svg[scaledwidth="100%"]
 
 This chapter describes the configuration of the cluster software SUSE
 Linux Enterprise High Availability Extension, which is part of the SUSE
-Linux Enterprise Server for SAP Applications, and {hana} Database
+Linux Enterprise Server for SAP applications, and {hana} Database
 Integration.
-
-// DONE PRIO1: Do we need to move that *before* we set-up the srHook?
 
 .Actions
 . Basic Cluster Configuration.
@@ -1091,13 +1080,13 @@ Determine the right watchdog module. Alternatively, you can find a list of
 installed drivers with your kernel version.
 
 ----
-ls -l /lib/modules/$(uname -r)/kernel/drivers/watchdog
+# ls -l /lib/modules/$(uname -r)/kernel/drivers/watchdog
 ----
 
 Check if any watchdog module is already loaded.
 
 ----
-lsmod | egrep "(wd|dog|i6|iT|ibm)"
+# lsmod | egrep "(wd|dog|i6|iT|ibm)"
 ----
 
 If you get a result, the system has already a loaded watchdog. If the watchdog
@@ -1107,8 +1096,8 @@ To safely unload the module, check first if an application is using the watchdog
 device.
 
 ----
-lsof /dev/watchdog
-rmmod <wrong_module>
+# lsof /dev/watchdog
+# rmmod <wrong_module>
 ----
 
 Enable your watchdog module and make it persistent. For the example below,
@@ -1116,15 +1105,15 @@ _softdog_ has been used which has some restrictions and should not be used as
 first option.
 
 ----
-echo softdog > /etc/modules-load.d/watchdog.conf
-systemctl restart systemd-modules-load
+# echo softdog > /etc/modules-load.d/watchdog.conf
+# systemctl restart systemd-modules-load
 ----
 
 Check if the watchdog module is loaded correctly.
 
 ----
-lsmod | grep dog
-ls -l /dev/watchdog
+# lsmod | grep dog
+# ls -l /dev/watchdog
 ----
 
 Testing the watchdog can be done with a simple action. Ensure to switch of your {sapHana}
@@ -1138,13 +1127,13 @@ resets/switches off the system. This is the intended mechanism. The following
 commands will force your system to be reset/switched off.
 
 ----
-touch /dev/watchdog
+# touch /dev/watchdog
 ----
 
 In case the softdog module is used the following action can be performed:
 
 ----
-echo 1> /dev/watchdog
+# echo 1> /dev/watchdog
 ----
 
 After your test was successful you must implement the watchdog on all cluster
@@ -1156,8 +1145,6 @@ members.
 
 For more information, see _Automatic Cluster Setup_, {uarr}SUSE Linux
 Enterprise High Availability Extension.
-
-// DONE PRIO1: Use the -u flag to already produce a valid unicast configuration at the first cluster configuration step
 
 Create an initial setup, using `{slehainit}` command and follow the
 dialogs. This has only to be done on the first cluster node.
@@ -1504,7 +1491,7 @@ Again we add the configuration to the cluster.
 The most important parameters here are SID and InstanceNumber, which are
 in the SAP context quite self explaining. Beside these parameters, the
 timeout values or the operations (start, monitor, stop) are typical
-tuneables.
+tunables.
 
 ==== SAPHana
 
@@ -1583,7 +1570,7 @@ We add the configuration to the cluster.
 
 The most important parameters here are again SID and InstanceNumber.
 Beside these parameters the timeout values for the operations (start,
-promote, monitors, stop) are typical tuneables.
+promote, monitors, stop) are typical tunables.
 
 ==== The virtual IP address for The Primary Site
 
@@ -1660,7 +1647,7 @@ colocation col_saphana_ip_{sapsid}_HDB{sapino}_readenabled 2000: \
 // TODO PRIO2: Adding second IP Address to the cluster tests
 // TODO PRIO1: Check, if we need to mention the srHook-Attribute in the cluster tests
 // TODO PRIO2: Check, if it makes sense to provide query for cluster attributes to
-//             make it nore easy to review srHook and RA attributes (like SOK or SFAIL)
+//             make it more easy to review srHook and RA attributes (like SOK or SFAIL)
 
 image::SAPHanaSR-ScaleOut-Plan-Phase7.svg[scaledwidth="100%"]
 
@@ -1763,7 +1750,7 @@ recovery procedure.
                --name={sapsite2}
 ----
 +
-.  Restart the HANA database (now secondary) on node 1 as root.
+.  Restart the HANA database (now secondary) on node 2 as root.
 +
 [subs="attributes,quotes"]
 ----
@@ -1870,7 +1857,7 @@ recovery procedure.
                --name={sapsite2}
 ----
 +
-.  Restart the HANA database (now secondary) on node 1 as root.
+.  Restart the HANA database (now secondary) on node 2 as root.
 +
 [subs="attributes,quotes"]
 ----
@@ -1948,7 +1935,7 @@ recovery procedure.
 .{testExpect}
 .  The cluster detects the failed node (node 1) and declares it
 UNCLEAN and sets the secondary node (node 2) to status "partition
-WITHOUT quorum".
+with quorum".
 .  The cluster fences the failed node (node 1).
 .  The cluster declares the failed node (node 1) OFFLINE.
 .  The cluster promotes the secondary HANA database (on node 2) to
@@ -2024,7 +2011,7 @@ recovery procedure.
 .{testExpect}
 .  The cluster detects the failed secondary node (node 2) and
 declares it UNCLEAN and sets the primary node (node 1) to status
-"partition WITHOUT quorum".
+"partition with quorum".
 .  The cluster fences the failed secondary node (node 2).
 .  The cluster declares the failed secondary node (node 2) OFFLINE.
 .  The cluster promotes the secondary HANA database (on node 1) to
@@ -2129,7 +2116,7 @@ recovery procedure.
 {testComp}::
   Cluster node of secondary site
 {testDescr}::
-  Simulate a crash of the secondary site node running the seconday HANA
+  Simulate a crash of the secondary site node running the secondary HANA
   database.
 
 .{testProc}
@@ -2162,7 +2149,7 @@ recovery procedure.
 .{testExpect}
 .  The cluster detects the failed secondary node (node 2) and
 declares it UNCLEAN and sets the primary node (node 1) to status
-"partition WITHOUT quorum".
+"partition with quorum".
 .  The cluster fences the failed secondary node (node 2).
 .  The cluster declares the failed secondary node (node 2) OFFLINE.
 .  After some time the cluster shows the sync_state of the stopped
@@ -2310,7 +2297,7 @@ devices and subsequently start pacemaker.
 .{testExpect}
 .  The cluster detects the failed primary node (node 2) and
 declares it UNCLEAN and sets the primary node (node 2) to status
-"partition WITHOUT quorum".
+"partition with quorum".
 .  The cluster fences the failed primary node (node 2).
 .  The cluster declares the failed primary node (node 2) OFFLINE.
 .  The cluster promotes the secondary HANA database (on node 1) to
@@ -2362,8 +2349,6 @@ different command line tools for cluster status requests.
 ==== HAWK – Cluster Status and more
 
 You can use an Internet browser to check the cluster status.
-
-// DONE PRIO1: We need a SLE12 HAWK screenshot here
 
 .Cluster Status in HAWK
 image::SAPHanaSR-ScaleUp-HAWK-Status-SLE12.png[scaledwidth=100%]
@@ -2554,9 +2539,6 @@ the SAP HANA database systems. Set the master/slave resource to be
 unmanaged and the cluster nodes in maintenance mode.
 
 
-// DONE PRIO1: Check, if command 'cleanup' is still valid (see discussion with E&I)
-//             'cleanup' replaced by 'refresh'
-
 .Main {hana} Update procedure
 ==============================
 Pre Update Task:: For the master-slave-resource set the maintenance mode:
@@ -2674,7 +2656,7 @@ crm resource maintenance <master-slave-resource-name> off
 ----
 ==============================
 
-Now we explain how to use the cluster to partially automatize the
+Now we explain how to use the cluster to partially automate the
 migration. For the described attribute query using _SAPHanaSR-showAttr_ and
 _SAPHanaSR-filter_ you need at least SAPHanaSR with package version 0.153.
 
@@ -2781,7 +2763,7 @@ Blog series #towardsZeroDowntime::
  https://www.suse.com/c/tag/towardszerodowntime/
 
 Best Practices for SAP on SUSE Linux Enterprise::
- https://documentation.suse.com/sbp/all/
+ https://documentation.suse.com/sbp/sap-12/
 
 Blog in 2014 - Fail-Safe Operation of SAP HANA®: SUSE Extends Its High Availability Solution::
  http://scn.sap.com/community/hana-in-memory/blog/2014/04/04/fail-safe-operation-of-sap-hana-suse-extends-its-high-availability-solution
@@ -2818,6 +2800,54 @@ TID Addressing file system performance issues on NUMA machines::
 TID Overcommit Memory in SLES::
  https://www.suse.com/support/kb/doc.php?id=7002775
 
+TID Troubleshooting the SAPHanaSR python hook::
+ https://www.suse.com/support/kb/doc.php?id=000019865
+
+TID SAPHanaController running in timeout when starting SAP Hana::
+ https://www.suse.com/support/kb/doc.php?id=000019899
+
+TID SAP HANA monitors timed out after 5 seconds::
+ https://www.suse.com/support/kb/doc.php?id=000020626
+
+TID HA cluster takeover takes too long on HANA indexserver failure::
+ https://www.suse.com/support/kb/doc.php?id=000020845
+
+TID Cluster node fence as SAPHanaTopology fails ... during a normal cluster stop::
+ https://www.suse.com/support/kb/doc.php?id=000020964
+
+TID Basic health check for two-node SAP HANA performance based model::
+ https://www.suse.com/support/kb/doc.php?id=7022984
+
+TID HANA SystemReplication doesn't provide SiteName to Corosync Cluster::
+ https://www.suse.com/support/kb/doc.php?id=000019754
+
+TID SUSE Cluster Support for SAP HANA System Replication Active / Active ...::
+ https://www.suse.com/support/kb/doc.php?id=7023884
+
+TID SAPHanaSR-showAttr fails with error "Error: NIECONN_REFUSED ..."::
+ https://www.suse.com/support/kb/doc.php?id=000020548
+
+TID The vIP cluster resource does not follow the SAP HANA master ...::
+ https://www.suse.com/support/kb/doc.php?id=000019769
+
+TID HANA fail-over ... fail due to excessive os.system() execution times::
+ https://www.suse.com/support/kb/doc.php?id=000020835
+
+TID Address space monitoring and HANA DB performance::
+ https://www.suse.com/support/kb/doc.php?id=000020746
+
+TID HANA nodes end up having the same LPT values::
+ https://www.suse.com/support/kb/doc.php?id=000020690
+
+TID XFS metadata corruption and invalid checksum on SAP Hana servers::
+ https://www.suse.com/support/kb/doc.php?id=7022921
+
+TID Handling failed NFS share in SUSE HA cluster for HANA system replication::
+ https://www.suse.com/support/kb/doc.php?id=000019904
+
+TID Indepth HANA Cluster Debug Data Collection (PACEMAKER, SAP)::
+ https://www.suse.com/support/kb/doc.php?id=7022702
+
 {slsa} technical information::
  https://www.suse.com/products/server/technical-information/
 
@@ -2826,12 +2856,26 @@ XFS file system::
 
 === Manual Pages
 
+corosync.conf::
+ corosync.conf.5
 crm::
  crm.8
+crm_mon::
+ crm_mon.8
 crm_simulate::
  crm_simulate.8
 cs_clusterstate::
  cs_clusterstate.8
+cs_show_sbd_devices::
+ cs_show_sbd_devices.8
+cs_wait_for_idle::
+ cs_wait_for_idle.8
+ha_related_sap_notes::
+ ha_related_sap_notes.7
+ha_related_suse_tids::
+ ha_related_suse_tids.7
+ocf_heartbeat_IPaddr2::
+ ocf_heartbeat_IPaddr2.7
 ocf_suse_SAPHana::
  ocf_suse_SAPHana.7
 ocf_suse_SAPHanaTopology::
@@ -2840,14 +2884,28 @@ sbd::
  sbd.8
 stonith_sbd::
  stonith_sbd.7
+susChkSrv.py::
+ susChkSrv.py.7
+susTkOver.py::
+ susTkOver.py.7
 SAPHanaSR::
  SAPHanaSR.7
+SAPHanaSR.py::
+ SAPHanaSR.py.7
+SAPHanaSR-manageProvider::
+ SAPHanaSR-manageProvider.8
+SAPHanaSR-filter::
+ SAPHanaSR-filter.8
 SAPHanaSR-showAttr::
  SAPHanaSR-showAttr.8
 SAPHanaSR-replay-archive::
  SAPHanaSR-replay-archive.8
+SAPHanaSR_basic_cluster::
+ SAPHanaSR_basic_cluster.7
 SAPHanaSR_manitenance_examples::
- SAPHanaSR_manitenance_examples.8
+ SAPHanaSR_maintenance_examples.7
+votequorum::
+ votequorum.5
 
 === SAP Product Documentation
 
@@ -2858,33 +2916,33 @@ SAP HANA Administration Guide::
 
 === SAP Notes
 
-// lauchPadNotes
+// launchPadNotes
 1984787 - SUSE LINUX Enterprise Server 12: Installation notes::
-{lauchPadNotes}1984787
-2205917 - SAP HANA DB: Recommended OS settings for SLES 12 / SLES for SAP Applications 12::
-{lauchPadNotes}2205917
+{sapPortal}1984787
+2205917 - SAP HANA DB: Recommended OS settings for SLES 12 / SLES for SAP applications 12::
+{sapPortal}2205917
 1876398 - Network configuration for System Replication in HANA SP6::
-{lauchPadNotes}1876398
+{sapPortal}1876398
 611361 - Hostnames of SAP servers::
-{lauchPadNotes}611361
+{sapPortal}611361
 1275776 - Preparing SLES for Sap Environments::
-{lauchPadNotes}1275776
+{sapPortal}1275776
 1514967 - SAP HANA: Central Note::
-{lauchPadNotes}1514967
+{sapPortal}1514967
 1523337 - SAP In-Memory Database 1.0: Central Note::
-{lauchPadNotes}1523337
+{sapPortal}1523337
 2380229 - SAP HANA Platform 2.0 - Central Note::
-{lauchPadNotes}2380229
+{sapPortal}2380229
 1501701 - Single Computing Unit Performance and Sizing::
-{lauchPadNotes}1501701
+{sapPortal}1501701
 1944799 - SAP HANA Guidelines for SLES Operating System Installation::
-{lauchPadNotes}1944799
+{sapPortal}1944799
 1890444 - Slow HANA system due to CPU power save mode::
-{lauchPadNotes}1890444
+{sapPortal}1890444
 1888072 - SAP HANA DB: Indexserver crash in strcmp sse42::
-{lauchPadNotes}1888072
+{sapPortal}1888072
 1846872 - "No space left on device" error reported from HANA::
-{lauchPadNotes}1846872
+{sapPortal}1846872
 
 [[app.hana-sr.example]]
 == Examples
@@ -2976,7 +3034,7 @@ clone cln_SAPHanaTopology_{sapsid}_HDB{sapino} rsc_SAPHanaTopology_{sapsid}_HDB{
         meta clone-node-max=1 interleave=true
 colocation col_saphana_ip_{sapsid}_HDB{sapino} 2000: \
         rsc_ip_{sapsid}_HDB{sapino}:Started msl_SAPHana_{sapsid}_HDB{sapino}:Master
-order ord_SAPHana_{sapsid}_HDB{sapino} 2000: \
+order ord_SAPHana_{sapsid}_HDB{sapino} Optional: \
         cln_SAPHanaTopology_{sapsid}_HDB{sapino} msl_SAPHana_{sapsid}_HDB{sapino}
 property cib-bootstrap-options: \
         dc-version="1.1.19+20180928.0d2680780-1.8-1.1.19+20180928.0d2680780" \
@@ -3052,9 +3110,6 @@ nodelist {
 }
 
 quorum {
-
-        # Enable and configure quorum subsystem (default: off)
-        # see also corosync.conf.5 and votequorum.5
         provider: corosync_votequorum
         expected_votes: 2
         two_node: 1
@@ -3080,25 +3135,30 @@ location loc_{sapnode2}_stonith rsc_{sapnode2}_stonith -inf: {sapnode2}
 ----
 == Reference
 
-For more detailled information, have a look at the documents listed below.
+For more detailed information, have a look at the documents listed below.
 
 === Pacemaker
 Pacemaker Project Documentation::
 https://clusterlabs.org/pacemaker/doc/
 
 :leveloffset: 2
-
 // TODO PRIO2: Moving SAP NOTE references to external file _SAPNotes_SAPHANA20.adoc_
 //include::SAPNotes_SAPHANA20.adoc[]
-
 :leveloffset: 0
-// Standard SUSE Best Practices includes
-== Legal Notice
+
+++++
+<?pdfpagebreak?>
+++++
+
+
+== Legal notice
 include::common_sbp_legal_notice.adoc[]
 
+++++
+<?pdfpagebreak?>
+++++
 
 // Standard SUSE Best Practices includes
-:leveloffset: 0
 include::common_gfdl1.2_i.adoc[]
 
 //
@@ -3119,3 +3179,8 @@ include::common_gfdl1.2_i.adoc[]
 //   - changed crm commands 'migrate'->'move', 'unmigrate' -> 'clear', 'cleanup' -> 'refresh'
 // REVISION 1.3.1 2020/04
 //   - backport fix on smaller typos and style check from SLE15 doc review
+// REVISION 1.3.2 2022/12
+//   - details on srHook and sudoers
+// REVISION 1.3.3 2023/04
+//  - TIDs and manual pages
+//

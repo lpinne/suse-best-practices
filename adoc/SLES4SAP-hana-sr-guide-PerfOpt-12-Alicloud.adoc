@@ -2,10 +2,13 @@
 
 :localdate:
 
+// defining article ID
+[#art-sap-hana-srguide-perfopt12-ali]
+
 // Start of the document
 //
 
-= SAP HANA High Availability Cross-Zone Solution on Alibaba Cloud: With SUSE Linux Enterprise Server for SAP Applications
+= SAP HANA High Availability Cross-Zone Solution on Alibaba Cloud: With SUSE Linux Enterprise Server for SAP applications
 
 // Jinhui Li Bernd Schubert
 
@@ -33,18 +36,17 @@ For details, refer to the SAP Help Portal, HANA system replication:
 https://help.sap.com/viewer/6b94445c94ae495c83a19646e7c3fd56/2.0.03/en-US/b74e16a9e09541749a745f41246a065e.html.
 
 
-=== High Availability Extension Included with SUSE Linux Enterprise Server for SAP Applications
-The SUSE High Availability Extension is a high availability solution based on Corosync and Pacemaker. With SUSE Linux Enterprise Server for SAP Applications, SUSE provides SAP specific Resource Agents (SAPHana, SAPHanaTopology etc.) used by Pacemaker. This helps you to build your SAP HANA HA solution up more effectively.
+=== High Availability Extension Included with SUSE Linux Enterprise Server for SAP applications
+The SUSE High Availability Extension is a high availability solution based on Corosync and Pacemaker. With SUSE Linux Enterprise Server for SAP applications, SUSE provides SAP specific Resource Agents (SAPHana, SAPHanaTopology etc.) used by Pacemaker. This helps you to build your SAP HANA HA solution up more effectively.
 
 For details, refer to the latest version of the document *SAP HANA SR Performance Optimized Scenario* at the SUSE documentation Web page:  
 
-https://documentation.suse.com/sbp/all/
-
+https://documentation.suse.com/sbp/sap-12/
 
 === Architecture Overview
 This document guides you on how to deploy an SAP HANA High Availability (HA) solution cross different Zones. The following list contains a brief architecture overview:
 
-. The High Availability Extension included with SUSE Linux Enterprise Server for SAP Applications is used to set up the HA Cluster;
+. The High Availability Extension included with SUSE Linux Enterprise Server for SAP applications is used to set up the HA Cluster;
 
 . SAP HANA System Replication is activated between the two HANA nodes;
 
@@ -56,7 +58,7 @@ Alibaba Cloud Architecture - Overview:
 
 image::Alicloud_image001.png[arch,width="60%"]
 
-Network Architeture - Overview:
+Network Architecture - Overview:
 
 image::Alicloud_network.png[network,width="60%"]
 
@@ -95,7 +97,7 @@ In this example, a VPC named *suse_hana_ha* in the Region *EU Central 1 (Frankfu
 
 image::Alicloud_VPC.png[vpc,width="46%"]
 
-There should be at least two VSwitches (subnets) defined within the VPC network. Each VSwitch should be bound to a different Zone. In this example, the following two VSwitches (subnets) are defined:
+There should be at least two vSwitches (subnets) defined within the VPC network. Each vSwitch should be bound to a different Zone. In this example, the following two vSwitches (subnets) are defined:
 
 * Switch1 192.168.0.0/24  Zone A, for SAP HANA Primary Node;
 * Switch2 192.168.1.0/24  Zone B, for SAP HANA Secondary Node;
@@ -103,22 +105,22 @@ There should be at least two VSwitches (subnets) defined within the VPC network.
 image::Alicloud_vswitch.png[vswitch,width="45%"]
 
 === Creating ECS Instances
-Two ECS instances are created in different Zones of the same VPC via *Console->Elastic Compute Service ECS->Instances->Create Instance*. Choose the "SUSE Linux Enterprise Server for SAP Applications" image from the Image Market place.
+Two ECS instances are created in different Zones of the same VPC via *Console->Elastic Compute Service ECS->Instances->Create Instance*. Choose the "SUSE Linux Enterprise Server for SAP applications" image from the Image Market place.
 
-In this example, two ECS instances (hostname: _hana0_ and _hana1_) are created in the Region *EU Central 1*, Zone A and Zone B, within the VPC: *suse_hana_ha*, with SUSE Linux Enterprise Server for SAP Applications 12 SP2 image from the Image Market Place. Host _hana0_ is the primary SAP HANA database node, and _hana1_ is the secondary SAP HANA database node.
+In this example, two ECS instances (hostname: _hana0_ and _hana1_) are created in the Region *EU Central 1*, Zone A and Zone B, within the VPC: *suse_hana_ha*, with SUSE Linux Enterprise Server for SAP applications 12 SP2 image from the Image Market Place. Host _hana0_ is the primary SAP HANA database node, and _hana1_ is the secondary SAP HANA database node.
 
 image::Alicloud_instance.png[instance,width="45%"]
 
 === Creating ENIs and Binding to ECS Instances
 Create two ENIs via *Console-> Elastic Compute Service ECS->Network and Security->ENI*, and attach one for each ECS instance, for HANA System Replication purposes. Configure the IP addresses of the ENIs to the subnet for HANA System Replication only.
 
-In this example, the ENIs are attached to the ECS instances hana0 and hana1. In addition, the IP addresses are configured as 192.168.0.83 and 192.168.1.246 within the same VSwitches of _hana0_ and _hana1_, and put into the VPC: *suse_hana_ha*
+In this example, the ENIs are attached to the ECS instances hana0 and hana1. In addition, the IP addresses are configured as 192.168.0.83 and 192.168.1.246 within the same vSwitches of _hana0_ and _hana1_, and put into the VPC: *suse_hana_ha*
 
 image::Alicloud_ENI.png[ENI,width="50%"]
 
 Meanwhile, within the Guest OS, _/etc/hosts_ should also be configured.
 
-According to the example at hand, run the following two commands on boths sites:
+According to the example at hand, run the following two commands on both sites:
 
 ----
 echo "192.168.0.82 hana0 hana0" >> /etc/hosts
@@ -183,12 +185,12 @@ The next sections contain information about the required software.
 === Software List
 
 The following software must be available:
-- SUSE Linux Enterprise Server for SAP Applications 12 SP2 or newer
+- SUSE Linux Enterprise Server for SAP applications 12 SP2 or newer
 - HANA Installation Media
 - SAP Host Agent Installation Media
 
 === High Availability Extension Installation
-Both ECS instances are created with the SUSE Linux Enterprise Server for SAP Applications image. On both ECS instances, the High Availability Extension (with the major software components: Corosync and Pacemaker), and the package SAPHanaSR should be installed.
+Both ECS instances are created with the SUSE Linux Enterprise Server for SAP applications image. On both ECS instances, the High Availability Extension (with the major software components: Corosync and Pacemaker), and the package SAPHanaSR should be installed.
 To do so, you can use zypper.
 
 First, install the pattern High Availability Extension on both nodes:
@@ -468,9 +470,9 @@ primitive res_ALIYUN_STONITH_2 stonith:fence_aliyun \
         	region=<region> \
         	meta target-role=Started
 			location loc_<primary node hostname>_stonith_not_on_<primary node hostname> res_ALIYUN_STONITH_1 -inf: <primary node hostname>
-			#Stonith 1 should not run on primary node because it is controling primary node
+			#Stonith 1 should not run on primary node because it is controlling primary node
 			location loc_<secondary node hostname>_stonith_not_on_<secondary node hostname> res_ALIYUN_STONITH_2 -inf: <secondary node hostname>
-			#Stonith 2 should not run on secondary node because it is controling secondary node
+			#Stonith 2 should not run on secondary node because it is controlling secondary node
 ```
 
 
@@ -489,9 +491,9 @@ primitive res_ALIYUN_STONITH_2 stonith:fence_aliyun \
         	region=<region> \
         	meta target-role=Started
 			location loc_<primary node hostname>_stonith_not_on_<primary node hostname> res_ALIYUN_STONITH_1 -inf: <primary node hostname>
-			#Stonith 1 should not run on primary node because it is controling primary node
+			#Stonith 1 should not run on primary node because it is controlling primary node
 			location loc_<secondary node hostname>_stonith_not_on_<secondary node hostname> res_ALIYUN_STONITH_2 -inf: <secondary node hostname>
-			#Stonith 2 should not run on secondary node because it is controling secondary node
+			#Stonith 2 should not run on secondary node because it is controlling secondary node
 ```
 Be sure to implement the following changes:
 
@@ -763,15 +765,26 @@ two_node: 1
 - Pacemaker 1.1 Configuration Explained
 https://clusterlabs.org/pacemaker/doc/en-US/Pacemaker/1.1/html/Pacemaker_Explained/.
 - SAP HANA SR Performance Optimized Scenario
-https://www.suse.com/media/white-paper/suse_linux_enterprise_server_for_sap_applications_12_sp1.pdf.
+https://documentation.suse.com/sbp/sap-12/html/SLES4SAP-hana-sr-guide-PerfOpt-12/index.html
 - SAP HANA system replication - SAP Help Portal
 https://help.sap.com/viewer/6b94445c94ae495c83a19646e7c3fd56/2.0.03/en-US/b74e16a9e09541749a745f41246a065e.html.
-- SAP Applications on Alibaba Cloud: Supported Products and IaaS VM Types
+- SAP applications on Alibaba Cloud: Supported Products and IaaS VM Types
 https://launchpad.support.sap.com/#/notes/2552731
 
+
+++++
+<?pdfpagebreak?>
+++++
+
+:leveloffset: 0
 // Standard SUSE Best Practices includes
-== Legal Notice
+== Legal notice
 include::common_sbp_legal_notice.adoc[]
 
+++++
+<?pdfpagebreak?>
+++++
+
 // Standard SUSE Best Practices includes
+:leveloffset: 0
 include::common_gfdl1.2_i.adoc[]

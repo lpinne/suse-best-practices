@@ -5,54 +5,106 @@
 %entity;
 ]>
 
-<!--<?xml version="1.0" encoding="UTF-8"?>
-<?asciidoc-toc?>
-<?asciidoc-numbered?>-->
-
 <article role="sbp" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="art-sbp-hanaonkvm-sles12sp2"
-  xml:lang="en">
+  xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xmlns:its="http://www.w3.org/2005/11/its"
+  xml:id="art-sbp-hanaonkvm-sles12sp2" xml:lang="en">
 
 
   <info>
     <title>SUSE Best Practices for SAP HANA on KVM </title>
-    <subtitle>SUSE Linux Enterprise Server for SAP Applications 12 SP2</subtitle>
-    <productname>SUSE Linux Enterprise Server for SAP Applications</productname>
-    <!--<productname>SUSE Linux Enterprise Server</productname>-->
-    <productnumber>12 SP2</productnumber>
+    <subtitle>SUSE Linux Enterprise Server for SAP applications 12 SP2</subtitle>
 
-    <author>
-      <!--   <personname>
-        <firstname>Matt</firstname>
-        <surname>Fleming, Senior Software Engineer, SUSE</surname>
-      </personname>-->
-      <personname>
-        <firstname>Matt</firstname>
-        <surname>Fleming, Senior Software Engineer, SUSE</surname>
-      </personname>
-      <!--      <affiliation>
-        <jobtitle>Senior Software Engineer</jobtitle>
-        <orgname>SUSE</orgname>
-      </affiliation>-->
-    </author>
+    <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+      <dm:bugtracker>
+        <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+        <dm:product>SUSE Best Practices for SAP HANA on KVM </dm:product>
+      </dm:bugtracker>
+      <dm:editurl>https://github.com/SUSE/suse-best-practices/edit/main/xml/</dm:editurl>
+    </dm:docmanager>
 
-    <author>
-      <personname>
-        <firstname>Lee</firstname>
-        <surname>Martin, SAP Architect &amp; Technical Manager, SUSE</surname>
-      </personname>
-    </author>
 
-    <date>August 19, 2019</date>
+    <meta name="series" its:translate="no">Best Practices</meta>
+    <meta name="category" its:translate="no">
+      <phrase>SAP</phrase>
+    </meta>
+    <meta name="task" its:translate="no">
+      <phrase>Configuration</phrase>
+      <phrase>Virtualization</phrase>
+    </meta>
+    <meta name="title" its:translate="yes">SUSE Best Practices for SAP HANA on KVM</meta>
+    <meta name="description" its:translate="yes">Describes how to configure SUSE Linux Enterprise Server for SAP
+    applications 12 SP2 with KVM to run SAP HANA for use in production environments</meta>
+    <meta name="social-descr" its:translate="yes">Configuring SLES for SAP applications with KVM and HANA</meta>
+    <meta name="productname" its:translate="no">
+      <productname version="12 SP2">SUSE Linux Enterprise Server for SAP applications</productname>
+    </meta>
+
+    <meta name="platform" its:translate="no">SUSE Linux Enterprise Server for SAP applications 12 SP2</meta>
+
+
+    <authorgroup>
+      <author>
+        <personname>
+          <firstname>Matt</firstname>
+          <surname>Fleming</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>Senior Software Engineer</jobtitle>
+          <orgname>SUSE</orgname>
+        </affiliation>
+      </author>
+      <author>
+        <personname>
+          <firstname>Lee</firstname>
+          <surname>Martin</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>SAP Architect &amp; Technical Manager</jobtitle>
+          <orgname>SUSE</orgname>
+        </affiliation>
+      </author>
+    </authorgroup>
+
+    <cover role="logos">
+      <mediaobject>
+        <imageobject role="fo">
+          <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
+        </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+        </imageobject>
+        <textobject><phrase>SUSE logo</phrase></textobject>
+      </mediaobject>
+    </cover>
+
+    <revhistory xml:id="rh-art-sbp-hanaonkvm-sles12sp2">
+      <revision>
+        <date>2019-08-19</date>
+        <revdescription>
+          <para> </para>
+        </revdescription>
+      </revision>
+    </revhistory>
+
 
     <abstract>
 
       <para>This best practice document describes how SUSE Linux Enterprise Server for SAP
-        Applications 12 SP2 with KVM should be configured to run SAP HANA for use in production
+        applications 12 SP2 with KVM should be configured to run SAP HANA for use in production
         environments. Configurations which are not set up according to this best practice guide are
         considered as unsupported by SAP for production workloads.</para>
       <para>While this document is not compulsory for non-production SAP HANA workloads, it may
         still be useful to help ensure optimal performance in such scenarios.</para>
+
+      <para>
+        <emphasis role="strong">Disclaimer: </emphasis> Documents published as part of the SUSE Best
+        Practices series have been contributed voluntarily by SUSE employees and third parties. They
+        are meant to serve as examples of how particular actions can be performed. They have been
+        compiled with utmost attention to detail. However, this does not guarantee complete
+        accuracy. SUSE cannot verify that actions described in these documents do what is claimed or
+        whether actions described have unintended consequences. SUSE LLC, its affiliates, the
+        authors, and the translators may not be held liable for possible errors or the consequences
+        thereof. </para>
 
     </abstract>
   </info>
@@ -62,7 +114,7 @@
     <title>Introduction</title>
 
     <para>This best practice document describes how SUSE Linux Enterprise Server for SAP
-      Applications 12 SP2 with KVM should be configured to run SAP HANA for use in production
+      applications 12 SP2 with KVM should be configured to run SAP HANA for use in production
       environments. The setup of the SAP HANA system or other components like HA clusters are beyond
       the scope of this document.</para>
     <para>The following sections describe how to set up and configure the three KVM components
@@ -130,8 +182,8 @@
       </itemizedlist>
       <para>For a general overview of the technical components of the KVM architecture, refer to
           <link
-          xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-kvm-intro.html"
-          >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-kvm-intro.html</link></para>
+          xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-kvm-intro.html"
+          >https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-kvm-intro.html</link></para>
     </sect2>
 
     <sect2 xml:id="sec-sap-hana-virtualization-scenarios">
@@ -160,7 +212,7 @@
               >https://launchpad.support.sap.com/#/notes/2284516</link>) for details</para>
         </listitem>
         <listitem>
-          <para>SAP Note 2607144 <quote>SAP HANA on KVM included with SLES for SAP Applications 12
+          <para>SAP Note 2607144 <quote>SAP HANA on KVM included with SLES for SAP applications 12
               SP2 in production</quote> (<link
               xlink:href="https://launchpad.support.sap.com/#/notes/2607144"
               >https://launchpad.support.sap.com/#/notes/2607144</link>)</para>
@@ -173,9 +225,9 @@
     <title>Supported Scenarios and Prerequisites</title>
     <para>
       <emphasis role="strong">Follow this SUSE Best Practices for SAP HANA on KVM - SUSE Linux
-        Enterprise Server for SAP Applications 12 SP2 document which describes the steps necessary
+        Enterprise Server for SAP applications 12 SP2 document which describes the steps necessary
         to create a supported SAP HANA on KVM configuration. SUSE Linux Enterprise Server for SAP
-        Applications must be used for both Hypervisor and Guest.</emphasis>
+        applications must be used for both Hypervisor and Guest.</emphasis>
     </para>
     <para>Inquiries about scenarios not listed here should be directed to
         <email>saphana@suse.com</email></para>
@@ -230,7 +282,7 @@
               >https://launchpad.support.sap.com/#/notes/2284516</link>)</para>
         </listitem>
         <listitem>
-          <para>SAP Note 2607144 <quote>SAP HANA on KVM included with SLES for SAP Applications 12
+          <para>SAP Note 2607144 <quote>SAP HANA on KVM included with SLES for SAP applications 12
               SP2 in production</quote> (<link
               xlink:href="https://launchpad.support.sap.com/#/notes/2607144"
               >https://launchpad.support.sap.com/#/notes/2607144</link>)</para>
@@ -374,10 +426,10 @@
                 <para>SAP HANA TDI Phase 5 rules allow customers to deviate from the above described
                   SAP HANA core-to-memory sizing ratios in certain scenarios. The KVM implementation
                   must still however adhere to the SUSE Best Practices for SAP HANA on KVM - SUSE
-                  Linux Enterprise Server for SAP Applications 12 SP2. Details on SAP HANA TDI Phase
+                  Linux Enterprise Server for SAP applications 12 SP2. Details on SAP HANA TDI Phase
                   5 can be found in the following blog from SAP: <link
-                    xlink:href="https://blogs.saphana.com/2017/09/20/tdi-phase-5-new-opportunities-for-cost-optimization-of-sap-hana-hardware/"
-                    >https://blogs.saphana.com/2017/09/20/tdi-phase-5-new-opportunities-for-cost-optimization-of-sap-hana-hardware/</link>.</para>
+                    xlink:href="https://blogs.sap.com/2017/09/20/tdi-phase-5-new-opportunities-for-cost-optimization-of-sap-hana-hardware/"
+                    >https://blogs.sap.com/2017/09/20/tdi-phase-5-new-opportunities-for-cost-optimization-of-sap-hana-hardware/</link>.</para>
               </listitem>
               <listitem>
                 <para>Since SAP HANA TDI Phase 5 rules use SAPS based sizing, SUSE recommends
@@ -476,11 +528,11 @@
     <sect2 xml:id="sec-kvm-hypervisor-version">
       <title>KVM Hypervisor Version</title>
       <para>The Hypervisor must be configured according to this <quote>SUSE Best Practices for SAP
-          HANA on KVM - SUSE Linux Enterprise Server for SAP Applications 12 SP2</quote> guide and
+          HANA on KVM - SUSE Linux Enterprise Server for SAP applications 12 SP2</quote> guide and
         fulfill the following minimal requirements:</para>
       <itemizedlist>
         <listitem>
-          <para>SUSE Linux Enterprise Server for SAP Applications 12 SP2 (<quote>Unlimited Virtual
+          <para>SUSE Linux Enterprise Server for SAP applications 12 SP2 (<quote>Unlimited Virtual
               Machines</quote> subscription)</para>
           <itemizedlist>
             <listitem>
@@ -509,13 +561,13 @@
       <para>The guest VM must:</para>
       <itemizedlist>
         <listitem>
-          <para>Run SUSE Linux Enterprise Server for SAP Applications 12 SP1 or later.</para>
+          <para>Run SUSE Linux Enterprise Server for SAP applications 12 SP1 or later.</para>
         </listitem>
         <listitem>
           <para>Be a SUSE Linux Enterprise Server Supported VM Guest as per Section 7.1
               <quote>Supported VM Guests</quote> of the SUSE Virtualization Guide (<link
-              xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-virt-support.html#virt-support-guests"
-              >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-virt-support.html#virt-support-guests</link>).</para>
+              xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-virt-support.html#virt-support-guests"
+              >https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-virt-support.html#virt-support-guests</link>).</para>
         </listitem>
         <listitem>
           <para>Comply with KVM limits as per SUSE Linux Enterprise Server 12 SP2 release notes
@@ -535,7 +587,7 @@
         </listitem>
         <listitem>
           <para>Be configured according to this SUSE Best Practices for SAP HANA on KVM - SUSE Linux
-            Enterprise Server for SAP Applications 12 SP2 document.</para>
+            Enterprise Server for SAP applications 12 SP2 document.</para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -546,10 +598,10 @@
 
     <sect2 xml:id="sec-kvm-hypervisor-installation">
       <title>KVM Hypervisor Installation</title>
-      <para>For details refer to Section 6.4 Installation of Virtualization Components of the SUSE
-        Virtualization Guide (<link
-          xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-vt-installation.html#sec-vt-installation-patterns"
-          >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-vt-installation.html#sec-vt-installation-patterns</link>)</para>
+      <para>For details, refer to Section 6 (Installation of Virtualization Components) of the SUSE
+        Virtualization Guide, available for download at <link
+          xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/book-virt.html"
+          >https://documentation.suse.com/sles/12-SP5/html/SLES-all/book-virt.html</link>.</para>
       <para>Install the KVM packages using the following Zypper patterns:</para>
       <screen>zypper in -t pattern kvm_server kvm_tools</screen>
       <para>In addition, it is also useful to install the <quote>lstopo</quote> tool which is part
@@ -582,9 +634,9 @@ Combined:       63</screen>
         <title>Assign Network Port at PCI NIC Level</title>
         <para>The required network port(s) should be assigned to the Guest VM as described in
           section <quote>14.10.2 Adding a PCI Device with virsh</quote> in the SUSE Virtualization
-          Guide for SUSE Linux Enterprise Server 12 SP2(<link
-            xlink:href="https://documentation.suse.com/sles/12-SP2/"
-            >https://documentation.suse.com/sles/12-SP2/</link>)</para>
+          Guide for SUSE Linux Enterprise Server 12, available for download at <link
+            xlink:href="https://documentation.suse.com/sles/12-SP5/"
+            >https://documentation.suse.com/sles/12-SP5/</link>.</para>
         <formalpara>
           <title>Persist detach of PCI NIC port</title>
           <para>Before starting the VM, the PCI NIC port must be detached from the Hypervisor OS,
@@ -618,15 +670,12 @@ virsh nodedev-detach pci_xxxx_xx_xx_0</screen>
       <title>Storage Configuration on Hypervisor</title>
       <para>As with compute resources, the storage used for running SAP HANA must also be SAP
         certified. Therefore only the storage from SAP HANA Appliances or SAP HANA Certified
-        Enterprise Storage (<link
-          xlink:href="https://www.sap.com/dmc/exp/2014-09-02-hana-hardware/enEN/enterprise-storage.html"
-          >https://www.sap.com/dmc/exp/2014-09-02-hana-hardware/enEN/enterprise-storage.html</link>)
-        is supported. In all cases the SAP HANA storage configuration recommendations from the
+        Enterprise Storage is supported. In all cases, the SAP HANA storage configuration recommendations from the
         respective hardware vendor and the SAP HANA Storage Requirements for TDI (<link
-          xlink:href="https://www.sap.com/documents/2015/03/74cdb554-5a7c-0010-82c7-eda71af511fa.html"
-          >https://www.sap.com/documents/2015/03/74cdb554-5a7c-0010-82c7-eda71af511fa.html</link>)
+          xlink:href="https://www.sap.com/documents/2016/05/e8705aae-717c-0010-82c7-eda71af511fa.html"
+          >https://www.sap.com/documents/2016/05/e8705aae-717c-0010-82c7-eda71af511fa.html</link>)
         should be followed. The SUSE Best Practices for SAP HANA on KVM - SUSE Linux Enterprise
-        Server for SAP Applications 12 SP2 has been designed and tested to map the block devices for
+        Server for SAP applications 12 SP2 has been designed and tested to map the block devices for
         SAP HANA on the Hypervisor directly into the VM. Therefore any LVM (Logical Volume Manager)
         configuration should be made inside the Guest VM only. Multipathing by contrast should be
         only configured on the Hypervisor.</para>
@@ -787,8 +836,8 @@ systemctl stop irqbalance.service</screen>
       <title>Create an Initial Guest VM XML</title>
       <para>Refer to section 9 <quote>Guest Installation</quote> of the SUSE Virtualization Guide
           (<link
-          xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-kvm-inst.html"
-          >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-kvm-inst.html</link>
+          xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-kvm-inst.html"
+          >https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-kvm-inst.html</link>
         ).</para>
     </sect2>
 
@@ -805,7 +854,7 @@ systemctl stop irqbalance.service</screen>
           <itemizedlist>
             <listitem>
               <para>for example <quote>2.6</quote> for qemu 2.6 on SUSE Linux Enterprise Server for
-                SAP Applications 12 SP2</para>
+                SAP applications 12 SP2</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -1114,8 +1163,8 @@ lstopo-no-graphics</screen>
  &lt;/disk&gt;</screen>
         <para>For further details refer to section 12 <quote>Managing Storage</quote> in the SUSE
           Virtualization Guide (<link
-            xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-libvirt-storage.html"
-            >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-libvirt-storage.html</link>)</para>
+            xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-libvirt-storage.html"
+            >https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-libvirt-storage.html</link>)</para>
       </sect3>
     </sect2>
 
@@ -1153,15 +1202,14 @@ lstopo-no-graphics</screen>
     <title>Guest Operating System</title>
 
     <sect2 xml:id="sec-install-sles-for-sap-inside-the-guest-vm">
-      <title>Install SUSE Linux Enterprise Server for SAP Applications Inside the Guest VM</title>
-      <para>Refer to the SUSE Guide <quote>SUSE Linux Enterprise Server for SAP Applications 12
-          SP2</quote> (<link
-          xlink:href="https://documentation.suse.com/sles-sap/12-SP2/"></link>).</para>
+      <title>Install SUSE Linux Enterprise Server for SAP applications Inside the Guest VM</title>
+      <para>Refer to the <quote>SUSE Linux Enterprise Server for SAP applications 12
+          </quote> guide, available for download at <link xlink:href="https://documentation.suse.com/sles-sap/12-SP5/"/>.</para>
     </sect2>
 
     <sect2 xml:id="sec-guest-operating-system-configuration-for-sap-hana">
       <title>Guest Operating System Configuration for SAP HANA</title>
-      <para>Install and configure SUSE Linux Enterprise Server for SAP Applications 12 SP2 and SAP
+      <para>Install and configure SUSE Linux Enterprise Server for SAP applications 12 SP2 and SAP
         HANA as described in: </para>
       <itemizedlist>
         <listitem>
@@ -1171,7 +1219,7 @@ lstopo-no-graphics</screen>
         </listitem>
         <listitem>
           <para>SAP Note 2205917 <quote>SAP HANA DB: Recommended OS settings for SLES 12 / SLES for
-              SAP Applications 12</quote> (<link
+              SAP applications 12</quote> (<link
               xlink:href="https://launchpad.support.sap.com/#/notes/2205917"/>)</para>
         </listitem>
       </itemizedlist>
@@ -1213,13 +1261,13 @@ systemctl stop irqbalance.service</screen>
       <listitem>
         <para>Section 10 <quote>Basic VM Guest Management</quote> and others in the SUSE
           Virtualization Guide for SUSE Linux Enterprise Server 12 (<link
-            xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-libvirt-managing.html"
-            >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-libvirt-managing.html</link>)</para>
+            xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-libvirt-managing.html"
+            >https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-libvirt-managing.html</link>)</para>
       </listitem>
       <listitem>
         <para>SUSE Virtualization Best Practices for SUSE Linux Enterprise Server 12 (<link
-            xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/article-vt-best-practices.html"
-            >https://documentation.suse.com/sles/12-SP4/html/SLES-all/article-vt-best-practices.html</link>)</para>
+            xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/article-vt-best-practices.html"
+            >https://documentation.suse.com/sles/12-SP5/html/SLES-all/article-vt-best-practices.html</link>)</para>
       </listitem>
     </itemizedlist>
 
@@ -1703,7 +1751,7 @@ Machine (504GB total)
       </warning>
 
       <para>Points of interest in this example (refer to the detailed sections of SUSE Best
-        Practices for SAP HANA on KVM - SUSE Linux Enterprise Server for SAP Applications 12 SP2 for
+        Practices for SAP HANA on KVM - SUSE Linux Enterprise Server for SAP applications 12 SP2 for
         a full explanation):</para>
       <itemizedlist>
         <listitem>
@@ -2027,13 +2075,13 @@ or other application using the libvirt API.
       <title>Resources</title>
       <itemizedlist>
         <listitem>
-          <para>SUSE Best Practices (<link xlink:href="https://documentation.suse.com/sbp/all/"
-              >https://documentation.suse.com/sbp/all/</link>)</para>
+          <para>SUSE Best Practices (<link xlink:href="https://documentation.suse.com/sbp/"
+              >https://documentation.suse.com/sbp/</link>)</para>
         </listitem>
         <listitem>
           <para>SUSE Virtualization Guide for SUSE Linux Enterprise Server 12 (<link
-              xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/book-virt.html"
-              >https://documentation.suse.com/sles/12-SP4/html/SLES-all/book-virt.html</link>)</para>
+              xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/book-virt.html"
+              >https://documentation.suse.com/sles/12-SP5/html/SLES-all/book-virt.html</link>)</para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -2059,9 +2107,9 @@ or other application using the libvirt API.
           <term>Report Documentation Bug</term>
           <listitem>
             <para>To report errors or suggest enhancements for a certain document, use the <email
-                role="strong">Report Documentation Bug</email> feature at the right side of
-              each section in the online documentation. Provide a concise description of the problem
-              and refer to the respective section number and page (or URL).</para>
+                role="strong">Report Documentation Bug</email> feature at the right side of each
+              section in the online documentation. Provide a concise description of the problem and
+              refer to the respective section number and page (or URL).</para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -2169,36 +2217,12 @@ or other application using the libvirt API.
     </sect2>
   </sect1>
 
-  <sect1 xml:id="sec-legal-notice">
-    <title>Legal Notice</title>
-    <para>Copyright &copy;2006–2020 SUSE LLC and contributors. All rights reserved. </para>
-    <para>Permission is granted to copy, distribute and/or modify this document under the terms of
-      the GNU Free Documentation License, Version 1.2 or (at your option) version 1.3; with the
-      Invariant Section being this copyright notice and license. A copy of the license version 1.2
-      is included in the section entitled <quote>GNU Free Documentation License</quote>.</para>
-    <para>SUSE, the SUSE logo and YaST are registered trademarks of SUSE LLC in the United States
-      and other countries. For SUSE trademarks, see <link
-        xlink:href="http://www.suse.com/company/legal/">http://www.suse.com/company/legal/</link>.
-      Linux is a registered trademark of Linus Torvalds. All other names or trademarks mentioned in
-      this document may be trademarks or registered trademarks of their respective owners.</para>
-    <para>This article is part of a series of documents called "SUSE Best Practices". The individual
-      documents in the series were contributed voluntarily by SUSE's employees and by third
-      parties.</para>
-    <!--  <para>The articles are intended only to be one example of how a particular action could be
-      taken. They should not be understood to be the only action and certainly not to be the
-      action recommended by SUSE. Also, SUSE cannot verify either that the actions described
-      in the articles do what they claim to do or that they don't have unintended
-      consequences.</para>-->
-    <para> All information found in this book has been compiled with utmost attention to detail.
-      However, this does not guarantee complete accuracy.
-      <!--Neither SUSE LLC, the authors, nor the translators shall be held liable
-        for possible errors or the consequences thereof. --></para>
-    <para>Therefore, we need to specifically state that neither SUSE LLC, its affiliates, the
-      authors, nor the translators may be held liable for possible errors or the consequences
-      thereof. Below we draw your attention to the license under which the articles are
-      published.</para>
-  </sect1>
-  <?pdfpagebreak style="suse2013-sbp" formatter="fop"?>
+
+  <?pdfpagebreak style="sbp" formatter="fop"?>
+
+  <xi:include href="sbp-legal-notice.xml"/>
+
+  <?pdfpagebreak style="sbp" formatter="fop"?>
   <xi:include href="license-gfdl.xml"/>
 
 </article>

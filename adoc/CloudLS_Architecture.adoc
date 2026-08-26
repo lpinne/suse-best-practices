@@ -259,7 +259,7 @@ virtual KVM console of a VM is possible.
 
 Nova is a feature-rich component: Besides the standard hypervisor KVM,
 it also supports solutions such as Xen, Hyper-V by Microsoft or VMware.
-It has many functions that control Nova's behaviour and
+It has many functions that control Nova's behavior and
 is one of the most mature OpenStack components.
 
 ==== A Concise GUI: Horizon
@@ -271,7 +271,7 @@ all aforementioned components.
 OpenStack users may rarely ever use Horizon. Clouds function on the principle of
 API interfaces that commands can be sent to in a specialized format to trigger
 a certain action, meaning that all components in OpenStack come with an API 
-component that accepts commands based on the ReSTful HTTP approach.
+component that accepts commands based on the RESTful HTTP approach.
 
 There are, however, some tasks where a graphical representation of the
 tasks at hand is helpful and maybe even desired. Horizon is written in Django 
@@ -428,7 +428,7 @@ namely:
 
 - *Load balancing*: All OpenStack services that users and 
   other components themselves are using are HTTP(S) interfaces based
-  on the ReST principle. In large environments, they are
+  on the REST principle. In large environments, they are
   subject to a lot of load. In large-scale setups, it is required
   to use load balancers in front of the API instances to distribute the
   incoming requests evenly. This holds also true for MySQL (RabbitMQ however
@@ -485,7 +485,7 @@ configured so that it stores replicas of all data in all failure domains
 for every write process.
 
 Should the Ceph Object Gateway be in use to provide for S3/Swift storage
-via a ReSTful interface, that service must be evenly available in all
+via a RESTful interface, that service must be evenly available in all
 failure domains as well. It is necessary to include these
 servers in the loadbalancer setup that is in place for making the
 API services redundant and resilient.
@@ -542,7 +542,7 @@ and RAM is generally considered 1:4 in the following examples.
 The following paragraphs describe a basic design reference architecture
 for a large-scale SUSE OpenStack Cloud based on OpenStack and Ceph.
 
-.High-level Reference Architecure of a large-scale deployment with 108 Compute Nodes and 36 Storage Nodes
+.High-level Reference Architecture of a large-scale deployment with 108 Compute Nodes and 36 Storage Nodes
 image::cloudls_reference_arch_108.png[align="center",width=500]
 
 ==== Basic Requirements
@@ -600,7 +600,7 @@ installed and assigned to it. Four major roles exist:
 
 - *Management Nodes*: To run additional services such as Prometheus (a
   time-series database for monitoring, alerting and trending) and the ELK
-  stack (ElasticSearch, LogStash, Kibana - a log collection and index
+  stack (Elasticsearch, Logstash, Kibana - a log collection and index
   engine), further hardware is required. At least three machines per
   failure domain should be made available for this purpose.
 

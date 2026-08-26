@@ -4,35 +4,94 @@
 <!ENTITY % entity SYSTEM "entity-decl.ent">
 %entity;
 ]>
+
 <article role="sbp" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="art-sbp-oraclerac"
-    xml:lang="en">
-    <info><title>Installing Oracle RAC on SUSE Linux Enterprise Server 12</title><subtitle>Oracle
-            RAC 12.1.0.2.0 and SUSE Linux Enterprise Server 12 (x86_64)</subtitle>
-        <!--<orgname>SUSE Best Practices</orgname>-->
-        <productname>SUSE Linux Enterprise Server</productname>
-        <productnumber>12 SP1</productnumber>
-        <author>
-            <personname>
-                <firstname>Chen</firstname>
-                <surname>Wu, ISV Technical Manager, SUSE</surname>
-            </personname>
-            <!--<affiliation>
-                <jobtitle>ISV Technical Manager</jobtitle>
-                <orgname>&suse;</orgname>
-                </affiliation>-->
-        </author>
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+    xmlns:its="http://www.w3.org/2005/11/its" xml:id="art-sbp-oraclerac" xml:lang="en">
+
+    <info>
+        <title>Oracle RAC on SUSE Linux Enterprise Server 12 SP1</title>
+        <subtitle> Installation Guide for x86-64 Architectures</subtitle>
+
+        <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+            <dm:bugtracker>
+                <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+                <dm:product>Oracle RAC on SUSE Linux Enterprise Server 12 SP1</dm:product>
+            </dm:bugtracker>
+            <dm:editurl>https://github.com/SUSE/suse-best-practices/edit/main/xml/</dm:editurl>
+        </dm:docmanager>
+
+        <meta name="series" its:translate="no">Best Practices</meta>
+        <meta name="category" its:translate="no">
+            <phrase>3rd party</phrase>
+        </meta>
+        <meta name="task" its:translate="no">
+            <phrase>Installation</phrase>
+            <phrase>Integration</phrase>
+            <phrase>Clustering</phrase>           
+        </meta>
+        <meta name="title" its:translate="yes">Oracle RAC on SUSE Linux Enterprise Server 12 SP1</meta>
+        <meta name="description" its:translate="yes">This document provides the details for installing Oracle RAC
+        12.1.0.2.0 on SUSE Linux Enterprise Server 12 SP1. </meta>
+        <meta name="social-descr" its:translate="yes">Installing Oracle RAC on SLES 12 SP1</meta>       
+        <meta name="productname" its:translate="no">
+            <productname version="12 SP1">SUSE Linux Enterprise Server</productname>
+        </meta>
+
+        <meta name="platform" its:translate="no">SUSE Linux Enterprise Server 12 SP1</meta>
+        <meta name="platform" its:translate="no">Oracle RAC 12.1.0.2.0</meta>
+
+        <authorgroup>
             <author>
-            <personname>
-                <firstname>Arun</firstname>
-                <surname>Singh, ISV Technical Manager, SUSE</surname>
-            </personname>
-            <!--<affiliation>
-                <jobtitle>ISV Technical Manager</jobtitle>
-                <orgname>&suse;</orgname>
-            </affiliation>-->
+                <personname>
+                    <firstname>Chen</firstname>
+                    <surname>Wu</surname>
+                </personname>
+                <affiliation>
+                    <jobtitle>ISV Technical Manager</jobtitle>
+                    <orgname>SUSE</orgname>
+                </affiliation>
             </author>
-        <date>January 23, 2017</date>
+            <author>
+                <personname>
+                    <firstname>Arun</firstname>
+                    <surname>Singh</surname>
+                </personname>
+                <affiliation>
+                    <jobtitle>ISV Technical Manager</jobtitle>
+                    <orgname>SUSE</orgname>
+                </affiliation>
+            </author>
+            <!--            <editor>
+            <orgname></orgname>
+            </editor>
+            <othercredit>
+            <orgname></orgname>
+            </othercredit>-->
+        </authorgroup>
+
+        <cover role="logos">
+            <mediaobject>
+                <imageobject role="fo">
+                    <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
+                </imageobject>
+                <imageobject role="html">
+                    <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+                </imageobject>
+                <textobject><phrase>SUSE logo</phrase></textobject>
+            </mediaobject>
+        </cover>
+        
+        <revhistory xml:id="rh-art-sbp-oraclerac">
+            <revision>
+                <date>2017-01-23</date>
+                <revdescription>
+                    <para> </para>
+                </revdescription>
+            </revision>
+        </revhistory>
+
+
         <abstract>
             <para>In database computing, Oracle Real Application Clusters (RAC) provides software
                 for clustering and high availability in Oracle database environments. Oracle
@@ -44,15 +103,26 @@
                 world-class solution that offers real-grid benefits for IT data centers today. This
                 document provides the details for installing Oracle RAC 12.1.0.2.0 on SUSE Linux
                 Enterprise Server 12 OS.</para>
-        </abstract></info>
+
+            <para>
+                <emphasis role="strong">Disclaimer: </emphasis> Documents published as part of the
+                SUSE Best Practices series have been contributed voluntarily by SUSE employees and
+                third parties. They are meant to serve as examples of how particular actions can be
+                performed. They have been compiled with utmost attention to detail. However, this
+                does not guarantee complete accuracy. SUSE cannot verify that actions described in
+                these documents do what is claimed or whether actions described have unintended
+                consequences. SUSE LLC, its affiliates, the authors, and the translators may not be
+                held liable for possible errors or the consequences thereof. </para>
+
+        </abstract>
+    </info>
     <sect1 xml:id="sec-introduction">
         <title>Introduction</title>
         <para>This document provides the details for installing Oracle RAC 12.1.0.2.0 on SUSE Linux
             Enterprise Server 12. For the example at hand, the x86_64 version of both the Oracle
             Database 12c Enterprise and SUSE Linux Enterprise Server is used. Similar steps apply to
             other platforms (x86, IA64, etc.). If you encounter any problem or have general
-            questions, submit your query to
-            <email>suse-oracle@listx.novell.com</email>.</para>
+            questions, submit your query to <email>suse-oracle@listx.novell.com</email>.</para>
         <para>The official Oracle product documentation is available at: <link
                 xlink:href="http://docs.oracle.com/en/"/></para>
     </sect1>
@@ -99,7 +169,7 @@
         <itemizedlist>
             <listitem>
                 <para>SUSE Linux Enterprise Server 12 SP1 (x86_64)</para>
-                <para>(<link xlink:href="http://download.suse.de/install"/>)</para>
+                <para>(<link xlink:href="https://www.suse.com/download/sles/"/>)</para>
             </listitem>
         </itemizedlist>
         <para>Oracle:</para>
@@ -140,9 +210,9 @@
         <title>Prerequisites</title>
         <sect2 xml:id="sec-install-sles">
             <title>Installing &sls; 12</title>
-            <para>Install &sls; 12 on each node of the cluster. To do so, follow the instructions in
-                the official &sls; documentation at <link
-                    xlink:href="https://documentation.suse.com/sles/12-SP1/"/>
+            <para>Install &sls; 12 on each node of the cluster. To do so, follow the
+                instructions in the official &sls; documentation at <link
+                    xlink:href="https://documentation.suse.com/sles/12-SP5/"/>
             </para>
         </sect2>
         <sect2 xml:id="sec-network-config">
@@ -163,10 +233,10 @@
             137.65.135.75   c2n4.provo.novell.com c2n4
 
             #Virtual
-            137.65.135.76		c2n1-vip	c2n1-vip.provo.novell.com
-            137.65.135.77		c2n2-vip	c2n2-vip.provo.novell.com
-            137.65.135.78		c2n3-vip	c2n3-vip.provo.novell.com
-            137.65.135.79		c2n4-vip	c2n4-vip.provo.novell.com
+            137.65.135.76               c2n1-vip        c2n1-vip.provo.novell.com
+            137.65.135.77               c2n2-vip        c2n2-vip.provo.novell.com
+            137.65.135.78               c2n3-vip        c2n3-vip.provo.novell.com
+            137.65.135.79               c2n4-vip        c2n4-vip.provo.novell.com
 
             #SCAN:
             c2-scan.provo.novell.com (137.65.135.87)
@@ -235,7 +305,8 @@
                                 >Next</emphasis> to continue.</para>
                     </step>
                     <step>
-                        <para>Proceed to <emphasis role="strong">Installation Type</emphasis>.</para>
+                        <para>Proceed to <emphasis role="strong">Installation
+                            Type</emphasis>.</para>
                         <figure>
                             <title>Installation Type </title>
                             <mediaobject>
@@ -254,7 +325,8 @@
                                 >Next</emphasis> to continue.</para>
                     </step>
                     <step>
-                        <para>Proceed to <emphasis role="strong">Product Languages</emphasis>.</para>
+                        <para>Proceed to <emphasis role="strong">Product
+                            Languages</emphasis>.</para>
                         <figure>
                             <title>Product Languages</title>
                             <mediaobject>
@@ -310,8 +382,8 @@
                                 </imageobject>
                             </mediaobject>
                         </figure>
-                        <para>Provide the list of nodes with their public host name and virtual
-                            host name, then click <emphasis role="strong">Next</emphasis> to
+                        <para>Provide the list of nodes with their public host name and virtual host
+                            name, then click <emphasis role="strong">Next</emphasis> to
                             continue.</para>
                     </step>
                     <step>
@@ -529,8 +601,8 @@
                             </mediaobject>
                         </figure>
                         <para>Perform the prerequisite check as shown on the screen above. Click
-                                <emphasis role="strong">Fix&amp;Check Again</emphasis> to recheck
-                            the system.</para>
+                                <emphasis role="strong">Fix&amp;Check Again</emphasis> to
+                            recheck the system.</para>
                         <figure>
                             <title>Prerequisite Checks 2</title>
                             <mediaobject>
@@ -880,7 +952,8 @@ Located 3 voting disk(s).
                             click <emphasis role="strong">Next</emphasis> to continue.</para>
                     </step>
                     <step>
-                        <para>Proceed to <emphasis role="strong">Installation Option</emphasis>.</para>
+                        <para>Proceed to <emphasis role="strong">Installation
+                            Option</emphasis>.</para>
                         <figure>
                             <title>Installation Option</title>
                             <mediaobject>
@@ -899,7 +972,7 @@ Located 3 voting disk(s).
                     </step>
                     <step>
                         <para>Proceed to <emphasis role="strong">Grid Installation
-                            Options</emphasis>.</para>
+                                Options</emphasis>.</para>
                         <figure>
                             <title>Grid Installation Options</title>
                             <mediaobject>
@@ -937,7 +1010,8 @@ Located 3 voting disk(s).
                                 >Next</emphasis> to continue.</para>
                     </step>
                     <step>
-                        <para>Proceed to <emphasis role="strong">Product Languages</emphasis>.</para>
+                        <para>Proceed to <emphasis role="strong">Product
+                            Languages</emphasis>.</para>
                         <figure>
                             <title>Product Languages</title>
                             <mediaobject>
@@ -1234,7 +1308,8 @@ Now product-specific root actions will be performed.</screen>
                             then click <emphasis role="strong">Next</emphasis> to continue.</para>
                     </step>
                     <step>
-                        <para>Define the <emphasis role="strong">Database Template</emphasis>.</para>
+                        <para>Define the <emphasis role="strong">Database
+                            Template</emphasis>.</para>
                         <figure>
                             <title>Database Template</title>
                             <mediaobject>
@@ -1278,7 +1353,8 @@ Now product-specific root actions will be performed.</screen>
                         </note>
                     </step>
                     <step>
-                        <para>Proceed to <emphasis role="strong">Database Placement</emphasis>.</para>
+                        <para>Proceed to <emphasis role="strong">Database
+                            Placement</emphasis>.</para>
                         <figure>
                             <title>Database Placement</title>
                             <mediaobject>
@@ -1297,7 +1373,8 @@ Now product-specific root actions will be performed.</screen>
                             continue.</para>
                     </step>
                     <step>
-                        <para>Specify the <emphasis role="strong">Management Options</emphasis>.</para>
+                        <para>Specify the <emphasis role="strong">Management
+                            Options</emphasis>.</para>
                         <figure>
                             <title>Management Options</title>
                             <mediaobject>
@@ -1315,7 +1392,8 @@ Now product-specific root actions will be performed.</screen>
                                 role="strong">Next</emphasis> to continue.</para>
                     </step>
                     <step>
-                        <para>Proceed to <emphasis role="strong">Database Credentials</emphasis>.</para>
+                        <para>Proceed to <emphasis role="strong">Database
+                            Credentials</emphasis>.</para>
                         <figure>
                             <title>Database Credentials</title>
                             <mediaobject>
@@ -1333,7 +1411,8 @@ Now product-specific root actions will be performed.</screen>
                                 <emphasis role="strong">Next</emphasis> to continue.</para>
                     </step>
                     <step>
-                        <para>Proceed to <emphasis role="strong">Storage Locations</emphasis>.</para>
+                        <para>Proceed to <emphasis role="strong">Storage
+                            Locations</emphasis>.</para>
                         <figure>
                             <title>Storage Locations</title>
                             <mediaobject>
@@ -1365,13 +1444,13 @@ Now product-specific root actions will be performed.</screen>
                                 </imageobject>
                             </mediaobject>
                         </figure>
-                        <para>According to your needs, specify whether to add the schemas to
-                            your database. Click <emphasis role="strong">Next</emphasis> to
+                        <para>According to your needs, specify whether to add the schemas to your
+                            database. Click <emphasis role="strong">Next</emphasis> to
                             continue.</para>
                     </step>
                     <step>
                         <para>Proceed to <emphasis role="strong">Initialization
-                            Parameters</emphasis>.</para>
+                                Parameters</emphasis>.</para>
                         <figure>
                             <title>Initialization Parameters</title>
                             <mediaobject>
@@ -1600,18 +1679,18 @@ ora.susedb.db
                     </step>
                     <step>
                         <para>Verify the availability of your <emphasis role="strong">Oracle
-                        Enterprise Manager</emphasis>.</para>
+                                Enterprise Manager</emphasis>.</para>
 
                         <figure>
                             <title>Oracle Enterprise Manager</title>
                             <mediaobject>
                                 <imageobject role="fo">
-                                    <imagedata fileref="oracle-rac-enterprise-manager.png" width="70%"
-                                        format="PNG"/>
+                                    <imagedata fileref="oracle-rac-enterprise-manager.png"
+                                        width="70%" format="PNG"/>
                                 </imageobject>
                                 <imageobject role="html">
-                                    <imagedata fileref="oracle-rac-enterprise-manager.png" width="80%"
-                                        format="PNG"/>
+                                    <imagedata fileref="oracle-rac-enterprise-manager.png"
+                                        width="80%" format="PNG"/>
                                 </imageobject>
                             </mediaobject>
                         </figure>
@@ -1651,44 +1730,12 @@ ora.susedb.db
             </listitem>
         </orderedlist>
     </sect1>
-    
-    <sect1 xml:id="sec-legal-notice">
-        <title>Legal Notice</title>
-        <para>Copyright &copy;2006–2020 SUSE LLC and contributors. All
-            rights reserved. </para>
-        <para>Permission is granted to copy, distribute and/or modify this
-            document under the terms of the GNU Free Documentation License,
-            Version 1.2 or (at your option) version 1.3; with the Invariant
-            Section being this copyright notice and license. A copy of the
-            license version 1.2 is included in the section entitled <quote>GNU
-                Free Documentation License</quote>.</para>
-        <para>SUSE, the SUSE logo and YaST are registered trademarks of SUSE
-            LLC in the United States and other countries. For SUSE trademarks,
-            see <link xlink:href="http://www.suse.com/company/legal/"
-                >http://www.suse.com/company/legal/</link>. Linux is a registered
-            trademark of Linus Torvalds. All other names or trademarks mentioned
-            in this document may be trademarks or registered trademarks of their
-            respective owners.</para>
-        <para>This article is part of a series of documents called "SUSE Best
-            Practices". The individual documents in the series were contributed
-            voluntarily by SUSE's employees and by third parties.</para>
-        <!--  <para>The articles are intended only to be one example of how a particular action could be
-            taken. They should not be understood to be the only action and certainly not to be the
-            action recommended by SUSE. Also, SUSE cannot verify either that the actions described
-            in the articles do what they claim to do or that they don't have unintended
-            consequences.</para>-->
-        <para> All information found in this article has been compiled with
-            utmost attention to detail. However, this does not guarantee complete
-            accuracy.
-            <!--Neither SUSE LLC, the authors, nor the translators shall be held liable
-                for possible errors or the consequences thereof. --></para>
-        <para>Therefore, we need to specifically state that neither SUSE LLC,
-            its affiliates, the authors, nor the translators may be held liable
-            for possible errors or the consequences thereof. Below we draw your
-            attention to the license under which the articles are
-            published.</para>
-    </sect1>
 
-    <?pdfpagebreak style="suse2013-sbp" formatter="fop"?>
+
+    <?pdfpagebreak style="sbp" formatter="fop"?>
+
+    <xi:include href="sbp-legal-notice.xml"/>
+
+    <?pdfpagebreak style="sbp" formatter="fop"?>
     <xi:include href="license-gfdl.xml"/>
 </article>

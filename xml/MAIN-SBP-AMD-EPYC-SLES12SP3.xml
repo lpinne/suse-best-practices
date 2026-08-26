@@ -8,79 +8,137 @@
 <article role="sbp" xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+  xmlns:its="http://www.w3.org/2005/11/its"
   xml:id="art-sbp-amdepyc-sles12sp3" xml:lang="en">
 
   <info>
     <title>Optimizing Linux for AMD EPYC with SUSE Linux Enterprise 12
       SP3</title>
-    <!--<subtitle></subtitle>-->
-    <productname>SUSE Linux Enterprise Server</productname>
-    <productnumber>12 SP3</productnumber>
+    <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+      <dm:bugtracker>
+        <dm:url>https://github.com/SUSE/suse-best-practices/issues/new</dm:url>
+        <dm:product>Optimizing Linux for AMD EPYC with SUSE Linux Enterprise 12 SP3</dm:product>
+      </dm:bugtracker>
+      <dm:editurl>https://github.com/SUSE/suse-best-practices/edit/main/xml/</dm:editurl>
+    </dm:docmanager>
 
-    <author>
-      <personname>
-        <firstname>Mel</firstname>
-        <surname>Gorman, Senior Kernel Engineer, SUSE</surname>
-      </personname>
-      <!--      <affiliation>
-        <jobtitle>Senior Software Engineer</jobtitle>
-        <orgname>SUSE</orgname>
-        </affiliation>-->
-    </author>
+    <meta name="series" its:translate="no">Best Practices</meta>
+    <meta name="category" its:translate="no">
+      <phrase>Tuning &amp; Performance</phrase>
+    </meta>
+    <meta name="task" its:translate="no">
+      <phrase>Configuration</phrase>
+    </meta>
+    <meta name="title" its:translate="yes">Optimizing Linux for AMD EPYC with SUSE Linux Enterprise 12
+      SP3</meta>
+    <meta name="description" its:translate="yes">Overview of the AMD EPYC* Series Processors and tuning of
+    computational-intensive workloads on SUSE Linux Enterprise Server 12 SP3.</meta>
+    <meta name="social-descr" its:translate="yes">Optimizing SLES 12 SP3 for AMD EPYC™ 7002 processors</meta>
+    <meta name="productname" its:translate="no">
+      <productname version="12 SP3">SUSE Linux Enterprise Server</productname>
+    </meta>
 
-    <author>
-      <personname>
-        <firstname>Matt</firstname>
-        <surname>Fleming, Senior Performance Engineer, SUSE</surname>
-      </personname>
-      <!--      <affiliation>
-        <jobtitle>Senior Software Engineer</jobtitle>
-        <orgname>SUSE</orgname>
-        </affiliation>-->
-    </author>
+    <meta name="platform" its:translate="no">SUSE Linux Enterprise 12 SP3</meta>
+    <meta name="platform" its:translate="no">AMD EPYC™ Series Processors</meta>
 
-    <author>
-      <personname>
-        <firstname>Dario</firstname>
-        <surname>Faggioli, Software Engineer Virtualization Specialist,
-          SUSE</surname>
-      </personname>
-      <!--      <affiliation>
-        <jobtitle>Senior Software Engineer</jobtitle>
-        <orgname>SUSE</orgname>
-        </affiliation>-->
-    </author>
+    <authorgroup>
+      <author>
+        <personname>
+          <firstname>Mel</firstname>
+          <surname>Gorman</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>Senior Kernel Engineer</jobtitle>
+          <orgname>SUSE</orgname>
+        </affiliation>
+      </author>
+      <author>
+        <personname>
+          <firstname>Matt</firstname>
+          <surname>Fleming</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>Senior Performance Engineer</jobtitle>
+          <orgname>SUSE</orgname>
+        </affiliation>
+      </author>
+      <author>
+        <personname>
+          <firstname>Dario</firstname>
+          <surname>Faggioli</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>Software Engineer Virtualization Specialist</jobtitle>
+          <orgname>SUSE</orgname>
+        </affiliation>
+      </author>
+      <author>
+        <personname>
+          <firstname>Martin</firstname>
+          <surname>Jambor</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>Tool Chain Developer</jobtitle>
+          <orgname>SUSE</orgname>
+        </affiliation>
+      </author>
+      <author>
+        <personname>
+          <firstname>Brent</firstname>
+          <surname>Hollingsworth</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>Engineering Manager</jobtitle>
+          <orgname>AMD</orgname>
+        </affiliation>
+      </author>
+      <!--  <editor>
+        <orgname></orgname>
+        </editor>
+        <othercredit>
+        <orgname></orgname>
+        </othercredit>-->
+    </authorgroup>
 
-    <author>
-      <personname>
-        <firstname>Martin</firstname>
-        <surname>Jambor, Tool Chain Developer, SUSE</surname>
-      </personname>
-      <!--      <affiliation>
-        <jobtitle>Senior Software Engineer</jobtitle>
-        <orgname>SUSE</orgname>
-        </affiliation>-->
-    </author>
+    <cover role="logos">
+      <mediaobject>
+        <imageobject role="fo">
+          <imagedata fileref="suse.svg" width="5em" align="center" valign="bottom"/>
+        </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="suse.svg" width="152px" align="center" valign="bottom"/>
+        </imageobject>
+        <textobject><phrase>SUSE logo</phrase></textobject>
+      </mediaobject>
+    </cover>
 
-    <author>
-      <personname>
-        <firstname>Brent</firstname>
-        <surname>Hollingsworth, Alliance Manager, AMD</surname>
-      </personname>
-      <!--      <affiliation>
-        <jobtitle>Senior Software Engineer</jobtitle>
-        <orgname>SUSE</orgname>
-        </affiliation>-->
-    </author>
+    <revhistory xml:id="rh-art-sbp-amdepyc2-sles15sp1">
+      <revision>
+        <date>2018-06-18</date>
+        <revdescription>
+          <para>
+          </para>
+        </revdescription>
+      </revision>
+    </revhistory>
 
-    <date>June 6, 2018</date>
 
     <abstract>
 
       <para>The document at hand provides an overview of the AMD* EPYC*
         architecture and how computational-intensive workloads can be tuned
         on SUSE Linux Enterprise Server 12 SP3.</para>
+      <para><emphasis role="strong">Disclaimer: </emphasis>
+        Documents published as part of the SUSE Best Practices series have been contributed voluntarily
+        by SUSE employees and third parties. They are meant to serve as examples of how particular
+        actions can be performed. They have been compiled with utmost attention to detail. However,
+        this does not guarantee complete accuracy. SUSE cannot verify that actions described in these
+        documents do what is claimed or whether actions described have unintended consequences.
+        SUSE LLC, its affiliates, the authors, and the translators may not be held liable for possible errors
+        or the consequences thereof.
+      </para>
     </abstract>
+
   </info>
 
   <sect1 xml:id="sec-overview">
@@ -396,23 +454,23 @@ epyc:~ # taskset -c `cat /sys/devices/system/cpu/cpu1/cache/index3/shared_cpu_li
     </sect2>
 
     <sect2 xml:id="sec-cpusets-memory-control-groups">
-      <title>CPUsets and Memory Control Groups</title>
+      <title>cpusets and Memory Control Groups</title>
 
-      <para><emphasis role="italic">CPUsets</emphasis> are ideal when
+      <para><emphasis role="italic">cpusets</emphasis> are ideal when
         multiple workloads must be isolated on a machine in a predictable
-        fashion. CPUsets allow a machine to be partitioned into subsets.
+        fashion. cpusets allow a machine to be partitioned into subsets.
         These sets may overlap, and in that case they suffer from similar
         problems as CPU affinities. If there is no overlap, they can be
         switched to <quote>exclusive</quote> mode which treats them
         completely in isolation with relatively little overhead. The caveat
-        in doing so is that one overloaded CPUset can be saturated leaving
-        another CPUset completely idle. Similarly, they are well suited
+        in doing so is that one overloaded cpuset can be saturated leaving
+        another cpuset completely idle. Similarly, they are well suited
         when a primary workload must be protected from interference because
         of low-priority tasks in which case the low priority tasks can be
-        placed in a CPUset. The caveat with CPUsets is that the overhead is
+        placed in a cpuset. The caveat with cpusets is that the overhead is
         higher than using scheduler and memory policies. Ordinarily, the
-        accounting code for CPUsets is completely disabled. But when a
-        single CPUset is created there are additional essential checks that
+        accounting code for cpusets is completely disabled. But when a
+        single cpuset is created there are additional essential checks that
         are made when checking scheduler and memory policies.</para>
 
       <para>Similarly <package>memcg</package> can be used to limit the
@@ -420,7 +478,7 @@ epyc:~ # taskset -c `cat /sys/devices/system/cpu/cpu1/cache/index3/shared_cpu_li
         limits are exceeded then the memory will be reclaimed by tasks
         within <package>memcg</package> directly without interfering with
         any other tasks. This is ideal for ensuring there is no inference
-        between two or more sets of tasks. Similar to CPUsets, there is
+        between two or more sets of tasks. Similar to cpusets, there is
         some management overhead incurred so if tasks can simply be
         isolated on a NUMA boundary then it is preferred from a performance
         perspective. The major hazard is that if the limits are exceeded
@@ -428,7 +486,6 @@ epyc:~ # taskset -c `cat /sys/devices/system/cpu/cpu1/cache/index3/shared_cpu_li
         incur significant latencies. </para>
 
       <note>
-        <title/>
         <para>Without <package>memcg</package>, when memory gets low, the
           global reclaim daemon does work in the background and if it
           reclaims quickly enough, no stalls are incurred. When using
@@ -486,7 +543,7 @@ epyc:~ # taskset -c `cat /sys/devices/system/cpu/cpu1/cache/index3/shared_cpu_li
       further analysis to avoid intensive focus on the wrong bottleneck.
       Make sure that the metric is measured multiple times to ensure that
       the result is reproducible and reliable within reasonable boundaries.
-      When that is established, analyse how the workload is using different
+      When that is established, analyze how the workload is using different
       system resources to determine what area should be the focus. The
       focus in this paper is on how CPU and memory is used. But other
       evaluations may need to consider the IO subsystem, network subsystem,
@@ -538,7 +595,7 @@ epyc:~ # taskset -c `cat /sys/devices/system/cpu/cpu1/cache/index3/shared_cpu_li
         from each node to maximize the number of available memory channels
         and throughput to main memory. For some computational workloads, it
         may be possible to use hybrid models such as MPI for
-        parallelization across nodes and using openMP for threads within
+        parallelization across nodes and using OpenMP for threads within
         nodes.</para>
     </sect2>
 
@@ -750,7 +807,7 @@ epyc:~ # taskset -c `cat /sys/devices/system/cpu/cpu1/cache/index3/shared_cpu_li
       <note>
         <title>NUMA Statistics</title>
         <para>These NUMA statistics only apply at the time a physical page
-          was allocated and it is not related to the reference behaviour of
+          was allocated and it is not related to the reference behavior of
           the workload. For example, if a task running on node 0 allocates
           memory local to node 0 then it will be accounted for as a
             <command>node_hit</command> in the statistics. However, if the
@@ -1131,7 +1188,7 @@ Setting cpu: 2
         </tgroup>
       </table>
 
-      <para>The number of openMP threads was selected to have at least one
+      <para>The number of OpenMP threads was selected to have at least one
         thread running for every memory channel. The
           <parameter>OMP_PROC_BIND</parameter> parameter was to have one
         thread running on a core with a dedicated L3 cache to maximize
@@ -1448,8 +1505,8 @@ stream-18798 [000]  x: sched_migrate_task:   comm=stream pid=18813 prio=120 o
         that it becomes a suitable virtualization host, is outside of the
         scope of this paper. For instructions and details refer to the SUSE
         documentation at <link
-          xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-vt-installation.html"
-          >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-vt-installation.html</link>
+          xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-vt-installation.html"
+          >https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-vt-installation.html</link>
         .</para>
 
       <para>The same applies to configuring both the system’s and the VMs’
@@ -1458,8 +1515,8 @@ stream-18798 [000]  x: sched_migrate_task:   comm=stream pid=18813 prio=120 o
         example, to know how to assign network interfaces (or ports) to one
         or more VMs for improved network performance, refer to the SUSE
         documentation at <link
-          xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-libvirt-config.html#sec-libvirt-config-pci"
-          >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-libvirt-config.html#sec-libvirt-config-pci</link>
+          xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-libvirt-config.html#sec-libvirt-config-pci"
+          >https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-libvirt-config.html#sec-libvirt-config-pci</link>
         .</para>
 
     </sect2>
@@ -1660,7 +1717,7 @@ stream-18798 [000]  x: sched_migrate_task:   comm=stream pid=18813 prio=120 o
             role="strong">libvirt</emphasis> daemon).</para>
 
         <para>All that has been described so far is greatly workload
-          dependant. Since each VM does some IO, the ideal setup would be
+          dependent. Since each VM does some IO, the ideal setup would be
           to dedicate one host physical or logical core to doing IO for
           each device used by each VM (or at least for those devices
           important for the specific workload, for example, network IO, for
@@ -1921,8 +1978,8 @@ virsh vcpupin 0 --vcpu 15 --cpulist 57
       <para>For instructions of how to create an initial VM configuration,
         run the VM, and install a guest OS, refer to the SUSE documentation
         at <link
-          xlink:href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-vt-installation.html#sec-vt-installation-kvm"
-          >https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-vt-installation.html#sec-vt-installation-kvm</link>
+          xlink:href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-vt-installation.html#sec-vt-installation-kvm"
+          >https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-vt-installation.html#sec-vt-installation-kvm</link>
         .</para>
 
       <para>From a VM configuration perspective, the two most important
@@ -2055,7 +2112,7 @@ virsh vcpupin 0 --vcpu 15 --cpulist 57
         <para>Memory should be split equally among all 8 nodes, and a
           virtual topology will be provided to the guest OS of the VM.
           Using this setup, each of the VM’s vCPUs will access its own
-          memory directly, and use InfinityFabric links to reach foreign
+          memory directly, and use Infinity Fabric links to reach foreign
           memory, as it happens on the host. Workloads inside such a VM can
           be tuned exactly like they were running on a bare metal EPYC
           server (however on one with slightly fewer CPUs and less
@@ -2361,7 +2418,7 @@ node   0
 
         <para>If huge pages are used for allocating the VMs’ memory on the
           host, they can also be used inside the VMs, either explicitly, or
-          via THP. Whether that helps performance is workload dependant.
+          via THP. Whether that helps performance is workload dependent.
           The analysis and the considerations made in the first part of the
           paper about using (T)HP on bare metal can also be applied
           here.</para>
@@ -3118,6 +3175,11 @@ node   0
       published.</para>
   </sect1>
 
-  <?pdfpagebreak style="suse2013-sbp" formatter="fop"?>
+  <?pdfpagebreak style="sbp" formatter="fop"?>
+
+  <xi:include href="sbp-legal-notice.xml"/>
+
+
+  <?pdfpagebreak style="sbp" formatter="fop"?>
   <xi:include href="license-gfdl.xml"/>
 </article>

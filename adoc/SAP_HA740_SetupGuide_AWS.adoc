@@ -7,7 +7,11 @@
 // Start of the document
 //
 
-= SAP NetWeaver High Availability Cluster 7.40 for the AWS Cloud - Setup Guide
+
+// defining article ID
+[#art-sapha740-setup-aws]
+
+= SAP NetWeaver High Availability Cluster 7.40 for the AWS Cloud: Setup Guide
 // Fabian Herschel, Bernd Schubert, Stefan Schneider (AWS)
 // 2019/6/28
 
@@ -102,7 +106,7 @@ TODO p.32 -> TODO SLES-for-SAP release note
 TODO p.32 -> TODO product docu
 TODO -> NFS SAP layout for instance
 TODO: non line break with in command or variables
-TODO: table of requiered values
+TODO: table of required values
 ////
 
 // Load document variables
@@ -141,11 +145,11 @@ are either available on the system or on the Internet.
 For the latest documentation updates, see https://documentation.suse.com.
 
 You can also find numerous whitepapers and other
-resources at the SUSE Linux Enterprise Server for SAP Applications resource
+resources at the SUSE Linux Enterprise Server for SAP applications resource
 library: https://www.suse.com/products/sles-for-sap/resource-library/.
 
 This guide and other SAP specific best practices can be downloaded via
-https://documentation.suse.com/sbp/all/.
+https://documentation.suse.com/sbp/sap-15/.
 Here you can find guides for {SAPHANA} system replication
 automation and HA scenarios for {SAPNw} and {s4hana}.
 
@@ -280,6 +284,8 @@ instance
 
 Use the checklist in the appendix to make a note of all information needed
 before starting the installation.
+
+NOTE: With regards to the EFS/NFS filesystems, with SLES for SAP 15, it is now possible to mount these via the Operating System and remove the NFS mount & unmount control to outside of cluster.  This may simplify the ASCS / ERS environment.  Refer to https://documentation.suse.com/sbp/sap-15/html/SAP-S4HA10-setupguide-simplemount-sle15/ for more detail.
 
 ==== Tagging the EC2 Instances
 
@@ -574,7 +580,7 @@ with the following content and attach it to the cluster role:
 Replace the variable _aws-account_ with the appropriate AWS account identifier.
 Replace the variables _i-node1_ and _i-node2_ with the AWS instance-ids of
 your two  cluster nodes of ({myNode1}) and ({myNode2}).
-Replace the variable _region-name_ whith the name of your AWS region (Example:
+Replace the variable _region-name_ with the name of your AWS region (Example:
 us-east-1 for the N. Virginia region).
 This policy is dependent of the instances of your cluster. You need to create a separate policy for
 every cluster!
@@ -690,7 +696,7 @@ application servers and the SYS directory
 * /sapmnt
 
 You need the identifier of your VPC and the subnet identifiers of the
-subnets in which you plan to operate the two cluster nodes. It is also feasable to pick
+subnets in which you plan to operate the two cluster nodes. It is also feasible to pick
 other subnets. These subnets need to be reachable by the two cluster nodes
 and they need to be in the same availability zone (AZ) for high availability reasons.
 The option “General Purpose” will be sufficient.
@@ -755,7 +761,7 @@ by the command:
 ----
 
 Execute this command with root privileges on both instances.
-Add the ASCS IP address on the ASCS node {myNode1}. Add the Enque Replication
+Add the ASCS IP address on the ASCS node {myNode1}. Add the Enqueue Replication
 address on the ERS node {myNode2}.
 
 === Differences to Previous Cluster Architecture
@@ -862,7 +868,7 @@ Create the following sub directories on both cluster nodes as root:
 The file systems for the ASCS and ERS instances need to be shared and assigned
 to the cluster nodes {myNode1} and {myNode2}. Create an EFS file system.
 
-During the SAP installation we need the filesytems
+During the SAP installation we need the filesystems
 _/usr/sap/HA1/ASCS00_ to be mounted on
 {myNode1} and _/usr/sap/HA1/ERS10_ to be mounted on {myNode2}.
 
@@ -1096,7 +1102,7 @@ of them are owned by root.
 == Testing the AWS Agents
 Test the AWS agents before you start up the cluster. The tests will show
 whether the AWS role and the policies are being configured correctly. The
-tests should excute without AWS CLI errors
+tests should execute without AWS CLI errors
 
 === Testing the Overlay IP Agents
 
@@ -1135,7 +1141,7 @@ Use the AWS console to check whether the IP got removed after _stop_.
 Use the other cluster node to execute some access commands (ping, SSH etc.)
 Recheck and fix all network related settings if this does not work.
 
-=== Testing Agents Mounting EFS File Sytems
+=== Testing Agents Mounting EFS File Systems
 
 Test the monitoring function first.
 Replace the following variable in the commands:
@@ -1345,7 +1351,7 @@ _On {myNode2}_
 ==== Maintaining _sapservices_
 
 Ensure that the file _/usr/sap/sapservices_ holds both entries (ASCS+ERS) on
-both cluster nodes. Modify the file by copying the missing entry from both hosts across. Alternativly add the missing command string with _sapstartsrv_.
+both cluster nodes. Modify the file by copying the missing entry from both hosts across. Alternatively add the missing command string with _sapstartsrv_.
 
 Example steps for ASCS profile on the ERS host:
 
@@ -1404,11 +1410,11 @@ library and to use the {s4sClConnector}.
 
 [subs="attributes"]
 ----
-service/halib = $(DIR_CT_RUN)/saphascriptco.so
+service/halib = $(DIR_EXECUTABLE)/saphascriptco.so
 service/halib_cluster_connector = /usr/bin/sap_suse_cluster_connector
 ----
 
-Add the user {mySapAdm} to the unix user group haclient.
+Add the user {mySapAdm} to the UNIX user group haclient.
 
 [subs="attributes"]
 ----
@@ -1417,8 +1423,8 @@ Add the user {mySapAdm} to the unix user group haclient.
 
 ==== Adapting {sap} Profiles to Match the {sapCert} Certification
 
-For the ASCS, change the start command from __Restart_Programm_xx__ to
-__Start_Programm_xx__ for the enqueue server (enserver). This change tells the
+For the ASCS, change the start command from __Restart_Program_xx__ to
+__Start_Program_xx__ for the enqueue server (enserver). This change tells the
 {sap} start framework *not* to self-restart the enqueue process. Such a restart
 would lead in loss of the locks.
 
@@ -1432,8 +1438,8 @@ Start_Program_01 = local $(_EN) pf=$(_PF)
 Optionally you could limit the number of restarts of services (in the case of
 ASCS this limits the restart of the message server).
 
-For the ERS change instance the start command from __Restart_Programm_xx__ to
-__Start_Programm_xx__ for the enqueue replication server (enrepserver).
+For the ERS change instance the start command from __Restart_Program_xx__ to
+__Start_Program_xx__ for the enqueue replication server (enrepserver).
 
 .File /usr/sap/{mySid}/SYS/profile/{mySid}_{myInstErs}_{myVipNErs}
 
@@ -1491,12 +1497,11 @@ used
 
 The HANA DB has very strict HW requirements. The storage sizing depends on many
 indicators. Check the supported configurations at
-https://www.sap.com/documents/2015/03/74cdb554-5a7c-0010-82c7-eda71af511fa.html[SAP HANA Hardware Directory]
-and https://www.sap.com/documents/2015/03/74cdb554-5a7c-0010-82c7-eda71af511fa.html[SAP HANA TDI].
+https://support.sap.com/en/release-upgrade-maintenance.html#section_1969201630[SAP HANA Hardware Directory]
+and https://www.sap.com/documents/2016/05/e8705aae-717c-0010-82c7-eda71af511fa.html[SAP HANA TDI].
 
-Install the HANA file systems as being described in the section
-http://docs.aws.amazon.com/quickstart/latest/sap-hana/planning.html["Planning the Deployment" of the AWS
-SAP HANA on the AWS Cloud: Quick Start Reference Deployment]
+Install the HANA file systems as described in the
+https://aws.amazon.com/sap/docs/[SAP HANA Quick Start deployment guide]
 
 Consider to install the database against an Overlay IP address which acts like
 a service IP address. This will allow to upgrade the database to run in a SUSE Linux Enterprise High Availability Extension
@@ -1884,7 +1889,7 @@ Enter the following information to the file _crm-bs.txt_:
 ----
 property cib-bootstrap-options: \
     stonith-enabled="true" \
-    stonith-action="poweroff" \
+    stonith-action="off" \
     stonith-timeout="600s"
 rsc_defaults rsc-options: \
 	resource-stickiness=1 \
@@ -1894,7 +1899,7 @@ op_defaults op-options: \
 	record-pending=true
 ----
 
-The setting _poweroff_ forces the agents to shut down the instance.
+The setting _off_ forces the agents to shut down the instance.
 This is desirable to avoid split brain scenarios on AWS.
 
 Add the configuration to the cluster:
@@ -1913,7 +1918,7 @@ Create a file with the following content:
 primitive res_AWS_STONITH stonith:external/ec2 \
 op start interval=0 timeout=180 \
 op stop interval=0 timeout=180 \
-op monitor interval=120 timeout=60 \
+op monitor interval=300 timeout=60 \
 params tag=pacemaker profile=cluster
 ----
 
@@ -2050,7 +2055,7 @@ Use the following command as root and modify ASCS group in the editor.
 
 NOTE: Version 1.0.2 of the Route 53 agent
 will not work if the EC2 metadata contains a
-string like "local-ipv4" in the userdata section!
+string like "local-ipv4" in the user data section!
 
 ==== Configuring the Resources for the ERS
 
@@ -2354,7 +2359,7 @@ _As {mysapadm}_
 
 ==== Never Block Resources
 
-With {sapCert} it is *not longer allowed to block resources* from beeing
+With {sapCert} it is *not longer allowed to block resources* from being
   controlled manually. This using the variable __BLOCK_RESOURCES__ in
   __/etc/sysconfig/sap_suse_cluster_connector__ is not allowed anymore.
 
@@ -2491,7 +2496,7 @@ _As user {mysapadm}_
 ----
 ## example for ASCS
 # sapcontrol -nr 00 -function Stop
-## wait till the ASCS is completly down
+## wait till the ASCS is completely down
 # sapcontrol -nr 00 -function Start
 ----
 
@@ -2522,7 +2527,7 @@ the central instance as needed.
 The Route 53 naming tables may need to be made visible for on premises users
 like SAP GUI users. This happens through updating the on-premises name
 servers to delegate name resolution to Route 53.
-This forwarding of name resolution requests acquiresan extra configuration in
+This forwarding of name resolution requests acquires an extra configuration in
 the AWS VPC.
 
 Active directory users need to configure an Active Directory Connector as
@@ -2593,7 +2598,7 @@ NOTE: Very useful is that short table of installation information which helps to
 SAP Adaptive Server Enterprise - Installation Worksheet
 https://help.sap.com/viewer/efe56ad3cad0467d837c8ff1ac6ba75c/16.0.3.6/en-US/3fe35550f3814b2bb411d5494976e25a.html
 
-IMPORTANT: The Fault Manger is enhanced to work in this setup. The minimal version's which support this scenario are
+IMPORTANT: The Fault Manager is enhanced to work in this setup. The minimal version's which support this scenario are
 * SAP Kernel 749 PL632
 * SAP Kernel 753 PL421
 
@@ -2642,7 +2647,7 @@ Activate HADR on primary node with a response file and enter the following comma
 # setuphadr /sybase/HA7/HA7_primary_lin.rs.txt
 ----
 
-NOTE: If the installation stops with an error message as diplayed here, perform the steps explained below:
+NOTE: If the installation stops with an error message as displayed here, perform the steps explained below:
 
 [subs="specialchars,attributes"]
 ----
@@ -2812,7 +2817,7 @@ db status OK hadr status STANDBY.
 replication status: SYNC_OK.
 ----
 
-Checking the log file is also a suitable meassure to validate the status.
+Checking the log file is also a suitable measure to validate the status.
 
 _As user {mysapadm}_
 
@@ -3023,7 +3028,7 @@ net.ipv4.tcp_retries2 = 3
 .Starting and Stopping The SAP System and Databases in Replication Mode
 ================
 
-If Fault Manager is monitoring the Primary and Companion database and Fault Manager is monitored by Pacemaker there is a special prcedure necessary to start and stop the system.
+If Fault Manager is monitoring the Primary and Companion database and Fault Manager is monitored by Pacemaker there is a special procedure necessary to start and stop the system.
 
 .In general these steps are important to *start* the system:
 
@@ -3106,7 +3111,7 @@ _As user root_ on companion database host
 # /usr/sap/hostctrl/exe/saphostctrl -function StopDatabase -dbname <SID>_REP -dbtype syb
 ----
 
-IMPORTANT: The Pacemaker-controlled server must be stopped in a proper way, too. Depending on the stonith methode which is implemented different procedures are available.
+IMPORTANT: The Pacemaker-controlled server must be stopped in a proper way, too. Depending on the stonith method which is implemented different procedures are available.
 
 _As user root_ on one cluster node
 [subs="specialchars,attributes"]
@@ -3126,7 +3131,7 @@ _As user root_ on each node
 
 ==== Testing the Replication and FM Cluster Integration
 
-Important for each high availablity solution is an extensive testing procedure. That ensures that the solution is working as expected in case of a failure.
+Important for each high availability solution is an extensive testing procedure. That ensures that the solution is working as expected in case of a failure.
 
 .Triggering a Database Failover and Monitoring if FM Is Working
 ================
@@ -3166,7 +3171,7 @@ _As user {mysapadm}_ on the ASCS host
 .Selected Output From the Takeover Process.
 =========
 
-[subs="specialchars,attributes,quotes,verbatim"]
+[subs="specialchars,attributes"]
 -----
 ...
     2019 09/13 11:08:38.301 (3290) ** *** sanity check report (270)*** **.
@@ -3330,7 +3335,7 @@ node 1084753932: {myNode2}
 primitive res_AWS_STONITH stonith:external/ec2 \
         op start interval=0 timeout=180 \
         op stop interval=0 timeout=180 \
-        op monitor interval=120 timeout=60 \
+        op monitor interval=300 timeout=60 \
         params tag=pacemaker profile=cluster
 primitive rsc_fs_{mySID}_{myInstAscs} Filesystem \
   params device="efs-name:/ASCS00" \
@@ -3404,7 +3409,7 @@ property cib-bootstrap-options: \
     dc-version=1.1.15-21.1-e174ec8 \
     cluster-infrastructure=corosync \
     stonith-enabled=true \
-    stonith-action=poweroff \
+    stonith-action=off \
     stonith-timeout=600s \
     last-lrm-refresh=1513844735
 rsc_defaults rsc-options: \

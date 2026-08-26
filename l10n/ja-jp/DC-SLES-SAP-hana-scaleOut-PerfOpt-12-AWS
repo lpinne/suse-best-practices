@@ -1,0 +1,12 @@
+MAIN="SLES-SAP-hana-scaleOut-PerfOpt-12-AWS.xml"
+
+# stylesheets
+STYLEROOT="/usr/share/xml/docbook/stylesheet/sbp"
+
+XSLTPARAM="--stringparam publishing.series=sbp"
+
+ROLE="sbp"
+# PROFROLE="sbp"
+
+DOCBOOK5_RNG_URI="http://docbook.org/xml/5.2/rng/docbookxi.rnc"
+
